@@ -1,0 +1,74 @@
+<body>
+<div class="app">
+  <header class="top">
+    <div class="mark">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="20" cy="20" r="13" fill="#F5EFE1" stroke="#E0A93B" stroke-width="5"/><circle cx="20" cy="20" r="7" fill="none" stroke="#C3322F" stroke-width="2.5" stroke-dasharray="3 3"/><path d="M30 30l11 11" stroke="#E0A93B" stroke-width="7" stroke-linecap="round"/></svg>
+      <div><h1>בלש הסמלים</h1><p>מי עומד מאחורי הסמל?</p></div>
+    </div>
+    <div class="hud">
+      <button type="button" class="chip who" id="h-who" data-go="hq" hidden aria-label="השחקן במכשיר הזה"></button>
+      <span class="chip rank" id="h-rank-wrap"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5z" fill="currentColor"/></svg><span id="h-rank"></span></span>
+      <span class="chip" id="h-pts-wrap" title="נקודות חקירה"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z" fill="currentColor"/></svg><span class="sr">נקודות:</span><span id="h-pts"></span></span>
+      <span class="chip" id="h-keys-wrap" title="מפתחות לכספת"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M13 12h9m-3 0v4m-3-4v3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg><span class="sr">מפתחות:</span><span id="h-keys"></span></span>
+      <button type="button" class="iconbtn" id="sound" aria-pressed="true" aria-label="צלילים"></button>
+    </div>
+  </header>
+
+  <main>
+    <section id="v-hq" aria-label="מטה הבלשים"></section>
+
+    <section id="v-files" aria-label="תיקי המותגים" hidden>
+      <div class="sec-head">
+        <div><h2 class="h2">תיקי המותגים</h2><p class="lead">כל מותג הוא תיק חקירה. זהו את הסמל שלו במשימות, והתיק ייסגר בחותמת.</p></div>
+        <div class="seg" role="group" aria-label="סוג התיקים"><button type="button" data-seg="open" aria-pressed="true">תיקים פעילים</button><button type="button" data-seg="vault" aria-pressed="false">הכספת</button></div>
+      </div>
+      <div id="files-open">
+        <div class="tools">
+          <label class="field"><span class="sr">חיפוש</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input id="f-q" type="search" placeholder="חיפוש: קיה, Audi, טסלה…" autocomplete="off"></label>
+          <label><span class="sr">משפחה</span><select id="f-fam"></select></label>
+          <label class="tgl"><input type="checkbox" id="f-unsolved">רק תיקים שעוד לא פוענחו</label>
+        </div>
+        <p class="count" id="f-count"></p>
+        <div class="folders" id="folders"></div>
+      </div>
+      <div id="files-vault" hidden>
+        <p class="lead" id="vault-lead"></p>
+        <div class="folders" id="vault" style="margin-top:14px"></div>
+      </div>
+    </section>
+
+    <section id="v-board" aria-label="לוח החקירה" hidden>
+      <div class="sec-head">
+        <div><h2 class="h2">לוח החקירה</h2><p class="lead">מי החזיק במי? בחרו שנה וראו איך המותגים עוברים בין הבעלים. לחיצה על תמונה מראה את כל המסע שלה.</p></div>
+        <div class="years" role="group" aria-label="שנה" id="years"></div>
+      </div>
+      <p class="yrnote" id="yrnote"></p>
+      <div class="cork" id="cork"></div>
+      <div class="route" id="route"></div>
+    </section>
+
+    <section id="v-games" aria-label="משימות" hidden>
+      <div id="games-grid">
+        <div class="sec-head"><div><h2 class="h2">משימות</h2><p class="lead">כל משימה מסתיימת במפתח לכספת, אם עונים נכון על לפחות חצי.</p></div></div>
+        <div class="missions" id="missions"></div>
+      </div>
+      <div class="gbox" id="gamebox" hidden></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    הסמלים הם סימנים מסחריים של החברות שלהם. זה משחק חינוכי חינמי, בלי קשר לחברות האלה. מידע הבעלות מעודכן לנובמבר 2026. <a href="credits.html">קרדיטים ומקורות</a>. <span id="foot-save">ההתקדמות נשמרת בדפדפן הזה.</span>
+  </footer>
+</div>
+
+<nav class="dock" aria-label="אזורים">
+  <div class="dock-in">
+    <button type="button" data-go="hq"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5z" fill="currentColor"/></svg>מטה</button>
+    <button type="button" data-go="files"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2h7.5A1.5 1.5 0 0 1 21 8.5v10a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z" fill="currentColor"/></svg>תיקים</button>
+    <button type="button" data-go="board"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="7" cy="9" r="1.8" fill="currentColor"/><circle cx="17" cy="9" r="1.8" fill="currentColor"/><circle cx="12" cy="15" r="1.8" fill="currentColor"/><path d="M7 9l5 6 5-6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>לוח</button>
+    <button type="button" data-go="games"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="m14.5 14.5 6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>משימות</button>
+  </div>
+</nav>
+
+<div class="overlay" id="overlay" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>

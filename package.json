@@ -1,0 +1,14 @@
+{
+  "name": "logo-detective",
+  "version": "1.0.0",
+  "private": true,
+  "description": "בלש הסמלים: a free Hebrew game about car brand logos",
+  "scripts": {
+    "build": "python3 src/build.py",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.164.0"
+  }
+}

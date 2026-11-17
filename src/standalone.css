@@ -1,0 +1,10 @@
+/* standalone site additions: family board setup, footer links */
+.foot a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.parents a{color:inherit;text-decoration:underline}
+.fam{display:grid;gap:12px;margin-top:12px}
+.fam-opt{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:12px;border:1.5px dashed var(--ink-2);border-radius:12px}
+.fam-opt b{flex-basis:100%}
+.fam-join{flex:1 1 220px;display:flex}
+.fam-join input{flex:1;min-width:0;border:2px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff;color:var(--ink);font-size:16px;letter-spacing:.06em}
+.fam-badge{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;font-size:14px;color:var(--ink-2)}
+.fam-badge b{color:var(--ink);letter-spacing:.06em}
