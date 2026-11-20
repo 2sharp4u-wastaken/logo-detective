@@ -1,4 +1,7 @@
-"""Builds public/index.html and public/credits.html from src/.
+"""Builds the site from src/:
+  public/index.html      מסע המותגים, the main page (src/journey.html, the same file as the Claude artifact)
+  public/detective.html  בלש הסמלים, served at /detective
+  public/credits.html
 
 Run from the repository root:  python3 src/build.py
 The published site is the public/ folder; commit the built files after running this.
@@ -24,13 +27,29 @@ def write(name, text):
         f.write(text)
 
 
-def build_index():
-    webp = sorted(f[:-5] for f in os.listdir(os.path.join(PUB, "img")) if f.endswith(".webp"))
-    logo_map = json.loads(read("logo_map.json"))
+def webp_ids():
+    return sorted(f[:-5] for f in os.listdir(os.path.join(PUB, "img")) if f.endswith(".webp"))
+
+
+def check_images(logo_map, webp, what):
     missing = [b for b, i in logo_map.items()
                if not os.path.exists(os.path.join(PUB, "img", i + (".webp" if i in webp else ".png")))]
     if missing:
-        raise SystemExit("logo images missing for: " + ", ".join(missing))
+        raise SystemExit(what + ": logo images missing for: " + ", ".join(missing))
+
+
+def brand_data():
+    """The brands, countries and families are written once, in journey.html; the detective game uses the same block."""
+    src = read("journey.html")
+    a = src.index("/* ===================== countries & flags ===================== */")
+    b = src.index("/* ===================== derived data & helpers ===================== */")
+    return src[a:b]
+
+
+def build_detective():
+    webp = webp_ids()
+    logo_map = json.loads(read("logo_map.json"))
+    check_images(logo_map, webp, "detective")
 
     head = read("head.html")
     head = head.replace(
@@ -49,7 +68,7 @@ def build_index():
 
     shim = read("standalone.js").replace("__WEBP__", json.dumps(webp, separators=(",", ":")))
     game = (
-        read("data_v1.js")
+        brand_data()
         + "\n"
         + read("data_new.js").replace("__LOGO_MAP__", json.dumps(logo_map, separators=(",", ":")))
         + "\n"
@@ -61,8 +80,48 @@ def build_index():
         + "<script>\n" + shim + "\n</script>\n"
         + '<script>\n(function(){\n"use strict";\n' + game + "\n})();\n</script>\n</body>\n</html>\n"
     )
-    write("index.html", page)
+    write("detective.html", page)
     return len(page), len(logo_map)
+
+
+JOURNEY_META = (
+    '<meta name="description" content="משחק חינמי בעברית לילדים שאוהבים מכוניות: מאיפה הגיע כל מותג רכב, למי הוא שייך היום, ואיך נראה הסמל שלו.">\n'
+    '<meta name="theme-color" content="#1452A0">\n'
+    '<meta property="og:title" content="מסע המותגים">\n'
+    '<meta property="og:description" content="מאיפה הגיעה כל מכונית, ולאיזו משפחה היא שייכת? משחק חינמי בעברית על מותגי רכב.">\n'
+    '<meta property="og:type" content="website">\n'
+    '<link rel="icon" href="favicon.svg" type="image/svg+xml">\n'
+)
+# Old family-board links were /?family=CODE, when the detective game was the main page: send them on.
+JOURNEY_REDIRECT = (
+    '<script>(function(){try{var u=new URL(location.href);'
+    'if(u.searchParams.get("family"))location.replace("/detective"+u.search+u.hash);}catch(e){}})();</script>\n'
+)
+# What the claude.ai viewer adds around an artifact page
+JOURNEY_RESET = (
+    "<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}"
+    "body{margin:0;font:14px system-ui,-apple-system,\"Segoe UI\",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>\n"
+)
+
+
+def build_journey():
+    webp = webp_ids()
+    logo_map = json.loads(read("logo_map.json"))
+    logo_map.update(json.loads(read("journey_logo_map.json")))  # the newer logos win
+    check_images(logo_map, webp, "journey")
+    logos = {b: "img/" + i + (".webp" if i in webp else ".png") for b, i in sorted(logo_map.items())}
+    src = read("journey.html")
+    cut = src.index("</style>") + len("</style>")
+    site = "<script>window.PUBLIC_SITE=" + json.dumps({"detective": "/detective", "logos": logos}, separators=(",", ":")) + ";</script>\n"
+    page = (
+        '<!DOCTYPE html>\n<html lang="he" dir="rtl">\n<head>\n<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'
+        + JOURNEY_REDIRECT + JOURNEY_RESET
+        + src[:cut].replace("<title>מסע המותגים</title>", "<title>מסע המותגים</title>\n" + JOURNEY_META, 1)
+        + "\n</head>\n<body>\n" + site + src[cut:].strip() + "\n</body>\n</html>\n"
+    )
+    write("index.html", page)
+    return len(page), len(logos)
 
 
 def build_credits():
@@ -98,6 +157,8 @@ def build_credits():
 
 
 if __name__ == "__main__":
-    size, logos = build_index()
+    jsize, jlogos = build_journey()
+    dsize, dlogos = build_detective()
     files = build_credits()
-    print("index.html: %d bytes, %d logos · credits.html: %d Commons files" % (size, logos, files))
+    print("index.html (מסע המותגים): %d bytes, %d logos · detective.html (בלש הסמלים): %d bytes, %d logos · credits.html: %d Commons files"
+          % (jsize, jlogos, dsize, dlogos, files))

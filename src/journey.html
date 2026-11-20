@@ -1,0 +1,2137 @@
+<title>מסע המותגים</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Rubik:wght@400;500;700&family=Secular+One&display=swap">
+<style>
+/* Layout: a road atlas. The header is a blue direction sign, brand names ride on yellow number plates, and each brand's history is a road with flag milestones. */
+:root{
+  --bg:#E7EBEE; --bg-sheet:#F4F6F8; --surface:#FFFFFF; --surface-2:#EFF2F5;
+  --ink:#17202A; --muted:#566271; --line:#CCD4DC;
+  --sign:#1452A0; --sign-ink:#FFFFFF; --sign-soft:#DFE9F7;
+  --plate:#FFCC1A; --plate-2:#F2B705; --plate-ink:#131313; --plate-band:#1B4C9C;
+  --go:#1C8048; --go-bg:#E2F2E8; --go-ink:#145C34; --on-go:#FFFFFF;
+  --stop:#C73A2B; --stop-bg:#FBE6E2; --stop-ink:#8E2418;
+  --asphalt:#3A434F; --dash:#F5F5F0; --fact-bg:#FFF4C9;
+  --odo-bg:#0F1419; --odo-ink:#F3F3EE; --logo-bg:#FFFFFF; --crop-shade:rgba(10,14,20,.55);
+  --sign-white:#FFFFFF; --sign-black:#121212; --sign-red:#D2232A; --exit:#0F6B3C; --exit-ink:#FFFFFF;
+  --flag-edge:rgba(0,0,0,.16); --scrim:rgba(14,20,27,.55); --focus:#F2B705;
+  --shadow:0 1px 0 rgba(23,32,42,.05), 0 8px 18px -12px rgba(23,32,42,.35);
+  --f-display:"Secular One","Rubik",system-ui,sans-serif;
+  --f-body:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --f-plate:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161C; --bg-sheet:#161C23; --surface:#1B222A; --surface-2:#222B35;
+    --ink:#E8EDF2; --muted:#9AA7B5; --line:#2E3843;
+    --sign:#1D5BB0; --sign-ink:#FFFFFF; --sign-soft:#1D2E47;
+    --plate:#FFCC1A; --plate-2:#E0A800; --plate-ink:#131313; --plate-band:#1B4C9C;
+    --go:#43C27D; --go-bg:#16301F; --go-ink:#9BE3B9; --on-go:#0E1A13;
+    --stop:#FF7563; --stop-bg:#3A1F1B; --stop-ink:#FFB4A8;
+    --asphalt:#3D4753; --dash:#FFCC1A; --fact-bg:#2D2915;
+    --odo-bg:#090C10; --odo-ink:#F3F3EE; --logo-bg:#FFFFFF; --crop-shade:rgba(0,0,0,.62);
+    --flag-edge:rgba(255,255,255,.2); --scrim:rgba(0,0,0,.62); --focus:#FFCC1A;
+    --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 20px -12px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161C; --bg-sheet:#161C23; --surface:#1B222A; --surface-2:#222B35;
+  --ink:#E8EDF2; --muted:#9AA7B5; --line:#2E3843;
+  --sign:#1D5BB0; --sign-ink:#FFFFFF; --sign-soft:#1D2E47;
+  --plate:#FFCC1A; --plate-2:#E0A800; --plate-ink:#131313; --plate-band:#1B4C9C;
+  --go:#43C27D; --go-bg:#16301F; --go-ink:#9BE3B9; --on-go:#0E1A13;
+  --stop:#FF7563; --stop-bg:#3A1F1B; --stop-ink:#FFB4A8;
+  --asphalt:#3D4753; --dash:#FFCC1A; --fact-bg:#2D2915;
+  --odo-bg:#090C10; --odo-ink:#F3F3EE; --logo-bg:#FFFFFF; --crop-shade:rgba(0,0,0,.62);
+  --flag-edge:rgba(255,255,255,.2); --scrim:rgba(0,0,0,.62); --focus:#FFCC1A;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 20px -12px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html.lock,html.lock body{overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 36px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.app{max-width:1120px;margin-inline:auto}
+button,input,select{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ic{width:1.15em;height:1.15em;flex:none;display:block}
+
+/* ---------- direction-sign header ---------- */
+.sign{margin-top:14px;background:var(--sign);color:var(--sign-ink);border-radius:20px;padding:5px;box-shadow:var(--shadow)}
+.sign-in{border:3px solid var(--sign-ink);border-radius:15px;padding:14px 16px 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px}
+.mark{display:flex;align-items:center;gap:14px;min-width:0}
+.sign-arrow{width:44px;height:44px;flex:none}
+.sign h1{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(32px,8vw,50px);line-height:1;letter-spacing:.01em}
+.sign .sub{margin:6px 0 0;font-size:15px;line-height:1.35;opacity:.94;text-wrap:balance}
+.hud{display:flex;align-items:center;gap:14px}
+.odo{display:flex;align-items:center;gap:8px}
+.odo > .ic{width:28px;height:28px;color:var(--plate)}
+.odo-d{display:flex;gap:3px;direction:ltr}
+.odo-d span{width:23px;height:34px;border-radius:5px;background:var(--odo-bg);color:var(--odo-ink);font-family:var(--f-plate);font-weight:700;font-size:25px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.hud-meta{display:flex;flex-direction:column;gap:1px;font-size:13px;line-height:1.3}
+.hud-meta b{font-size:15px}
+.troph{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-plate);font-weight:700;font-size:16px}
+.troph .ic{color:var(--plate)}
+.bump{animation:bump .55s ease}
+@keyframes bump{35%{transform:scale(1.16)}}
+
+/* ---------- tabs ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:9;background:var(--bg);padding-block:12px 10px}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px}
+.tab{border:0;background:transparent;border-radius:10px;padding:10px 4px;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--muted);min-width:0}
+.tab[aria-selected="true"]{background:var(--sign);color:var(--sign-ink)}
+.tab .ic{width:18px;height:18px}
+.tab-par{padding-inline:10px;font-size:14px}
+@media (max-width:390px){.tab .ic{display:none}.tab{font-size:15px}.tab-par{font-size:13px;padding-inline:8px}}
+.qbox{scroll-margin-top:80px}
+
+/* ---------- explore ---------- */
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.search{flex:1 1 220px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding-inline:12px;min-width:0;color:var(--muted)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);padding:11px 0;outline:none}
+.search:focus-within{outline:3px solid var(--focus);outline-offset:1px}
+select{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--ink)}
+.cchips,.qcats{display:flex;gap:8px;overflow-x:auto;padding-block:12px 6px;scrollbar-width:thin}
+.cchip,.qcat{flex:none;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:14px;font-weight:500;white-space:nowrap}
+.cchip em{font-style:normal;font-family:var(--f-plate);font-weight:700;color:var(--muted);font-size:15px}
+.cchip[aria-pressed="true"],.qcat[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cchip[aria-pressed="true"] em{color:inherit;opacity:.8}
+.progress{display:flex;align-items:center;gap:12px;margin-block:8px 14px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.bar{flex:1 1 140px;max-width:280px;height:12px;border-radius:6px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:repeating-linear-gradient(-45deg,var(--plate) 0 8px,var(--plate-2) 8px 16px);transition:width .4s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.card{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);cursor:pointer;box-shadow:var(--shadow);transition:transform .15s,border-color .15s;min-width:0}
+.card:hover{border-color:var(--sign)}
+.card:active{transform:scale(.97)}
+.card .he{font-family:var(--f-display);font-size:20px;line-height:1.15;text-align:center}
+.seen{position:absolute;top:8px;left:8px;width:22px;height:22px;border-radius:50%;background:var(--go);color:var(--on-go);display:grid;place-items:center}
+.seen .ic{width:14px;height:14px}
+.empty{grid-column:1/-1;background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:24px;text-align:center;color:var(--muted)}
+
+/* badges & plates */
+.badge{--b:#333;--bi:#fff;position:relative;width:68px;height:68px;border-radius:18px;background:var(--b);color:var(--bi);display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 3px rgba(255,255,255,.2),0 2px 0 rgba(0,0,0,.18)}
+.badge b{font-family:var(--f-plate);font-weight:700;font-size:36px;line-height:1;margin-top:-6px}
+.badge b.long{font-size:25px}
+.badge small{position:absolute;bottom:5px;inset-inline:0;text-align:center;font-family:var(--f-plate);font-weight:600;font-size:12px;opacity:.85;font-variant-numeric:tabular-nums}
+.badge.has-logo{background:var(--logo-bg);box-shadow:inset 0 0 0 1px var(--line);padding:8px}
+.badge.has-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.badge.sm{width:32px;height:32px;border-radius:9px}
+.badge.sm b{font-size:18px;margin-top:0}.badge.sm b.long{font-size:12px}
+.badge.sm small{display:none}.badge.sm.has-logo{padding:3px}
+.badge.md{width:56px;height:56px;border-radius:15px}
+.badge.md b{font-size:30px;margin-top:0}.badge.md b.long{font-size:20px}.badge.md small{display:none}
+.badge.xl{width:104px;height:104px;border-radius:26px}
+.badge.xl b{font-size:56px;margin-top:-10px}.badge.xl b.long{font-size:38px}
+.badge.xl small{font-size:15px;bottom:9px}
+.plate{display:inline-flex;align-items:stretch;height:27px;max-width:100%;border:1.5px solid var(--plate-ink);border-radius:5px;background:var(--plate);color:var(--plate-ink);overflow:hidden;flex:none}
+.plate-band{background:var(--plate-band);display:grid;place-items:center;padding-inline:3px}
+.plate-band .flag{width:18px;height:12px;box-shadow:none}
+.plate-txt{font-family:var(--f-plate);font-weight:700;font-size:16px;letter-spacing:.05em;text-transform:uppercase;padding-inline:8px;display:flex;align-items:center;white-space:nowrap;min-width:0}
+.flag{width:30px;height:20px;display:block;border-radius:2px;box-shadow:0 0 0 1px var(--flag-edge);flex:none}
+.flag.sm{width:22px;height:15px}
+.flag.lg{width:60px;height:40px;border-radius:4px}
+.flag.xl{width:132px;height:88px;border-radius:6px}
+
+/* ---------- sheet ---------- */
+.overlay{position:fixed;inset:0;z-index:50;background:var(--scrim);display:flex;align-items:flex-end;justify-content:center}
+.sheet{position:relative;background:var(--bg-sheet);color:var(--ink);width:100%;max-width:700px;max-height:92%;overflow-y:auto;overscroll-behavior:contain;border-radius:24px 24px 0 0;
+  padding-block:0 calc(28px + env(safe-area-inset-bottom, 0px));padding-inline:max(18px, env(safe-area-inset-right, 0px)) max(18px, env(safe-area-inset-left, 0px));animation:sheetup .28s ease;outline:none}
+@keyframes sheetup{from{transform:translateY(40px);opacity:.4}}
+@media (min-width:760px){.overlay{align-items:center;padding:24px}.sheet{border-radius:24px;max-height:90%}}
+.sheet-bar{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding-block:10px 6px;background:var(--bg-sheet)}
+.grab{width:44px;height:5px;border-radius:3px;background:var(--line);margin-inline:auto}
+.x{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;flex:none}
+.x .ic{width:20px;height:20px}
+.hero{display:flex;gap:16px;align-items:center}
+.hero-txt{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.hero h2{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(30px,8vw,42px);line-height:1.05;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:13px;font-weight:700;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums}
+.pass-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.pass{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;min-width:0}
+.lbl{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.02em}
+.pass b{font-size:17px;line-height:1.25}
+.pass small{color:var(--muted);font-size:13px;line-height:1.35}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.status{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-weight:700;font-size:15px;line-height:1.35;padding:9px 12px;border-radius:12px}
+.status .ic{width:20px;height:20px}
+.status.moved{background:var(--stop-bg);color:var(--stop-ink)}
+.status.home{background:var(--go-bg);color:var(--go-ink)}
+.status.gone{background:var(--surface-2);color:var(--ink);font-weight:500}
+.sec{margin-top:24px}
+.sec h3{margin:0 0 8px;font-family:var(--f-display);font-weight:400;font-size:23px;line-height:1.2}
+.legend{margin:-4px 0 12px;font-size:13px;color:var(--muted)}
+.road{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:14px;padding-inline-start:52px}
+.road::before{content:"";position:absolute;inset-block:-6px;inset-inline-start:10px;width:22px;border-radius:11px;background:var(--asphalt)}
+.road::after{content:"";position:absolute;inset-block:4px;inset-inline-start:20px;width:2px;background:repeating-linear-gradient(to bottom,var(--dash) 0 7px,transparent 7px 14px)}
+.stop{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;min-height:36px}
+.stop .pin{position:absolute;inset-inline-start:-48px;top:50%;transform:translateY(-50%);z-index:1;padding:2px;background:var(--surface);border-radius:5px;box-shadow:var(--shadow)}
+.stop .pin .flag{width:27px;height:18px}
+.stop.now .pin{width:32px;height:32px;border-radius:50%;background:var(--go);color:var(--on-go);display:grid;place-items:center;padding:0;inset-inline-start:-47px}
+.stop.now .pin .ic{width:18px;height:18px}
+.yr{font-family:var(--f-plate);font-weight:700;font-size:18px;background:var(--plate);color:var(--plate-ink);border:1.5px solid var(--plate-ink);border-radius:5px;padding-inline:7px;line-height:1.35;font-variant-numeric:tabular-nums}
+.who{font-size:15px;line-height:1.4;min-width:0;flex:1 1 180px}
+.who em{font-style:normal;color:var(--muted);font-size:13px;display:block}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.sec-head h3{margin:0}
+.say{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px;cursor:pointer}
+.say[aria-pressed="true"]{background:var(--sign);color:var(--sign-ink);border-color:var(--sign)}
+.story{margin:0;font-size:18px;line-height:1.75;max-width:62ch}
+.fact{display:flex;gap:12px;align-items:flex-start;margin-top:14px;background:var(--fact-bg);border-radius:14px;padding:12px 14px;font-size:16px;line-height:1.6}
+.fact b{display:block;font-family:var(--f-display);font-weight:400;font-size:18px}
+.warn{width:36px;height:32px;flex:none;margin-top:2px}
+.warn .t{fill:var(--sign-white);stroke:var(--sign-red)}
+.warn .m{stroke:var(--sign-black)}
+.warn .d{fill:var(--sign-black)}
+.fam-line{margin:0 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.parents{margin-top:26px;border-top:1px dashed var(--line);padding-top:14px;font-size:14px;color:var(--muted)}
+.parents summary{cursor:pointer;font-weight:700;color:var(--ink)}
+.parents p{margin:8px 0 0;max-width:60ch}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+
+/* ---------- shared bits ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:11px 18px;font-weight:700;font-size:16px;cursor:pointer;background:var(--sign);color:var(--sign-ink);text-align:center}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--line)}
+.btn.big{font-size:18px;padding:14px 26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-b{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding-block:5px;padding-inline:5px 12px;cursor:pointer;font-weight:500;font-size:15px}
+.chip-b:hover{border-color:var(--sign)}
+.chip-b.dashed{border:2px dashed var(--muted)}
+.chip-b.past{background:var(--surface-2);opacity:.78}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.plist li{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.plist small{color:var(--muted);font-size:14px;line-height:1.4;flex:1 1 160px;min-width:0}
+.tagp{font-weight:700;font-size:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:2px 8px}
+.h2{margin:0 0 6px;font-family:var(--f-display);font-weight:400;font-size:26px;line-height:1.2}
+.small{font-size:14px;color:var(--muted)}
+
+/* ---------- families ---------- */
+.intro{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.intro p{margin:0 0 8px;max-width:58ch}
+@media (min-width:760px){.intro{grid-template-columns:1.15fr 1fr;align-items:center}}
+.doll{border:2px solid var(--sign);border-radius:14px;padding:8px 10px 10px;display:flex;flex-direction:column;gap:7px;background:var(--surface-2)}
+.doll .doll{border-color:var(--go);background:var(--surface)}
+.doll .doll .doll{border-color:var(--plate-2);background:var(--surface-2)}
+.doll .doll .doll .doll{border-color:var(--stop);background:var(--surface)}
+.doll > span{display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px}
+.fams{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:14px;align-items:start}
+.fam{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);scroll-margin-top:90px}
+.fam.flash{animation:flash 1.6s ease}
+@keyframes flash{20%{box-shadow:0 0 0 4px var(--plate)}}
+.fam-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.fam-head h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:22px;line-height:1.15}
+.fam-en{display:block;font-family:var(--f-plate);font-weight:600;letter-spacing:.05em;color:var(--muted);font-size:14px;text-transform:uppercase}
+.fam-hq{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--muted);flex:none}
+.fam-body{padding:12px 14px 14px;display:grid;gap:14px}
+.fam-about{margin:0;font-size:15px;line-height:1.55}
+.tree{border-inline-start:3px solid var(--line);padding-inline-start:12px;margin-inline-start:4px;margin-top:6px}
+.fam-fact{margin:0;background:var(--fact-bg);border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.55}
+
+/* ---------- quiz ---------- */
+.qbox{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);max-width:720px;margin-inline:auto}
+.q-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.q-type{font-size:13px;font-weight:700;color:var(--sign);background:var(--sign-soft);border-radius:999px;padding:3px 12px}
+.q-streak{font-size:13px;font-weight:700;color:var(--muted)}
+.q-prompt{display:flex;flex-direction:column;align-items:center;gap:8px;margin-block:16px 6px;text-align:center}
+.q-name{font-family:var(--f-display);font-size:28px;line-height:1.1}
+.q-text{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,5.6vw,29px);line-height:1.25;text-align:center;margin:8px 0 16px;text-wrap:balance}
+.q-sub{display:block;font-family:var(--f-body);font-size:15px;color:var(--muted);margin-top:4px}
+.riddle{margin:0;font-size:20px;line-height:1.55;background:var(--fact-bg);border-radius:16px;padding:16px 18px;max-width:46ch}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:100px;padding:12px 8px;border:2px solid var(--line);background:var(--surface);border-radius:16px;cursor:pointer;font-weight:700;font-size:17px;line-height:1.25;text-align:center;transition:transform .12s,border-color .12s;min-width:0}
+.opt:hover:not([disabled]){border-color:var(--sign)}
+.opt:active:not([disabled]){transform:scale(.97)}
+.opt[disabled]{cursor:default;color:var(--ink)}
+.opt.ok{border-color:var(--go);background:var(--go-bg)}
+.opt.no{border-color:var(--stop);background:var(--stop-bg);animation:shake .35s}
+.opt.dim{opacity:.5}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.opt .grp{font-size:16px}
+.fb{margin-top:16px;display:grid;gap:12px}
+.fb:empty{display:none}
+.fb-msg{border-radius:14px;padding:12px 14px;font-size:16px;line-height:1.6}
+.fb-msg.ok{background:var(--go-bg)}
+.fb-msg.no{background:var(--stop-bg)}
+.fb-msg b{display:block;font-family:var(--f-display);font-weight:400;font-size:23px;margin-bottom:2px}
+.fb-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* ---------- memory ---------- */
+.mem-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;max-width:660px;margin-inline:auto}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:8px 12px;font-weight:700;font-size:15px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.mem-stat{font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.mem-help{max-width:660px;margin:10px auto 0;color:var(--muted);font-size:15px}
+.mem{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:660px;margin:12px auto 0}
+@media (min-width:620px){.mem{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tile{position:relative;aspect-ratio:3/4;max-width:100%;border:0;padding:0;background:transparent;cursor:pointer;perspective:900px;border-radius:14px}
+.tile-in{position:absolute;inset:0;transition:transform .42s;transform-style:preserve-3d}
+.tile.flip .tile-in,.tile.done .tile-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:14px;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:8px;text-align:center}
+.back{background:var(--sign);box-shadow:inset 0 0 0 4px var(--sign),inset 0 0 0 6px var(--sign-ink),var(--shadow)}
+.back .ic{width:34px;height:34px;color:var(--plate)}
+.front{background:var(--surface);border:2px solid var(--line);transform:rotateY(180deg);font-weight:700;font-size:15px;line-height:1.2;overflow:hidden}
+.tile.done .front{border-color:var(--go);background:var(--go-bg)}
+.mem-win{max-width:660px;margin:14px auto 0;background:var(--go-bg);border-radius:16px;padding:14px 16px;display:grid;gap:10px}
+.mem-win b{font-family:var(--f-display);font-weight:400;font-size:24px}
+.pairs{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:15px}
+.pairs span{display:inline-flex;align-items:center;gap:6px}
+
+/* ---------- logo workshop (parents) ---------- */
+a.btn{text-decoration:none}
+.btn.sm{padding:8px 12px;font-size:14px;border-radius:10px}
+html.busy .filebtn,html.busy [data-logo-rm],html.busy #migrate{opacity:.55;pointer-events:none}
+.lg-head{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);display:grid;gap:12px;max-width:820px;margin-inline:auto}
+.lg-head p{margin:0;max-width:64ch}
+.lg-mode{font-weight:700;font-size:15px;line-height:1.45;padding:9px 12px;border-radius:12px;background:var(--go-bg);color:var(--go-ink)}
+.lg-mode.local{background:var(--fact-bg);color:var(--ink)}
+.howto{margin:0;padding-inline-start:22px;display:grid;gap:6px;font-size:15px;line-height:1.5;max-width:64ch}
+.bulk-res{font-size:15px;line-height:1.55;background:var(--surface-2);border-radius:12px;padding:10px 12px}
+.bulk-res:empty{display:none}
+.bulk-res p{margin:0 0 4px}
+.assign{display:grid;gap:8px}
+.assign:empty{display:none}
+.assign>p{margin:0;font-size:15px}
+.as-row{display:grid;grid-template-columns:56px minmax(0,1fr);gap:6px 10px;align-items:center;background:var(--surface-2);border-radius:12px;padding:8px 10px}
+.as-thumb{width:56px;height:56px;border-radius:10px;background:var(--logo-bg);border:1px solid var(--line);display:grid;place-items:center;grid-row:span 2;overflow:hidden}
+.as-thumb img{max-width:48px;max-height:48px;object-fit:contain}
+.as-name{font-size:14px;overflow-wrap:anywhere;min-width:0;color:var(--muted)}
+.as-ctl{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-width:0}
+.as-ctl select{font:inherit;font-size:15px;padding:7px 8px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);max-width:100%;min-width:0}
+.lg-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:14px;color:var(--muted);font-weight:700}
+.tgl{display:inline-flex;align-items:center;gap:8px;cursor:pointer;color:var(--ink);font-weight:500}
+.tgl input{width:18px;height:18px;accent-color:var(--sign)}
+.lg-list{max-width:820px;margin:14px auto 0;display:grid;gap:8px}
+.lg-row{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.lg-name{min-width:0;display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
+.lg-name b{font-size:17px}
+.lg-name span{font-family:var(--f-plate);font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;font-size:14px}
+.lg-acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:520px){.lg-row{grid-template-columns:56px minmax(0,1fr)}.lg-acts{grid-column:1/-1;justify-content:flex-start}}
+.mode{font-weight:700;color:var(--ink)}
+.paste-row{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch;margin-top:6px}
+.paste-row select{flex:1 1 150px;min-width:0}
+.paste{flex:2 1 200px;min-width:0;min-height:48px;border:2px dashed var(--muted);border-radius:12px;background:var(--surface);padding:11px 12px;color:var(--muted);outline:none;font-size:15px;line-height:1.4;overflow:hidden;white-space:nowrap;cursor:text;-webkit-user-select:text;user-select:text}
+.paste:empty::before{content:attr(data-ph)}
+.paste:focus{border-color:var(--sign);background:var(--sign-soft)}
+.parents .paste{margin-top:10px;width:100%}
+.lg-row.drop,.lg-head.drop{outline:3px dashed var(--sign);outline-offset:2px}
+.lg-row.flash{animation:flash 1.8s ease}
+.lg-row{scroll-margin-top:90px}
+/* logo editor */
+.ed-ov{position:fixed;inset:0;z-index:65;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:max(10px, env(safe-area-inset-top, 0px)) max(10px, env(safe-area-inset-right, 0px)) max(10px, env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px))}
+.ed{background:var(--bg-sheet);color:var(--ink);border-radius:22px;width:100%;max-width:620px;max-height:100%;overflow-y:auto;overscroll-behavior:contain;padding:14px 16px 18px;display:grid;gap:12px;box-shadow:var(--shadow)}
+.ed-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ed-head h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:22px;line-height:1.2}
+.ed p{margin:0}
+.ed-wrap{display:flex;justify-content:center;min-width:0}
+.ed-stage{position:relative;display:inline-block;line-height:0;direction:ltr;touch-action:none;-webkit-user-select:none;user-select:none;overflow:hidden;border-radius:8px;max-width:100%;background:repeating-conic-gradient(var(--surface-2) 0 25%,var(--surface) 0 50%) 0 0/16px 16px}
+.ed-stage canvas{display:block;max-width:100%;max-height:min(46vh,440px);width:auto;height:auto}
+.ed-box{position:absolute;border:2px solid var(--plate);box-shadow:0 0 0 9999px var(--crop-shade);cursor:move}
+.hd{position:absolute;width:24px;height:24px;background:var(--plate);border:2px solid var(--plate-ink);border-radius:6px}
+.hd[data-h="nw"]{left:-2px;top:-2px;cursor:nwse-resize}
+.hd[data-h="ne"]{right:-2px;top:-2px;cursor:nesw-resize}
+.hd[data-h="sw"]{left:-2px;bottom:-2px;cursor:nesw-resize}
+.hd[data-h="se"]{right:-2px;bottom:-2px;cursor:nwse-resize}
+.ed-bottom{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.ed-prev{display:flex;align-items:center;gap:10px}
+.ed-tile{width:96px;height:96px;border-radius:24px;background:var(--logo-bg);box-shadow:inset 0 0 0 1px var(--line);display:grid;place-items:center;padding:10px;flex:none}
+.ed-tile canvas{max-width:100%;max-height:100%;display:block}
+.ed-tools{display:grid;gap:6px;min-width:0;flex:1 1 200px}
+.ed-msg{font-size:14px;font-weight:700;color:var(--sign);min-height:0}
+.ed-msg:empty{display:none}
+.sw{display:inline-block;width:16px;height:16px;border-radius:4px;box-shadow:0 0 0 1px var(--line)}
+.tgl input:disabled~span,.tgl input:disabled~.sw{opacity:.45}
+.row-paste{grid-column:1/-1;display:flex;gap:8px;align-items:stretch}
+.row-paste .paste{flex:1 1 auto}
+.diag{max-width:820px;margin:16px auto 0;font-size:13px;color:var(--muted)}
+.diag summary{cursor:pointer;font-weight:700;color:var(--ink)}
+.diag p{margin:8px 0 0;max-width:64ch}
+.diag ol{margin:8px 0 0;padding-inline-start:20px;display:grid;gap:4px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.45;word-break:break-word;text-align:left}
+
+/* ---------- toast & footer ---------- */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom, 0px));z-index:70;background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:14px;font-weight:700;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center;animation:toast .3s ease}
+@keyframes toast{from{transform:translate(-50%,12px);opacity:0}}
+.foot{margin-top:30px;color:var(--muted);font-size:13px;line-height:1.55;max-width:72ch}
+.foot a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+/* green motorway exit sign that leads to the second game */
+.exit{margin-top:10px;display:flex;align-items:center;gap:12px;text-decoration:none;background:var(--exit);color:var(--exit-ink);border-radius:16px;padding:4px;box-shadow:var(--shadow)}
+.exit-in{flex:1;display:flex;align-items:center;gap:12px;border:2.5px solid var(--exit-ink);border-radius:12px;padding:8px 12px;min-width:0}
+.exit-no{flex:none;background:var(--exit-ink);color:var(--exit);font-weight:700;font-size:13px;border-radius:6px;padding:2px 8px;letter-spacing:.02em}
+.exit-txt{flex:1;min-width:0;display:grid;line-height:1.25}
+.exit-txt b{font-family:var(--f-display);font-weight:400;font-size:22px}
+.exit-txt small{font-size:14px;opacity:.92}
+.exit .ic{width:28px;height:28px;flex:none}
+.exit:hover .exit-in,.exit:focus-visible .exit-in{background:rgba(255,255,255,.08)}
+html.site .tab-par,html.site .foot-par,html.site #parents{display:none!important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app" dir="rtl" lang="he">
+  <header class="sign">
+    <div class="sign-in">
+      <div class="mark">
+        <svg class="sign-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 36 19H26v18H14V19H4z" fill="currentColor"/></svg>
+        <div>
+          <h1>מסע המותגים</h1>
+          <p class="sub">מאיפה הגיעה כל מכונית, ולאיזו משפחה היא שייכת</p>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="odo" id="odo-wrap"><span class="sr">כוכבים:</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z" fill="currentColor"/></svg><span class="odo-d" id="odo"></span></div>
+        <div class="hud-meta"><b id="lvl"></b><span id="lvl-next"></span><span class="troph" id="troph"></span></div>
+      </div>
+    </div>
+  </header>
+  <a class="exit" id="exit-detective" href="https://claude.ai/artifact/EViseaPF1BULjNFFahaY5J" target="_blank" rel="noopener">
+    <span class="exit-in"><span class="exit-no">יציאה</span><span class="exit-txt"><b>בלש הסמלים</b><small>משחק שני: מזהים סמלים, פותרים תיקים ופותחים את הכספת</small></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5 3 12l7 7M3.5 12H21" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+
+  <nav class="nav" aria-label="מצבי משחק">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-view="explore" aria-selected="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 8.5 13.4 13.4 8.5 15.5 10.6 10.6z" fill="currentColor"/></svg><span>לגלות</span></button>
+      <button class="tab" role="tab" data-view="families" aria-selected="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="2.5" width="7" height="5" rx="1.5" fill="currentColor"/><rect x="2.5" y="16.5" width="6" height="5" rx="1.5" fill="currentColor"/><rect x="15.5" y="16.5" width="6" height="5" rx="1.5" fill="currentColor"/><path d="M12 7.5v4.5M5.5 16.5V12h13v4.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>משפחות</span></button>
+      <button class="tab" role="tab" data-view="quiz" aria-selected="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.8.4-1.1.9-1.1 1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.3" fill="currentColor"/></svg><span>חידון</span></button>
+      <button class="tab" role="tab" data-view="memory" aria-selected="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="8" height="14" rx="2" fill="currentColor"/><rect x="13" y="5" width="8" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>זיכרון</span></button>
+      <button class="tab tab-par" role="tab" data-view="logos" aria-selected="false" aria-label="להורים: סדנת הסמלים"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.2-.6-.6-2.2z" fill="currentColor"/></svg><span>הורים</span></button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="v-explore" role="tabpanel" aria-label="לגלות מותגים">
+      <div class="toolbar">
+        <label class="search"><span class="sr">חיפוש מותג</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input id="search" type="search" placeholder="חיפוש: טויוטה, Audi, פולקסווגן…" autocomplete="off"></label>
+        <label><span class="sr">סדר התצוגה</span><select id="sort"><option value="abc">לפי א׳–ב׳</option><option value="old">הוותיקים קודם</option><option value="new">הצעירים קודם</option></select></label>
+        <button class="btn" id="surprise" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.6" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg><span>הפתעה</span></button>
+      </div>
+      <div class="cchips" id="cchips" role="group" aria-label="סינון לפי מדינת מקור"></div>
+      <div class="progress" id="progress"></div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section id="v-families" role="tabpanel" aria-label="משפחות של מותגים" hidden>
+      <div class="intro" id="intro"></div>
+      <div class="fams" id="fams"></div>
+    </section>
+
+    <section id="v-quiz" role="tabpanel" aria-label="חידון" hidden>
+      <div class="qcats" id="qcats" role="group" aria-label="סוג השאלות"></div>
+      <div class="qbox" id="qbox"></div>
+    </section>
+
+    <section id="v-memory" role="tabpanel" aria-label="משחק זיכרון" hidden>
+      <div class="mem-head">
+        <div class="seg" id="memmode" role="group" aria-label="סוג הזוגות">
+          <button type="button" data-mode="country" aria-pressed="true">מותג ומדינה</button>
+          <button type="button" data-mode="family" aria-pressed="false">מותג ומשפחה</button>
+        </div>
+        <span class="mem-stat" id="memstat"></span>
+        <button class="btn ghost" id="memnew" type="button">משחק חדש</button>
+      </div>
+      <p class="mem-help" id="memhelp"></p>
+      <div id="memwin"></div>
+      <div class="mem" id="mem"></div>
+    </section>
+
+    <section id="v-logos" aria-label="סדנת הסמלים" hidden>
+      <div class="lg-head" data-drop="bulk">
+        <div><h2 class="h2">סדנת הסמלים, להורים</h2><p>במשחק כל מותג מופיע עם תג צבעוני. כאן אפשר להוסיף לכל מותג תמונה של הסמל האמיתי שלו, והיא תופיע במקום התג בכל המשחק.</p></div>
+        <p class="lg-mode local" id="lg-mode">בודקים איפה אפשר לשמור את הסמלים…</p>
+        <ol class="howto">
+          <li>לוחצים ״חיפוש״ ליד מותג. נפתח עמוד של ויקישיתוף עם תמונות של הסמל.</li>
+          <li>פותחים את התמונה המתאימה ולוחצים עליה לחיצה ארוכה. בוחרים ״העתקה״, או ״שמירה״ כדי לשמור אותה בטלפון.</li>
+          <li>חוזרים לכאן. תמונה שהעתקתם: לוחצים ״הדבקה״ ליד המותג, ובתיבה שנפתחת באותה שורה לוחצים לחיצה ארוכה ובוחרים ״הדבקה״. תמונה ששמרתם: לוחצים ״בחירה״. אפשר גם להעלות הרבה קבצים יחד: המשחק מתאים כל קובץ למותג לפי שם הקובץ, למשל toyota.png.</li>
+          <li>יש לכם קובץ ZIP עם סמלים? לוחצים ״העלאת קובץ ZIP״ ובוחרים אותו. המשחק פותח אותו, מתאים כל תמונה למותג לפי שם הקובץ, חותך את השוליים הריקים, ומחליף את הסמל הקודם של המותג. מותגים שאין להם קובץ ב-ZIP שומרים על הסמל שכבר יש להם.</li>
+        </ol>
+        <div class="row"><label class="btn filebtn"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4.5 4.5M12 4l4.5 4.5M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>העלאת כמה קבצים יחד</span><input type="file" multiple accept="image/*" id="bulk-in"></label><label class="btn filebtn"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v13.5A.5.5 0 0 1 17.5 21h-11a.5.5 0 0 1-.5-.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 5h2M11 8h2M11 11h2M10.5 14h3v3.5h-3z" stroke="currentColor" stroke-width="1.8" fill="none"/></svg><span>העלאת קובץ ZIP</span><input type="file" id="zip-in"></label><button type="button" class="btn ghost" id="fixdark" hidden>הסרת רקע שחור מכל הסמלים</button><button type="button" class="btn ghost" id="migrate" hidden></button></div>
+        <p class="small" id="lg-tip"></p>
+        <div class="bulk-res" id="bulk-res" aria-live="polite"></div>
+        <div class="assign" id="bulk-assign"></div>
+        <div class="lg-bar"><span id="lg-count"></span><label class="tgl"><input type="checkbox" id="lg-missing">רק מותגים בלי סמל</label></div>
+      </div>
+      <div class="lg-list" id="lg-list"></div>
+      <details class="diag" id="diag"><summary>יומן טכני</summary><p>כל ניסיון להוסיף סמל נרשם כאן: סוג הקובץ, הגודל, ואם הגיע עם רקע שקוף. הרישום נשמר גם במשחק, כדי ש-Claude יוכל לבדוק מה קרה אם תבקשו.</p><ol id="diag-list" dir="ltr"></ol></details>
+      <div class="row" style="justify-content:center;margin-top:16px"><button type="button" class="btn ghost" data-goview="explore">חזרה למשחק</button></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span id="foot-txt">הסמלים האמיתיים שייכים לחברות, ולכן כל מותג מופיע כאן עם תג צבעוני. הורים יכולים להוסיף תמונות של הסמלים בסדנת הסמלים. מידע הבעלות מעודכן לנובמבר 2026.</span>
+    <div class="row foot-par"><button type="button" class="btn ghost" data-goview="logos">להורים: סדנת הסמלים</button></div>
+  </footer>
+</div>
+
+<div class="overlay" id="overlay" dir="rtl" lang="he" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1"></div></div>
+<div class="ed-ov" id="ed" dir="rtl" lang="he" hidden>
+  <div class="ed" role="dialog" aria-modal="true" aria-labelledby="ed-title">
+    <div class="ed-head"><h3 id="ed-title">עריכת הסמל</h3><button type="button" class="x" id="ed-x" aria-label="סגירה בלי לשמור"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></button></div>
+    <p class="small">גררו את הפינות הצהובות, או את המסגרת כולה, כך שרק הסמל יישאר בפנים.</p>
+    <p class="ed-msg" id="ed-msg" aria-live="polite"></p>
+    <div class="ed-wrap"><div class="ed-stage" id="ed-stage"><canvas id="ed-cv"></canvas><div class="ed-box" id="ed-box"><span class="hd" data-h="nw"></span><span class="hd" data-h="ne"></span><span class="hd" data-h="sw"></span><span class="hd" data-h="se"></span></div></div></div>
+    <div class="ed-bottom">
+      <div class="ed-prev"><span class="ed-tile"><canvas id="ed-pv"></canvas></span><span class="small">כך הסמל ייראה במשחק</span></div>
+      <div class="ed-tools">
+        <label class="tgl"><input type="checkbox" id="ed-bg"><span>הסרת הרקע</span><i class="sw" id="ed-sw" aria-hidden="true"></i></label>
+        <span class="small" id="ed-bg-note"></span>
+        <div class="row"><button type="button" class="btn ghost sm" id="ed-auto">חיתוך אוטומטי</button><button type="button" class="btn ghost sm" id="ed-all">כל התמונה</button></div>
+      </div>
+    </div>
+    <div class="row ed-actions"><button type="button" class="btn big" id="ed-save">שמירה</button><button type="button" class="btn ghost" id="ed-cancel">ביטול</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" dir="rtl" lang="he" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+document.documentElement.setAttribute("lang","he");
+document.documentElement.setAttribute("dir","rtl");
+/* On the public website (logo-detective.*.workers.dev) the page gets window.PUBLIC_SITE from the build:
+   built-in logo files, the address of the detective game, and no parents' workshop (there is no shared storage there). */
+const SITE=window.PUBLIC_SITE&&typeof window.PUBLIC_SITE==="object"?window.PUBLIC_SITE:null;
+if(SITE){
+ document.documentElement.classList.add("site");
+ const ex=document.getElementById("exit-detective");if(ex){ex.href=SITE.detective||"/detective";ex.removeAttribute("target");ex.removeAttribute("rel");}
+ const ft=document.getElementById("foot-txt");if(ft)ft.innerHTML='הסמלים הם סימנים מסחריים של החברות שלהם. זה משחק חינוכי חינמי, בלי קשר לחברות האלה. מידע הבעלות מעודכן לנובמבר 2026. <a href="credits.html">קרדיטים ומקורות</a>.';
+}
+
+/* ===================== countries & flags ===================== */
+const C={jp:"יפן",de:"גרמניה",it:"איטליה",fr:"צרפת",gb:"בריטניה",us:"ארצות הברית",se:"שוודיה",kr:"דרום קוריאה",cn:"סין",cz:"צ׳כיה",es:"ספרד",ro:"רומניה",in:"הודו",nl:"הולנד",my:"מלזיה",hr:"קרואטיה",id:"אינדונזיה",ch:"שווייץ",ae:"איחוד האמירויות",il:"ישראל",sa:"ערב הסעודית"};
+
+function starN(cx,cy,R,r,n,rot){const p=[];for(let k=0;k<2*n;k++){const a=(-90+rot+k*180/n)*Math.PI/180;const rr=k%2?r:R;p.push((cx+rr*Math.cos(a)).toFixed(2)+","+(cy+rr*Math.sin(a)).toFixed(2));}return p.join(" ");}
+const h3=(a,b,c)=>`<rect width="30" height="6.67" fill="${a}"/><rect y="6.67" width="30" height="6.67" fill="${b}"/><rect y="13.33" width="30" height="6.67" fill="${c}"/>`;
+const v3=(a,b,c)=>`<rect width="10" height="20" fill="${a}"/><rect x="10" width="10" height="20" fill="${b}"/><rect x="20" width="10" height="20" fill="${c}"/>`;
+const F={};
+F.de=h3("#000","#DD0000","#FFCE00");
+F.it=v3("#009246","#fff","#CE2B37");
+F.fr=v3("#0055A4","#fff","#EF4135");
+F.ro=v3("#002B7F","#FCD116","#CE1126");
+F.nl=h3("#AE1C28","#fff","#21468B");
+F.id=`<rect width="30" height="10" fill="#CE1126"/><rect y="10" width="30" height="10" fill="#fff"/>`;
+F.jp=`<rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#BC002D"/>`;
+F.ch=`<rect width="30" height="20" fill="#DA291C"/><rect x="13" y="4" width="4" height="12" fill="#fff"/><rect x="9" y="8" width="12" height="4" fill="#fff"/>`;
+F.se=`<rect width="30" height="20" fill="#006AA7"/><rect x="9" width="4" height="20" fill="#FECC00"/><rect y="8" width="30" height="4" fill="#FECC00"/>`;
+F.cz=`<rect width="30" height="10" fill="#fff"/><rect y="10" width="30" height="10" fill="#D7141A"/><path d="M0,0 15,10 0,20z" fill="#11457E"/>`;
+F.es=`<rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/>`;
+F.il=`<rect width="30" height="20" fill="#fff"/><rect y="2.3" width="30" height="3" fill="#0038B8"/><rect y="14.7" width="30" height="3" fill="#0038B8"/><g fill="none" stroke="#0038B8" stroke-width=".75" stroke-linejoin="miter"><path d="M15,6.1 18.38,11.95 11.62,11.95Z"/><path d="M15,13.9 18.38,8.05 11.62,8.05Z"/></g>`;
+F.sa=`<rect width="30" height="20" fill="#006C35"/><text x="15" y="9.6" font-size="3.6" fill="#fff" text-anchor="middle" direction="rtl" font-family="Arial,'Noto Naskh Arabic',sans-serif" textLength="21" lengthAdjust="spacingAndGlyphs">لا إله إلا الله محمد رسول الله</text><path d="M7.2,13.6h13.2l1.6-.55-1.6-.55H7.2l-.9.55z" fill="#fff"/><rect x="20.3" y="11.7" width=".7" height="2.8" rx=".3" fill="#fff"/><rect x="21" y="12.85" width="1.8" height=".5" rx=".25" fill="#fff"/>`;
+F.ae=`<rect width="30" height="20" fill="#000"/><rect width="30" height="13.33" fill="#fff"/><rect width="30" height="6.67" fill="#00732F"/><rect width="7.5" height="20" fill="#FF0000"/>`;
+F.gb=`<rect width="30" height="20" fill="#012169"/><path d="M0,0 30,20M30,0 0,20" stroke="#fff" stroke-width="4"/><path d="M0,0 30,20M30,0 0,20" stroke="#C8102E" stroke-width="2.6" clip-path="url(#cp-gb)"/><path d="M15,0v20M0,10h30" stroke="#fff" stroke-width="6.6"/><path d="M15,0v20M0,10h30" stroke="#C8102E" stroke-width="4"/>`;
+(function(){let s="";const h=20/13;for(let i=0;i<13;i++)s+=`<rect y="${(i*h).toFixed(3)}" width="30" height="${(h+0.03).toFixed(3)}" fill="${i%2?"#fff":"#B22234"}"/>`;const cw=12,ch=7*h;s+=`<rect width="${cw}" height="${ch.toFixed(3)}" fill="#3C3B6E"/>`;for(let r=0;r<9;r++){const n=r%2?5:6;for(let c=0;c<n;c++){const x=r%2?(2*c+2)*cw/12:(2*c+1)*cw/12;const y=(r+1)*ch/10;s+=`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r=".38" fill="#fff"/>`;}}F.us=s;})();
+(function(){let s="";const h=20/14;for(let i=0;i<14;i++)s+=`<rect y="${(i*h).toFixed(3)}" width="30" height="${(h+0.03).toFixed(3)}" fill="${i%2?"#fff":"#CC0001"}"/>`;const ch=8*h,cy=(ch/2).toFixed(2);s+=`<rect width="15" height="${ch.toFixed(3)}" fill="#010066"/><circle cx="5.8" cy="${cy}" r="4.1" fill="#FFCC00"/><circle cx="6.9" cy="${cy}" r="3.5" fill="#010066"/><polygon points="${starN(11.3,ch/2,3,1.35,14,0)}" fill="#FFCC00"/>`;F.my=s;})();
+(function(){let s=`<rect width="30" height="20" fill="#EE1C25"/><polygon points="${starN(5,5,3,1.15,5,0)}" fill="#FFDE00"/>`;[[10,2],[12,4],[12,7],[10,9]].forEach(([x,y])=>{const rot=Math.atan2(5-y,5-x)*180/Math.PI+90;s+=`<polygon points="${starN(x,y,1,0.38,5,rot)}" fill="#FFDE00"/>`;});F.cn=s;})();
+(function(){let s=h3("#FF9933","#fff","#138808")+`<circle cx="15" cy="10" r="2.7" fill="none" stroke="#000080" stroke-width=".4"/><circle cx="15" cy="10" r=".5" fill="#000080"/>`;for(let k=0;k<24;k++){const a=k*15*Math.PI/180;s+=`<line x1="15" y1="10" x2="${(15+2.6*Math.cos(a)).toFixed(2)}" y2="${(10+2.6*Math.sin(a)).toFixed(2)}" stroke="#000080" stroke-width=".18"/>`;}F.in=s;})();
+(function(){const A=Math.atan2(20,30)*180/Math.PI;const bar=(x,broken)=>broken?`<rect x="${x}" y="-2.6" width="1" height="2.3"/><rect x="${x}" y=".3" width="1" height="2.3"/>`:`<rect x="${x}" y="-2.6" width="1" height="5.2"/>`;const tri=(x0,p)=>p.map((b,i)=>bar((x0+i*1.5).toFixed(2),!b)).join("");
+F.kr=`<rect width="30" height="20" fill="#fff"/><g transform="translate(15 10) rotate(${A.toFixed(2)})"><circle r="5" fill="#0047A0"/><path d="M-5,0A5,5 0 0 1 5,0A2.5,2.5 0 0 0 0,0A2.5,2.5 0 0 1 -5,0Z" fill="#CD2E3A"/><g fill="#000">${tri(-12,[1,1,1])}${tri(8,[0,0,0])}</g></g><g transform="translate(15 10) rotate(${(-A).toFixed(2)})" fill="#000">${tri(8,[0,1,0])}${tri(-12,[1,0,1])}</g>`;})();
+(function(){let sq="";const z=1.4;for(let r=0;r<7;r++)for(let c=0;c<5;c++)if((r+c)%2===0)sq+=`<rect x="${(11.5+c*z).toFixed(2)}" y="${(4+r*z).toFixed(2)}" width="${z}" height="${z}"/>`;F.hr=h3("#FF0000","#fff","#171796")+`<g clip-path="url(#cp-hr)"><rect x="11.5" y="4" width="7" height="10" fill="#fff"/><g fill="#FF0000">${sq}</g></g><path d="M11.5,4h7v5.2c0,2.6-1.6,3.8-3.5,4.2c-1.9-.4-3.5-1.6-3.5-4.2z" fill="none" stroke="#FF0000" stroke-width=".3"/>`;})();
+
+document.body.insertAdjacentHTML("afterbegin",`<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><clipPath id="cp-gb"><path d="M15,10h15v10z v10h-15z h-15v-10z v-10h15z"/></clipPath><clipPath id="cp-hr"><path d="M11.5,4h7v5.2c0,2.6-1.6,3.8-3.5,4.2c-1.9-.4-3.5-1.6-3.5-4.2z"/></clipPath></defs>${Object.keys(F).map(k=>`<symbol id="fl-${k}" viewBox="0 0 30 20">${F[k]}</symbol>`).join("")}</svg>`);
+const flag=(c,cls)=>`<svg class="flag ${cls||""}" viewBox="0 0 30 20" role="img" aria-label="דגל ${C[c]}"><use href="#fl-${c}"/></svg>`;
+
+/* ===================== brands ===================== */
+/* j = journey: [country of the place today, year, what happened] */
+const B=[
+{id:"toyota",he:"טויוטה",en:"Toyota",col:"#D7192D",y:1937,o:"jp",g:"toyota",
+ j:[["jp",1937,"קיצ׳ירו טויודה מקים את חברת המכוניות"]],
+ s:"הכול התחיל במכונות אריגה: סאקיצ׳י טויודה המציא נול אוטומטי, והבן שלו, קיצ׳ירו, הקים ב-1937 חברת מכוניות. את השם שינו מ״טויודה״ ל״טויוטה״, כי ביפנית כותבים אותו בשמונה קווים, ושמונה נחשב ביפן למספר של מזל. היום טויוטה היא קבוצת הרכב הגדולה בעולם.",
+ f:"מטויוטה קורולה נמכרו יותר מ-50 מיליון מכוניות. זו אחת המכוניות הנמכרות בהיסטוריה!",
+ q:"התחלתי במכונות אריגה, ושיניתי אות אחת בשם שלי כדי שיביא מזל."},
+{id:"lexus",he:"לקסוס",en:"Lexus",col:"#2F3A45",y:1989,o:"jp",g:"toyota",
+ j:[["jp",1989,"טויוטה משיקה מותג יוקרה חדש"]],
+ s:"בשנות ה-80 טויוטה רצתה להתחרות במכוניות היוקרה הגרמניות, כמו מרצדס ו-BMW. המהנדסים עבדו בסוד שש שנים, וב-1989 יצאה המכונית הראשונה של המותג החדש, לקסוס.",
+ f:"בפרסומת מפורסמת של לקסוס בנו מגדל של כוסות על מכסה המנוע והפעילו את המנוע במהירות גבוהה. אף כוס לא נפלה, כי המנוע היה שקט וחלק.",
+ q:"טויוטה הקימה אותי ב-1989 כדי להתחרות במכוניות יוקרה גרמניות."},
+{id:"honda",he:"הונדה",en:"Honda",col:"#C8102E",y:1948,o:"jp",g:"honda",
+ j:[["jp",1948,"סואיצ׳ירו הונדה מקים את החברה"],["jp",1963,"המכוניות הראשונות של הונדה"]],
+ s:"אחרי מלחמת העולם השנייה, סואיצ׳ירו הונדה חיבר מנועים קטנים לאופניים, וב-1948 הקים את החברה. הונדה נעשתה יצרנית האופנועים הגדולה בעולם, ומ-1963 היא בונה גם מכוניות.",
+ f:"הונדה בנתה גם רובוט בשם אסימו, שידע ללכת ולעלות במדרגות, וגם מטוס קטן בשם הונדה-ג׳ט.",
+ q:"המייסד שלי חיבר מנועים קטנים לאופניים, והיום אני בונה גם אופנועים ומטוסים."},
+{id:"acura",he:"אקורה",en:"Acura",col:"#55595F",y:1986,o:"jp",g:"honda",
+ j:[["jp",1986,"הונדה מקימה את אקורה ומוכרת אותה קודם בארצות הברית"]],
+ s:"אקורה היא מותג היוקרה של הונדה. היא נולדה ב-1986 בשביל הקונים בארצות הברית, והייתה מותג היוקרה היפני הראשון. רק אחריה הגיעו לקסוס ואינפיניטי.",
+ f:"בישראל כמעט לא רואים אקורה. היא נמכרת בעיקר בארצות הברית ובקנדה.",
+ q:"אני מותג היוקרה היפני הראשון, ונולדתי בשביל קונים בארצות הברית."},
+{id:"nissan",he:"ניסאן",en:"Nissan",col:"#8E1B2C",y:1933,o:"jp",g:"nissan",
+ j:[["jp",1933,"החברה נוסדת. המכוניות נקראות ״דטסון״"],["fr",1999,"רנו הצרפתית קונה חלק גדול מהמניות, ונוצרת ברית"],["jp",2023,"ניסאן ורנו מאזנות את השותפות: כל אחת מחזיקה חלק קטן מהשנייה"]],
+ s:"ניסאן נוסדה ב-1933, ובמשך שנים רבות מכרה את המכוניות שלה בעולם בשם ״דטסון״. ב-1999, כשהיו לה בעיות כסף, החברה הצרפתית רנו קנתה חלק גדול ממנה, ושתיהן הקימו ברית של שותפות.",
+ f:"ניסאן ליף, שיצאה ב-2010, הייתה מהמכוניות החשמליות הראשונות שנמכרו בכמויות גדולות.",
+ q:"פעם קראו למכוניות שלי דטסון, ויש לי ברית עם חברה צרפתית."},
+{id:"infiniti",he:"אינפיניטי",en:"Infiniti",col:"#4A3F5C",y:1989,o:"jp",g:"nissan",
+ j:[["jp",1989,"ניסאן משיקה מותג יוקרה"]],
+ s:"אינפיניטי היא מותג היוקרה של ניסאן. היא נולדה ב-1989, באותה שנה כמו לקסוס של טויוטה. השם בא מהמילה האנגלית לאינסוף.",
+ f:"בפרסומות הראשונות של אינפיניטי בכלל לא הראו את המכונית, רק סלעים, עצים ומים.",
+ q:"השם שלי בא מהמילה ״אינסוף״, ובפרסומות הראשונות שלי הראו רק טבע."},
+{id:"mitsubishi",he:"מיצובישי",en:"Mitsubishi",col:"#E2231A",y:1870,o:"jp",g:null,
+ j:[["jp",1870,"יאטארו איוואסאקי מקים חברת ספנות"],["jp",1970,"מיצובישי מוטורס נעשית חברה נפרדת"],["jp",2016,"ניסאן קונה כשליש מהמניות ונעשית שותפה"]],
+ s:"השם מיצובישי פירושו ביפנית ״שלושה יהלומים״. הכול התחיל ב-1870, כשיאטארו איוואסאקי הקים חברת ספנות. מאז מיצובישי בנתה ספינות, מטוסים ורכבות, וחברת המכוניות שלה נעשתה חברה נפרדת ב-1970.",
+ f:"המכונית הראשונה של מיצובישי, ״מודל A״, נבנתה ב-1917, וייצרו ממנה רק 22 מכוניות.",
+ q:"השם שלי פירושו ״שלושה יהלומים״, והתחלתי כחברת ספנות."},
+{id:"mazda",he:"מאזדה",en:"Mazda",col:"#5B6670",y:1920,o:"jp",g:null,
+ j:[["jp",1920,"מפעל לפקק בהירושימה"],["us",1979,"פורד קונה חלק מהמניות"],["jp",2015,"פורד מוכרת את כל המניות שלה"]],
+ s:"מאזדה התחילה ב-1920 כמפעל לפקק בעיר הירושימה! השם בא מאהורה מאזדה, אל החוכמה של פרס העתיקה, וגם מהשם של המייסד, ג׳וג׳ירו מצודה.",
+ f:"מאזדה MX-5 היא מכונית הספורט הדו-מושבית הנמכרת ביותר בהיסטוריה, לפי ספר השיאים של גינס.",
+ q:"התחלתי כמפעל לפקק בהירושימה."},
+{id:"subaru",he:"סובארו",en:"Subaru",col:"#1F3F8F",y:1953,o:"jp",g:null,
+ j:[["jp",1953,"פוג׳י נוצרת מאיחוד של כמה חברות"],["jp",2005,"טויוטה קונה חלק מהמניות"]],
+ s:"סובארו הוא השם היפני של צביר הכוכבים ״כימה״. החברה שבונה אותה, פוג׳י, נוצרה ב-1953 מאיחוד של כמה חברות, וחלק מהן בנו קודם לכן מטוסים.",
+ f:"בסמל של סובארו יש שישה כוכבים: כוכב גדול לחברה המאוחדת, וחמישה קטנים לחברות שהתאחדו בה.",
+ q:"אני השם היפני של צביר כוכבים, ובסמל שלי יש שישה כוכבים."},
+{id:"suzuki",he:"סוזוקי",en:"Suzuki",col:"#1E4FB0",y:1909,o:"jp",g:null,
+ j:[["jp",1909,"מיצ׳יו סוזוקי פותח מפעל לנולים"],["jp",1955,"המכונית הראשונה, ״סוזולייט״"]],
+ s:"ב-1909 מיצ׳יו סוזוקי פתח מפעל לנולים לאריגת משי, ממש כמו המשפחה של טויוטה. רק ב-1955 יצאה המכונית הראשונה שלו, ״סוזולייט״ הקטנה.",
+ f:"בהודו סוזוקי היא יצרנית המכוניות הגדולה, דרך החברה ההודית ״מארוטי סוזוקי״.",
+ q:"התחלתי בנולים לאריגת משי, ואני יצרנית המכוניות הגדולה בהודו."},
+{id:"hyundai",he:"יונדאי",en:"Hyundai",col:"#0B2A5B",y:1967,o:"kr",g:"hyundai",
+ j:[["kr",1967,"צ׳ונג ג׳ו-יונג מקים את חברת המכוניות"]],
+ s:"יונדאי פירושו בקוריאנית ״מודרני״ או ״זמנים חדשים״. את הקבוצה בנה צ׳ונג ג׳ו-יונג, שהתחיל עם חנות אורז קטנה, וב-1967 הקים את חברת המכוניות.",
+ f:"המכונית הראשונה שיונדאי הרכיבה הייתה בכלל פורד. המכונית הקוריאנית הראשונה שלה, ״פוני״, יצאה ב-1975.",
+ q:"השם שלי פירושו ״מודרני״ בקוריאנית."},
+{id:"kia",he:"קיה",en:"Kia",col:"#05141F",y:1944,o:"kr",g:"hyundai",
+ j:[["kr",1944,"מפעל לחלקי אופניים"],["kr",1998,"יונדאי קונה את קיה"]],
+ s:"קיה התחילה ב-1944 במפעל לחלקי אופניים, ועברה לאופניים שלמים, לאופנועים ולמכוניות. ב-1998 היה בקוריאה משבר כלכלי, ויונדאי קנתה את קיה.",
+ f:"קיה ויונדאי הן ״אחיות״: הרבה דגמים שלהן חולקים מנוע ושלדה, אבל העיצוב שונה.",
+ q:"התחלתי במפעל לחלקי אופניים, ומ-1998 אחותי הגדולה היא הבעלים שלי."},
+{id:"genesis",he:"ג׳נסיס",en:"Genesis",col:"#7A5C3E",y:2015,o:"kr",g:"hyundai",
+ j:[["kr",2015,"יונדאי הופכת את ג׳נסיס למותג נפרד"]],
+ s:"בהתחלה ״ג׳נסיס״ היה שם של דגם יוקרתי של יונדאי. ב-2015 יונדאי הפכה אותו למותג יוקרה נפרד, כמו שלקסוס היא מותג היוקרה של טויוטה.",
+ f:"המילה האנגלית Genesis היא גם השם של ספר בראשית.",
+ q:"השם שלי באנגלית הוא גם השם של ספר בראשית."},
+{id:"vw",he:"פולקסווגן",en:"Volkswagen",col:"#1B3F7A",y:1937,o:"de",g:"vw",
+ j:[["de",1937,"החברה מוקמת"],["gb",1945,"אחרי המלחמה הצבא הבריטי מפעיל את המפעל"],["de",1949,"המפעל חוזר לידי גרמניה"]],
+ s:"פולקסווגן פירושו בגרמנית ״מכונית העם״. החברה הוקמה ב-1937 בידי השלטון הנאצי, שרצה מכונית זולה לכל משפחה. אחרי מלחמת העולם השנייה, קצין בריטי בשם איבן הירסט החזיר את המפעל לעבודה, והחיפושית הפכה לאחת המכוניות האהובות בעולם.",
+ f:"יוצרו יותר מ-21 מיליון חיפושיות. האחרונה יצאה ממפעל במקסיקו ב-2003.",
+ q:"השם שלי פירושו ״מכונית העם״, והחיפושית שלי מפורסמת בכל העולם."},
+{id:"audi",he:"אאודי",en:"Audi",col:"#6B6E72",y:1909,o:"de",g:"vw",
+ j:[["de",1909,"אוגוסט הורך מקים את אאודי"],["de",1932,"איחוד עם עוד שלוש חברות לאאוטו-יוניון"],["de",1965,"פולקסווגן קונה את החברה"]],
+ s:"אוגוסט הורך הקים חברת מכוניות על שמו, רב עם השותפים ועזב. הוא פתח חברה חדשה, אבל לא הרשו לו להשתמש שוב בשם שלו. אז ב-1909 הוא בחר ב״אאודי״: גם ״הורך״ בגרמנית וגם ״אאודי״ בלטינית פירושם ״הקשב!״.",
+ f:"ארבע הטבעות בסמל של אאודי הן ארבע חברות שהתאחדו ב-1932: אאודי, DKW, הורך ווונדרר.",
+ q:"השם שלי פירושו ״הקשב!״ בלטינית, ויש לי ארבע טבעות."},
+{id:"porsche",he:"פורשה",en:"Porsche",col:"#9E6F37",y:1931,o:"de",g:"vw",
+ j:[["de",1931,"פרדיננד פורשה פותח משרד לתכנון מכוניות"],["de",2012,"פולקסווגן קונה את חברת המכוניות פורשה"]],
+ s:"פרדיננד פורשה פתח ב-1931 משרד לתכנון מכוניות בשטוטגרט, והוא זה שתכנן את החיפושית של פולקסווגן! הבן שלו, פרי, בנה ב-1948 את המכונית הראשונה בשם פורשה.",
+ f:"פורשה ופולקסווגן קשורות בצורה מבלבלת: פולקסווגן היא הבעלים של רוב חברת המכוניות פורשה, ומשפחת פורשה שולטת בפולקסווגן.",
+ q:"המייסד שלי תכנן את החיפושית, ודגם 911 שלי נמכר כבר יותר מ-60 שנה."},
+{id:"lamborghini",he:"למבורגיני",en:"Lamborghini",col:"#C9A227",ink:"#1A1A1A",y:1963,o:"it",g:"vw",
+ j:[["it",1963,"פרוצ׳ו למבורגיני"],["us",1987,"קרייזלר"],["id",1994,"משקיעים מאינדונזיה"],["de",1998,"אאודי, כלומר קבוצת פולקסווגן"]],
+ s:"פרוצ׳ו למבורגיני היה יצרן טרקטורים מצליח. לפי הסיפור המפורסם, הוא התלונן לאנצו פרארי על המכונית שלו, ופרארי ענה לו שיחזור לטרקטורים. למבורגיני נעלב, וב-1963 התחיל לבנות מכוניות ספורט משלו.",
+ f:"הרבה דגמים של למבורגיני נקראים על שם שוורים מפורסמים, כמו מורסיאלגו ואוונטדור. פרוצ׳ו נולד במזל שור.",
+ q:"המייסד שלי ייצר טרקטורים, ונעלב מאנצו פרארי."},
+{id:"bentley",he:"בנטלי",en:"Bentley",col:"#1F4D3A",y:1919,o:"gb",g:"vw",
+ j:[["gb",1919,"וולטר אוון בנטלי"],["gb",1931,"רולס-רויס קונה את בנטלי"],["de",1998,"קבוצת פולקסווגן"]],
+ s:"וולטר אוון בנטלי תכנן מנועי מטוסים במלחמת העולם הראשונה, וב-1919 הקים חברת מכוניות. מכוניות בנטלי ניצחו חמש פעמים במרוץ 24 השעות של לה-מאן, בין 1924 ל-1930.",
+ f:"במשך 67 שנה בנטלי ורולס-רויס היו חברה אחת. בסוף שנות ה-90 הן נפרדו: בנטלי הלכה לפולקסווגן, ורולס-רויס ל-BMW.",
+ q:"ניצחתי חמש פעמים במרוץ לה-מאן לפני 1931, והיום אני שייכת לפולקסווגן."},
+{id:"skoda",he:"סקודה",en:"Škoda",col:"#2E7D4F",y:1895,o:"cz",g:"vw",
+ j:[["cz",1895,"לאורין וקלמנט פותחים מפעל אופניים"],["cz",1925,"איחוד עם מפעלי סקודה"],["de",1991,"קבוצת פולקסווגן"]],
+ s:"ב-1895 שני חברים, ואצלב לאורין וואצלב קלמנט, פתחו בעיר מלאדה בולסלב מפעל לאופניים. אחר כך הם עברו לאופנועים ולמכוניות. ב-1925 החברה התאחדה עם מפעלי סקודה, וב-1991, אחרי סוף השלטון הקומוניסטי, פולקסווגן קנתה אותה.",
+ f:"לשני המייסדים של סקודה קראו ואצלב! סקודה היא אחת מחברות הרכב הוותיקות בעולם שעדיין פועלות.",
+ q:"נולדתי כמפעל אופניים ב-1895, בעיר שנמצאת היום בצ׳כיה."},
+{id:"seat",he:"סיאט",en:"SEAT",col:"#B5342C",y:1950,o:"es",g:"vw",
+ j:[["es",1950,"ממשלת ספרד מקימה את החברה, בעזרת פיאט"],["de",1986,"קבוצת פולקסווגן"]],
+ s:"סיאט הוקמה ב-1950 בידי ממשלת ספרד בעזרת פיאט האיטלקית, והמכוניות הראשונות שלה היו בעצם פיאטים בשם אחר. הסיאט 600 הקטנה הייתה המכונית הראשונה של הרבה משפחות בספרד. ב-1986 פולקסווגן קנתה את רוב החברה.",
+ f:"SEAT הם ראשי תיבות בספרדית של ״החברה הספרדית למכוניות תיירות״.",
+ q:"ממשלת ספרד הקימה אותי, והמכוניות הראשונות שלי היו פיאטים בשם אחר."},
+{id:"cupra",he:"קופרה",en:"Cupra",col:"#8B5A3C",y:2018,o:"es",g:"vw",
+ j:[["es",2018,"סיאט הופכת את קופרה למותג נפרד"]],
+ s:"״קופרה״ הייתה בהתחלה השם של דגמי הספורט של סיאט. המילה נוצרה מ-Cup Racer, ״מכונית מרוץ לגביע״. ב-2018 קופרה נעשתה מותג נפרד.",
+ f:"קופרה נולדה ב-2018, אז היא צעירה כמעט כמוך!",
+ q:"השם שלי בא מ-Cup Racer, ונעשיתי מותג נפרד ב-2018."},
+{id:"bugatti",he:"בוגאטי",en:"Bugatti",col:"#1E3A8A",y:1909,o:"fr",oNote:"בעיר מולסהיים, שהייתה אז בגרמניה",g:null,own:["hr"],ownName:"בוגאטי-רימאץ",
+ j:[["fr",1909,"אטורה בוגאטי פותח מפעל במולסהיים, שהייתה אז בגרמניה"],["it",1987,"איש עסקים איטלקי מחייה את המותג"],["de",1998,"קבוצת פולקסווגן"],["hr",2021,"בוגאטי-רימאץ מקרואטיה. פורשה הייתה שותפה בה עד 2026"]],
+ s:"אטורה בוגאטי נולד במילאנו שבאיטליה, וב-1909 פתח מפעל בעיר מולסהיים. אז העיר הייתה בגרמניה, ואחרי מלחמת העולם הראשונה עברה לצרפת. המכוניות שלו היו יפות כמו פסלים וניצחו בהרבה מרוצים.",
+ f:"ב-2019 בוגאטי שירון הייתה המכונית הראשונה שעברה 300 מייל לשעה, כמעט 490 קילומטר לשעה.",
+ q:"המייסד שלי נולד באיטליה, המפעל שלי בצרפת, והבעלים שלי בקרואטיה."},
+{id:"mercedes",he:"מרצדס-בנץ",en:"Mercedes-Benz",col:"#3E4A55",y:1886,o:"de",g:"mercedes",
+ j:[["de",1886,"קרל בנץ בונה את המכונית הראשונה שלו"],["de",1926,"החברות של בנץ ושל דיימלר מתאחדות"]],
+ s:"ב-1886 קרל בנץ בנה מכונית עם מנוע בנזין, שנחשבת למכונית הראשונה בעולם. שנתיים אחר כך אשתו, ברטה בנץ, נסעה בה כ-100 קילומטר עם שני הבנים שלהם, וזו הייתה הנסיעה הארוכה הראשונה במכונית. ב-1926 החברה של בנץ התאחדה עם החברה של גוטליב דיימלר.",
+ f:"״מרצדס״ הוא שם של ילדה: מרצדס ילינק. אבא שלה הזמין מכוניות מדיימלר וביקש לקרוא להן על שמה.",
+ q:"השם שלי הוא שם של ילדה, ואחד המייסדים שלי בנה את המכונית הראשונה בעולם."},
+{id:"smart",he:"סמארט",en:"smart",col:"#6F8A22",y:1994,o:"de",g:"mercedes",own:["de","cn"],ownName:"מרצדס-בנץ וג׳ילי, חצי-חצי",
+ j:[["ch",1994,"סווטש השווייצרית ומרצדס מתחילות יחד"],["de",1998,"מרצדס לוקחת את כל הפרויקט, והסמארט הראשונה יוצאת"],["cn",2020,"חצי עובר לג׳ילי מסין"]],
+ s:"הרעיון התחיל אצל חברת השעונים השווייצרית סווטש, שרצתה מכונית קטנה וצבעונית לעיר. היא חברה למרצדס, וב-1998 יצאה הסמארט הראשונה, שאורכה רק 2.5 מטר. לפי אחד ההסברים, השם בא מ-Swatch, Mercedes ו-Art.",
+ f:"היום סמארט מיוצרת בסין, והיא שייכת חצי למרצדס וחצי לג׳ילי הסינית.",
+ q:"חברת שעונים שווייצרית חלמה עליי, ואורכי רק 2.5 מטר."},
+{id:"bmw",he:"ב.מ.וו",en:"BMW",col:"#1C69D4",y:1916,o:"de",g:"bmw",
+ j:[["de",1916,"החברה מתחילה בבניית מנועים למטוסים"],["de",1928,"BMW מתחילה לבנות מכוניות"]],
+ s:"BMW הם ראשי תיבות בגרמנית של ״מפעלי המנועים של בוואריה״. החברה התחילה ב-1916 בבניית מנועים למטוסים, אחר כך אופנועים, ורק ב-1928 מכוניות.",
+ f:"הרבה חושבים שהסמל של BMW הוא מדחף של מטוס, אבל הכחול והלבן הם בעצם הצבעים של בוואריה.",
+ q:"התחלתי בבניית מנועים למטוסים בבוואריה."},
+{id:"mini",he:"מיני",en:"MINI",col:"#2D3336",y:1959,o:"gb",g:"bmw",
+ j:[["gb",1959,"אלק איסיגוניס מתכנן את המיני"],["de",1994,"BMW קונה את רובר, ואיתה את מיני"]],
+ s:"המיני תוכננה ב-1959 בידי אלק איסיגוניס, בתקופה שהיה מחסור בדלק בבריטניה. הוא שם את הגלגלים בפינות ואת המנוע לרוחב, וכך בתוך מכונית קטנטנה היה מקום לארבעה אנשים.",
+ f:"המיני הקטנה ניצחה שלוש פעמים בראלי מונטה קרלו, מול מכוניות גדולות וחזקות ממנה.",
+ q:"אני קטנה, אבל ניצחתי שלוש פעמים בראלי מונטה קרלו."},
+{id:"rollsroyce",he:"רולס-רויס",en:"Rolls-Royce",col:"#3B2F4A",y:1906,o:"gb",g:"bmw",
+ j:[["gb",1906,"צ׳ארלס רולס והנרי רויס"],["de",2003,"BMW מקבלת את השם ובונה מפעל חדש באנגליה"]],
+ s:"צ׳ארלס רולס מכר מכוניות, והנרי רויס היה מהנדס שבנה אותן. הם נפגשו ב-1904, וב-1906 הקימו יחד חברה שהמכוניות שלה נחשבות לשקטות ולמפוארות בעולם.",
+ f:"בדלתות של מכוניות רולס-רויס מוסתרות מטריות. ויש עוד חברה בשם רולס-רויס, שבונה מנועי מטוסים, והיא חברה אחרת לגמרי.",
+ q:"בדלתות שלי מוסתרות מטריות."},
+{id:"ferrari",he:"פרארי",en:"Ferrari",col:"#D40000",ink:"#FFE14D",y:1947,o:"it",g:null,
+ j:[["it",1947,"אנצו פרארי בונה את המכונית הראשונה בשמו"],["it",1969,"פיאט קונה חצי מהחברה"],["it",2016,"פרארי נפרדת מפיאט ונעשית עצמאית"]],
+ s:"אנצו פרארי היה נהג מרוצים, וב-1929 הקים קבוצת מרוצים. המכונית הראשונה בשם פרארי נבנתה ב-1947. אנצו מכר מכוניות לכביש בעיקר כדי שיהיה לו כסף למרוצים.",
+ f:"הסוס הדוהר בסמל היה הסמל של טייס איטלקי ממלחמת העולם הראשונה, פרנצ׳סקו ברקה. אמא שלו הציעה לאנצו להשתמש בו, כדי שיביא לו מזל.",
+ q:"הסוס הדוהר שלי היה הסמל של טייס איטלקי."},
+{id:"fiat",he:"פיאט",en:"Fiat",col:"#A4123F",y:1899,o:"it",g:"stellantis",
+ j:[["it",1899,"החברה נוסדת בטורינו"],["nl",2021,"סטלנטיס"]],
+ s:"FIAT הם ראשי תיבות באיטלקית של ״מפעל המכוניות האיטלקי של טורינו״. החברה נוסדה ב-1899, והפיאט 500 הקטנה מ-1957 נעשתה סמל של איטליה.",
+ f:"על הגג של מפעל לינגוטו הישן של פיאט בטורינו היה מסלול מבחנים, והמכוניות נסעו בו על הגג!",
+ q:"על הגג של המפעל הישן שלי בטורינו היה מסלול מבחנים."},
+{id:"alfa",he:"אלפא רומיאו",en:"Alfa Romeo",col:"#8F1D21",y:1910,o:"it",g:"stellantis",
+ j:[["it",1910,"החברה נוסדת במילאנו"],["it",1986,"פיאט"],["nl",2021,"סטלנטיס"]],
+ s:"ALFA הם ראשי תיבות של חברת מכוניות מלומברדיה, האזור של מילאנו, שנוסדה ב-1910. ב-1915 איש עסקים בשם ניקולה רומיאו קנה אותה והוסיף לה את שמו.",
+ f:"אנצו פרארי התחיל את דרכו כנהג מרוצים של אלפא רומיאו.",
+ q:"אנצו פרארי התחיל את דרכו כנהג מרוצים שלי."},
+{id:"maserati",he:"מזראטי",en:"Maserati",col:"#0C2340",y:1914,o:"it",g:"stellantis",
+ j:[["it",1914,"האחים מזראטי, בולוניה"],["fr",1968,"סיטרואן"],["it",1993,"פיאט"],["nl",2021,"סטלנטיס"]],
+ s:"חמישה אחים בשם מזראטי פתחו ב-1914 מוסך בעיר בולוניה, והתחילו לבנות מכוניות מרוץ. במשך השנים החברה עברה בין הרבה בעלים, ואפילו הייתה שייכת לסיטרואן הצרפתית.",
+ f:"הקלשון בסמל של מזראטי לקוח מהפסל של נפטון, אל הים, שעומד בכיכר בבולוניה.",
+ q:"חמישה אחים הקימו אותי, והסמל שלי לקוח מפסל של אל הים."},
+{id:"peugeot",he:"פיג׳ו",en:"Peugeot",col:"#1D2B4F",y:1810,o:"fr",g:"stellantis",
+ j:[["fr",1810,"משפחת פיג׳ו פותחת מפעל פלדה"],["fr",1976,"פיג׳ו קונה את סיטרואן"],["nl",2021,"סטלנטיס"]],
+ s:"משפחת פיג׳ו הקימה ב-1810 מפעל פלדה, וייצרה מסורים, מטחנות קפה, מטחנות פלפל ואופניים, הרבה לפני שבנתה מכונית ב-1889. עד היום מוכרים מטחנות פלפל בשם פיג׳ו!",
+ f:"האריה נבחר כסמל כבר ב-1858, כדי להראות שהמסורים של פיג׳ו חזקים וחדים כמו שיני אריה.",
+ q:"לפני שבניתי מכוניות ייצרתי מטחנות פלפל ומסורים, והסמל שלי הוא אריה."},
+{id:"citroen",he:"סיטרואן",en:"Citroën",col:"#B71C1C",y:1919,o:"fr",g:"stellantis",
+ j:[["fr",1919,"אנדרה סיטרואן"],["fr",1934,"מישלן, חברת הצמיגים"],["fr",1976,"פיג׳ו"],["nl",2021,"סטלנטיס"]],
+ s:"אנדרה סיטרואן ייצר בהתחלה גלגלי שיניים מיוחדים בצורת V כפולה, ומהם בא הסמל. ב-1919 הוא התחיל לבנות מכוניות בפס ייצור, והיה מהראשונים באירופה שעשו את זה.",
+ f:"ב-1925 סיטרואן הדליק את שמו בנורות ענק על מגדל אייפל, והשלט נשאר שם תשע שנים.",
+ q:"השם שלי נדלק בנורות ענק על מגדל אייפל."},
+{id:"opel",he:"אופל",en:"Opel",col:"#D9A400",ink:"#1A1A1A",y:1862,o:"de",g:"stellantis",
+ j:[["de",1862,"אדם אופל בונה מכונות תפירה"],["us",1929,"ג׳נרל מוטורס"],["fr",2017,"פיג׳ו-סיטרואן"],["nl",2021,"סטלנטיס"]],
+ s:"אדם אופל התחיל ב-1862 בבניית מכונות תפירה, אחר כך אופניים, וב-1899 מכוניות. בשנות ה-20 אופל הייתה יצרנית האופניים הגדולה בעולם.",
+ f:"בבריטניה מוכרים את המכוניות של אופל בשם אחר: ווקסהול.",
+ q:"התחלתי במכונות תפירה בגרמניה, והייתי 88 שנה של חברה אמריקאית."},
+{id:"jeep",he:"ג׳יפ",en:"Jeep",col:"#4B5320",y:1941,o:"us",g:"stellantis",
+ j:[["us",1941,"וויליס, בשביל הצבא האמריקאי"],["us",1987,"קרייזלר"],["de",1998,"דיימלר-קרייזלר"],["it",2014,"פיאט-קרייזלר"],["nl",2021,"סטלנטיס"]],
+ s:"הג׳יפ נולד ב-1941 כרכב קטן וחזק לצבא האמריקאי במלחמת העולם השנייה. אחרי המלחמה התחילו למכור אותו גם לחקלאים ולמשפחות, והשם נעשה כמעט שם של כל רכב שטח.",
+ f:"גם בעברית קוראים לכל רכב שטח ״ג׳יפ״. איש לא יודע בטוח מאיפה בא השם. אחד ההסברים: GP, ראשי תיבות של ״שימוש כללי״ בשפת הצבא.",
+ q:"נולדתי בשביל הצבא האמריקאי, ובעברית קוראים בשמי לכל רכב שטח."},
+{id:"chrysler",he:"קרייזלר",en:"Chrysler",col:"#1F2D3D",y:1925,o:"us",g:"stellantis",
+ j:[["us",1925,"וולטר קרייזלר"],["de",1998,"דיימלר-קרייזלר"],["it",2009,"פיאט"],["nl",2021,"סטלנטיס"]],
+ s:"וולטר קרייזלר התחיל את דרכו כמכונאי של רכבות, וב-1925 הקים את חברת המכוניות שלו. בניין קרייזלר בניו יורק נבנה בשבילו, ולזמן קצר היה הבניין הגבוה בעולם.",
+ f:"בקישוטים של בניין קרייזלר יש צורות של חלקי מכוניות, כמו מכסי גלגלים.",
+ q:"בניו יורק יש גורד שחקים מפורסם על שמי."},
+{id:"ford",he:"פורד",en:"Ford",col:"#003478",y:1903,o:"us",g:"ford",
+ j:[["us",1903,"הנרי פורד מקים את החברה"],["us",1913,"פס הייצור הנע מתחיל לעבוד"]],
+ s:"הנרי פורד לא המציא את המכונית, אבל הוא מצא דרך לבנות אותה מהר וזול: פס ייצור נע, שהתחיל לעבוד ב-1913. כך מודל T נעשה מכונית שגם משפחות רגילות יכלו לקנות.",
+ f:"בזכות פס הייצור, הזמן לבנות מודל T ירד מ-12 שעות לפחות משעה וחצי.",
+ q:"הבאתי לעולם הרכב את פס הייצור הנע, והמכונית המפורסמת שלי היא מודל T."},
+{id:"chevrolet",he:"שברולט",en:"Chevrolet",col:"#D1A11F",ink:"#1A1A1A",y:1911,o:"us",g:"gm",
+ j:[["us",1911,"לואי שברולט וויליאם דוראנט"],["us",1918,"ג׳נרל מוטורס"]],
+ s:"לואי שברולט היה נהג מרוצים שנולד בשווייץ. ב-1911 הוא הקים את החברה יחד עם ויליאם דוראנט, שהקים גם את ג׳נרל מוטורס. שברולט עזב אחרי כמה שנים, אבל השם שלו נשאר.",
+ f:"הקורבט של שברולט, מ-1953, היא אחת ממכוניות הספורט המפורסמות של אמריקה.",
+ q:"קוראים לי על שם נהג מרוצים שנולד בשווייץ."},
+{id:"cadillac",he:"קדילק",en:"Cadillac",col:"#6E6259",y:1902,o:"us",g:"gm",
+ j:[["us",1902,"החברה נוסדת בדטרויט"],["us",1909,"ג׳נרל מוטורס"]],
+ s:"קדילק נקראת על שם אנטואן דה לה מות קדיאק, קצין צרפתי שייסד את העיר דטרויט ב-1701. לדטרויט קוראים ״עיר המכוניות״ של אמריקה, כי הרבה חברות רכב התחילו בה.",
+ f:"הנרי פורד עבד בחברה שממנה נולדה קדילק, אבל עזב לפני שהיא קיבלה את השם.",
+ q:"קוראים לי על שם האיש שייסד את העיר דטרויט."},
+{id:"tesla",he:"טסלה",en:"Tesla",col:"#CC0000",y:2003,o:"us",g:null,
+ j:[["us",2003,"מרטין אברהרד ומארק טרפנינג מקימים את החברה"]],
+ s:"טסלה נוסדה ב-2003 בידי שני מהנדסים, מרטין אברהרד ומארק טרפנינג. אילון מאסק השקיע בה ב-2004 ונעשה המנהל שלה. היא נקראת על שם הממציא ניקולה טסלה, שחקר חשמל.",
+ f:"ב-2018 שלחו טסלה רודסטר אדומה לחלל על טיל, עם בובה בחליפת חלל במושב הנהג!",
+ q:"קוראים לי על שם ממציא שחקר חשמל, ואחת המכוניות שלי טסה לחלל."},
+{id:"jaguar",he:"יגואר",en:"Jaguar",col:"#234338",y:1922,o:"gb",g:"tata",
+ j:[["gb",1922,"ויליאם ליונס ושותפו"],["us",1989,"פורד"],["in",2008,"טאטא מוטורס"]],
+ s:"ויליאם ליונס ושותפו התחילו ב-1922 לבנות סירות צד לאופנועים. אחרי מלחמת העולם השנייה החברה קיבלה את השם יגואר, כי ראשי התיבות של השם הקודם, SS, הזכירו את הנאצים.",
+ f:"ב-2024 יגואר הודיעה שמעכשיו היא תבנה רק מכוניות חשמליות.",
+ q:"התחלתי בסירות צד לאופנועים, ושיניתי את השם שלי אחרי מלחמת העולם השנייה."},
+{id:"landrover",he:"לנד רובר",en:"Land Rover",col:"#005A2B",y:1948,o:"gb",g:"tata",
+ j:[["gb",1948,"חברת רובר"],["de",1994,"BMW"],["us",2000,"פורד"],["in",2008,"טאטא מוטורס"]],
+ s:"הלנד רובר הראשון תוכנן ב-1947 בידי מוריס וילקס, שרצה רכב חזק לחווה שלו. לפי הסיפור, הוא שרטט אותו לראשונה בחול של חוף ים בוויילס. היום גם ״ריינג׳ רובר״, ״דיפנדר״ ו״דיסקברי״ הם כמו מותגים נפרדים.",
+ f:"המלכה אליזבת השנייה אהבה לנהוג בעצמה בלנד רובר שלה.",
+ q:"התוכנית הראשונה שלי שורטטה, לפי הסיפור, בחול של חוף ים."},
+{id:"astonmartin",he:"אסטון מרטין",en:"Aston Martin",col:"#00665E",y:1913,o:"gb",g:null,
+ j:[["gb",1913,"ליונל מרטין ורוברט במפורד"],["us",1994,"פורד"],["gb",2007,"פורד מוכרת, והחברה נעשית עצמאית"]],
+ s:"ליונל מרטין ורוברט במפורד הקימו את החברה ב-1913. ״אסטון״ בא מאסטון היל, גבעה שבה התקיימו מרוצי טיפוס, ומרטין השתתף בהם.",
+ f:"אסטון מרטין היא המכונית המפורסמת של ג׳יימס בונד, הסוכן החשאי מהסרטים.",
+ q:"אני המכונית של ג׳יימס בונד."},
+{id:"lotus",he:"לוטוס",en:"Lotus",col:"#1F6B3A",ink:"#FFD84A",y:1952,o:"gb",g:"geely",
+ j:[["gb",1952,"קולין צ׳פמן"],["my",1996,"פרוטון ממלזיה"],["cn",2017,"ג׳ילי"]],
+ s:"קולין צ׳פמן בנה את המכונית הראשונה שלו ב-1948 במוסך קטן, והקים את לוטוס ב-1952. הכלל שלו היה ״להוסיף קלילות״: לבנות מכוניות קלות, ולכן מהירות.",
+ f:"קבוצת המרוצים של לוטוס זכתה שבע פעמים באליפות היצרנים בפורמולה 1.",
+ q:"המייסד שלי אמר ״להוסיף קלילות״, ועברתי מבריטניה למלזיה ואז לסין."},
+{id:"mclaren",he:"מקלארן",en:"McLaren",col:"#FF8000",ink:"#1A1A1A",y:1963,o:"gb",g:null,own:["ae"],ownName:"קבוצת CYVN מאבו דאבי",
+ j:[["gb",1963,"ברוס מקלארן מקים קבוצת מרוצים"],["ae",2025,"קבוצת CYVN מאבו דאבי קונה את חברת המכוניות"]],
+ s:"ברוס מקלארן, נהג מרוצים מניו זילנד, הקים ב-1963 קבוצת מרוצים באנגליה. היום מכוניות הכביש של מקלארן נבנות בעיר ווקינג שבאנגליה.",
+ f:"במקלארן F1 מ-1992 הנהג יושב באמצע, ויש מקום לנוסע מכל צד. במשך שנים היא הייתה המכונית המהירה בעולם.",
+ q:"נהג מרוצים מניו זילנד הקים אותי, ובמכונית המפורסמת שלי הנהג יושב באמצע."},
+{id:"mg",he:"אם.ג׳י",en:"MG",col:"#8B1E2B",y:1924,o:"gb",g:"saic",
+ j:[["gb",1924,"המוסכים של מוריס, אוקספורד"],["cn",2005,"חברה סינית קונה את MG, ואחר כך היא עוברת ל-SAIC"]],
+ s:"MG הם ראשי תיבות של Morris Garages, ״המוסכים של מוריס״, מוסך בעיר אוקספורד שבאנגליה. בשנות ה-20 העובדים שם התחילו לשפר מכוניות של מוריס ולהפוך אותן למכוניות ספורט.",
+ f:"ב-2005 חברה סינית קנתה את MG. היום רוב המכוניות שלה מתוכננות ומיוצרות בסין, אבל יש לה גם מרכז עיצוב בלונדון.",
+ q:"השם שלי הוא ראשי תיבות של מוסך באוקספורד, והיום אני שייכת לחברה סינית."},
+{id:"volvo",he:"וולוו",en:"Volvo",col:"#1C3B6E",y:1927,o:"se",g:"geely",
+ j:[["se",1927,"החברה נוסדת בגטבורג"],["us",1999,"פורד"],["cn",2010,"ג׳ילי"]],
+ s:"וולוו פירושו בלטינית ״אני מתגלגל״. היא התחילה ב-1927 כחלק מחברה שבנתה מיסבים כדוריים, החלקים הקטנים שעוזרים לגלגלים להסתובב. המשאיות והאוטובוסים של וולוו שייכים לחברה שוודית אחרת.",
+ f:"ב-1959 מהנדס של וולוו, נילס בולין, המציא את חגורת הבטיחות של היום. וולוו נתנה את ההמצאה לכל החברות בחינם, כדי להציל חיים.",
+ q:"השם שלי פירושו ״אני מתגלגל״, והמצאתי את חגורת הבטיחות של היום."},
+{id:"polestar",he:"פולסטאר",en:"Polestar",col:"#44494F",y:1996,o:"se",g:"geely",
+ j:[["se",1996,"קבוצת מרוצים שוודית"],["se",2015,"וולוו קונה אותה"],["cn",2017,"מותג חשמלי נפרד בבעלות ג׳ילי ווולוו"]],
+ s:"פולסטאר התחילה ב-1996 כקבוצת מרוצים בשוודיה. וולוו קנתה אותה ב-2015, והיום היא מותג של מכוניות חשמליות. השם פירושו ״כוכב הצפון״.",
+ f:"כוכב הצפון כמעט לא זז בשמיים, ולכן ימאים השתמשו בו כדי לנווט בלילה.",
+ q:"השם שלי פירושו ״כוכב הצפון״, והתחלתי כקבוצת מרוצים שוודית."},
+{id:"geely",he:"ג׳ילי",en:"Geely",col:"#1E4E9C",y:1986,o:"cn",g:"geely",
+ j:[["cn",1986,"לי שופו מתחיל בחלקי מקררים"],["cn",1997,"ג׳ילי מתחילה לבנות מכוניות"]],
+ s:"לי שופו גדל בכפר בסין, והתחיל ב-1986 בעסק לחלקי מקררים. ב-1997 הוא התחיל לבנות מכוניות, ואמר שמכונית היא בסך הכול ״ארבעה גלגלים ושתי ספות״. ״ג׳ילי״ פירושו בסינית ״מזל טוב״.",
+ f:"ב-2010 ג׳ילי קנתה את וולוו מפורד. מאז היא קנתה והקימה עוד הרבה מותגים, והיא מחזיקה גם כמחצית מפרוטון, יצרנית הרכב של מלזיה.",
+ q:"השם שלי פירושו ״מזל טוב״ בסינית, והתחלתי בחלקי מקררים."},
+{id:"zeekr",he:"זיקר",en:"Zeekr",col:"#2A2F36",y:2021,o:"cn",g:"geely",
+ j:[["cn",2021,"ג׳ילי מקימה מותג חשמלי יוקרתי"]],
+ s:"זיקר הוא מותג של מכוניות חשמליות יוקרתיות שג׳ילי הקימה ב-2021. חלק מהתכנון נעשה במרכז הפיתוח של ג׳ילי בשוודיה.",
+ f:"הדגם הראשון של זיקר תוכנן בהתחלה בשביל אחות שלה במשפחה, לינק אנד קו.",
+ q:"אני מותג חשמלי יוקרתי של ג׳ילי, ונולדתי ב-2021."},
+{id:"lynk",he:"לינק אנד קו",en:"Lynk & Co",col:"#5A3E6B",y:2016,o:"cn",g:"geely",
+ j:[["cn",2016,"ג׳ילי מקימה את המותג יחד עם וולוו"]],
+ s:"ג׳ילי הקימה את לינק אנד קו ב-2016, והמכוניות שלה פותחו יחד עם מהנדסים של וולוו. הרעיון המיוחד: לקחת מכונית במנוי חודשי, כמו מנוי לטלפון.",
+ f:"לינק אנד קו, זיקר ווולוו הן ״קרובות משפחה״: כולן שייכות לג׳ילי, ובחלק מהדגמים שלהן יש אותם חלקים.",
+ q:"רציתי שאפשר יהיה לקחת אותי במנוי חודשי, כמו מנוי לטלפון."},
+{id:"byd",he:"בי.וואי.די",en:"BYD",col:"#1F64C0",y:1995,o:"cn",g:null,
+ j:[["cn",1995,"וואנג צ׳ואנפו מתחיל בייצור סוללות"],["cn",2003,"BYD קונה חברת מכוניות קטנה"]],
+ s:"וואנג צ׳ואנפו הקים את BYD ב-1995, ובהתחלה היא ייצרה סוללות לטלפונים ניידים. ב-2003 היא קנתה חברת מכוניות קטנה, והיום היא מהיצרניות הגדולות בעולם של מכוניות חשמליות.",
+ f:"היום אומרים ש-BYD הם ראשי תיבות של Build Your Dreams, ״בנו את החלומות שלכם״. את הפירוש הזה הוסיפו אחרי שהשם כבר נבחר.",
+ q:"התחלתי בייצור סוללות לטלפונים."},
+{id:"chery",he:"צ׳רי",en:"Chery",col:"#B0122C",y:1997,o:"cn",g:"chery",
+ j:[["cn",1997,"החברה נוסדת בעיר ווהו"]],
+ s:"צ׳רי נוסדה ב-1997 בעיר ווהו שבסין, והיא שייכת לממשלת העיר. המכונית הראשונה שלה יצאה ב-1999. כבר יותר מ-20 שנה ברציפות צ׳רי היא יצואנית המכוניות הגדולה של סין.",
+ f:"השם הסיני של צ׳רי, ״צ׳ירוּאי״, פירושו בערך ״מזל מיוחד״.",
+ q:"כבר יותר מ-20 שנה אני יצואנית המכוניות הגדולה של סין."},
+{id:"jaecoo",he:"ג׳קו",en:"Jaecoo",col:"#3B4B5A",y:2023,o:"cn",g:"chery",
+ j:[["cn",2023,"צ׳רי משיקה מותג לרכבי שטח"]],
+ s:"ג׳קו הוא מותג של צ׳רי לרכבי פנאי-שטח, שהושק ב-2023. השם מחבר בין המילה הגרמנית Jäger, ״צייד״, ובין המילה האנגלית Cool.",
+ f:"צ׳רי הקימה כמעט באותו זמן שני מותגים חדשים: אומודה למכוניות בסגנון עירוני, וג׳קו לרכבי שטח.",
+ q:"השם שלי מחבר את המילה ״צייד״ בגרמנית עם Cool באנגלית."},
+{id:"omoda",he:"אומודה",en:"Omoda",col:"#6A4C93",y:2022,o:"cn",g:"chery",
+ j:[["cn",2022,"צ׳רי משיקה מותג בשביל מדינות אחרות"]],
+ s:"אומודה היא מותג של צ׳רי שהושק ב-2022, בעיקר בשביל מדינות מחוץ לסין. המכוניות שלה מעוצבות בסגנון עתידני.",
+ f:"אומודה וג׳קו הן ״אחיות״: שתיהן נולדו בצ׳רי, ולפעמים הן אפילו נמכרות באותו אולם תצוגה.",
+ q:"אחותי הגדולה, צ׳רי, הקימה אותי ב-2022 בשביל מדינות מחוץ לסין."},
+{id:"xpeng",he:"אקספנג",en:"XPeng",col:"#3F6E8C",y:2014,o:"cn",g:null,
+ j:[["cn",2014,"החברה נוסדת בגואנגג׳ואו"]],
+ s:"אקספנג נוסדה ב-2014 בעיר גואנגג׳ואו שבסין. היא מתמחה במכוניות חשמליות עם הרבה מחשבים וחיישנים, שעוזרים לנהג לנהוג.",
+ f:"לאקספנג יש חברה-בת שמפתחת מכוניות מעופפות, והיא מפתחת גם רובוט דמוי אדם.",
+ q:"אני בונה מכוניות חשמליות חכמות, ועובדת גם על מכוניות מעופפות."},
+{id:"renault",he:"רנו",en:"Renault",col:"#F2C200",ink:"#1A1A1A",y:1899,o:"fr",g:"renault",
+ j:[["fr",1899,"האחים רנו"],["fr",1945,"ממשלת צרפת לוקחת את החברה"],["fr",1996,"החברה חוזרת להיות פרטית"]],
+ s:"שלושה אחים, לואי, מרסל ופרננד רנו, הקימו את החברה ב-1899. לואי בנה את המכונית הראשונה שלו בסככה בגינה של בית ההורים. אחרי מלחמת העולם השנייה ממשלת צרפת לקחה את החברה, והיום היא חברה פרטית שהממשלה מחזיקה חלק ממנה.",
+ f:"במלחמת העולם הראשונה מאות מוניות רנו הסיעו חיילים לחזית כדי להגן על פריז. קוראים להן ״המוניות של המארן״.",
+ q:"המוניות שלי הסיעו חיילים כדי להגן על פריז במלחמת העולם הראשונה."},
+{id:"dacia",he:"דאצ׳יה",en:"Dacia",col:"#5F7334",y:1966,o:"ro",g:"renault",
+ j:[["ro",1966,"ממשלת רומניה מקימה את החברה"],["fr",1999,"רנו קונה את דאצ׳יה"]],
+ s:"דאצ׳יה הוקמה ב-1966 בידי ממשלת רומניה, והמכוניות הראשונות שלה היו רנו בשם אחר. ב-1999 רנו קנתה אותה. השם בא מ״דאקיה״, השם העתיק של האזור שבו נמצאת היום רומניה.",
+ f:"דאצ׳יה ידועה במכוניות פשוטות במחיר נמוך, והסנדרו שלה היא מהמכוניות הנמכרות ביותר באירופה.",
+ q:"השם שלי הוא השם העתיק של האזור שבו נמצאת היום רומניה."},
+{id:"alpine",he:"אלפין",en:"Alpine",col:"#0057B8",y:1955,o:"fr",g:"renault",
+ j:[["fr",1955,"ז׳אן רדלה מקים את אלפין"],["fr",1973,"רנו קונה את אלפין"]],
+ s:"ז׳אן רדלה היה בעל מוסך של רנו, ואהב לנהוג במרוצים בהרי האלפים. ב-1955 הוא הקים את אלפין ובנה מכוניות ספורט קלות מחלקים של רנו.",
+ f:"היום לאלפין יש קבוצה בפורמולה 1.",
+ q:"בעל מוסך שאהב לנהוג בהרי האלפים הקים אותי."},
+{id:"dodge",he:"דודג׳",en:"Dodge",col:"#A3141E",y:1900,o:"us",g:"stellantis",
+ j:[["us",1900,"האחים ג׳ון והוראס דודג׳ מייצרים חלקים למכוניות"],["us",1914,"המכונית הראשונה בשם דודג׳"],["us",1928,"קרייזלר קונה את דודג׳"],["de",1998,"דיימלר-קרייזלר"],["it",2009,"פיאט"],["nl",2021,"סטלנטיס"]],
+ s:"שני אחים, ג׳ון והוראס דודג׳, התחילו ב-1900 בייצור חלקים למכוניות, ואפילו סיפקו מנועים להנרי פורד. ב-1914 הם בנו מכונית משלהם, וב-1928 קרייזלר קנתה את החברה.",
+ f:"דודג׳ מפורסמת במכוניות ״מאסל״ אמריקאיות חזקות ורועשות, כמו הצ׳לנג׳ר והצ׳ארג׳ר.",
+ q:"שני אחים הקימו אותי, וקודם הם ייצרו חלקים בשביל הנרי פורד."},
+{id:"ram",he:"ראם",en:"Ram",col:"#3A3F44",y:2010,o:"us",g:"stellantis",
+ j:[["us",2010,"הטנדרים של דודג׳ הופכים למותג נפרד בתוך קרייזלר"],["nl",2021,"סטלנטיס"]],
+ s:"במשך שנים ״ראם״ היה השם של הטנדרים של דודג׳. ב-2010 הם הפכו למותג נפרד שבונה רק טנדרים ורכבי עבודה. ראם באנגלית פירושו איל, וראש של איל קישט את מכסה המנוע של מכוניות דודג׳ כבר בשנות ה-30.",
+ f:"ראם מתחרה בטנדרים של פורד ושל שברולט על התואר ״הטנדר הנמכר ביותר באמריקה״.",
+ q:"פעם הייתי השם של הטנדרים של דודג׳, והסמל שלי הוא ראש של איל."},
+{id:"lancia",he:"לנצ׳יה",en:"Lancia",col:"#0B3D91",y:1906,o:"it",g:"stellantis",
+ j:[["it",1906,"וינצ׳נצו לנצ׳יה, טורינו"],["it",1969,"פיאט"],["nl",2021,"סטלנטיס"]],
+ s:"וינצ׳נצו לנצ׳יה היה נהג מרוצים של פיאט, וב-1906 פתח בטורינו חברת מכוניות משלו. לנצ׳יה הביאה הרבה רעיונות חדשים. למשל, הלמבדה מ-1922 הייתה מהמכוניות הראשונות שהגוף שלהן הוא גם השלד שמחזיק אותן.",
+ f:"לנצ׳יה זכתה עשר פעמים באליפות העולם בראלי של היצרנים.",
+ q:"המייסד שלי היה נהג מרוצים של פיאט, וזכיתי עשר פעמים באליפות העולם בראלי."},
+{id:"ds",he:"די.אס",en:"DS",col:"#2B2B2E",ink:"#D8C08A",y:1955,o:"fr",g:"stellantis",
+ j:[["fr",1955,"סיטרואן משיקה את הדגם DS"],["fr",2015,"DS נעשית מותג יוקרה נפרד"],["nl",2021,"סטלנטיס"]],
+ s:"DS הייתה בהתחלה דגם של סיטרואן מ-1955, שנראה כמו מכונית מהעתיד. בצרפתית DS נשמע כמו ״déesse״, ״אלה״. ב-2015 DS הפכה למותג יוקרה נפרד, וב-2026 סטלנטיס החליטה להחזיר אותה לניהול של סיטרואן, כמותג יוקרה מיוחד.",
+ f:"ביום שבו נכנס לתפקיד, ב-2017, נשיא צרפת עמנואל מקרון נסע במכונית DS.",
+ q:"השם שלי נשמע בצרפתית כמו ״אלה״, והתחלתי כדגם של סיטרואן."},
+{id:"gmc",he:"ג׳י.אם.סי",en:"GMC",col:"#A50E1C",y:1902,o:"us",g:"gm",
+ j:[["us",1902,"מקס גרבובסקי בונה משאיות בחברה בשם ״רפיד״"],["us",1909,"ג׳נרל מוטורס קונה את החברה"],["us",1912,"המשאיות מקבלות את השם GMC"]],
+ s:"GMC הם ראשי תיבות של General Motors Company. היא התחילה ב-1902 כחברה קטנה לבניית משאיות, ומ-1912 המשאיות שלה נקראות GMC. היום היא בונה טנדרים ורכבי שטח גדולים.",
+ f:"גם GMC וגם שברולט שייכות לג׳נרל מוטורס, ולכן לחלק מהטנדרים שלהן יש כמעט אותו מבנה, רק עם חזית אחרת.",
+ q:"השם שלי הוא ראשי התיבות של החברה שאני שייכת אליה, ואני בונה טנדרים ומשאיות."},
+{id:"buick",he:"ביואיק",en:"Buick",col:"#5A6B7B",y:1903,o:"us",g:"gm",
+ j:[["us",1903,"דייוויד ביואיק מקים את החברה"],["us",1908,"ויליאם דוראנט מקים סביב ביואיק את ג׳נרל מוטורס"]],
+ s:"דייוויד ביואיק, שנולד בסקוטלנד, המציא קודם דרך לצפות אמבטיות באמייל, ואחר כך התחיל לבנות מנועים ומכוניות. ב-1908 ויליאם דוראנט, שניהל את ביואיק, הקים סביבה את ג׳נרל מוטורס.",
+ f:"ביואיק היא מותג המכוניות האמריקאי הוותיק ביותר שעדיין פועל.",
+ q:"המייסד שלי ציפה אמבטיות באמייל, ואני מותג המכוניות הוותיק ביותר של אמריקה."},
+{id:"lincoln",he:"לינקולן",en:"Lincoln",col:"#1F2A36",y:1917,o:"us",g:"ford",
+ j:[["us",1917,"הנרי לילנד מקים את החברה"],["us",1922,"פורד קונה את לינקולן"]],
+ s:"הנרי לילנד, שהקים קודם גם את קדילק, הקים את לינקולן ב-1917 וקרא לה על שם הנשיא אברהם לינקולן. בהתחלה החברה בנתה מנועים למטוסים במלחמת העולם הראשונה, וב-1922 פורד קנתה אותה.",
+ f:"במשך שנים רבות נשיאי ארצות הברית נסעו בלימוזינות של לינקולן.",
+ q:"קוראים לי על שם נשיא אמריקאי, והמייסד שלי הקים לפני כן את קדילק."},
+{id:"hongqi",he:"הונגצ׳י",en:"Hongqi",col:"#B5121B",ink:"#F3D27A",y:1958,o:"cn",g:"faw",
+ j:[["cn",1958,"FAW בונה את מכונית הונגצ׳י הראשונה"]],
+ s:"הונגצ׳י פירושו בסינית ״דגל אדום״. המכונית הראשונה נבנתה ב-1958 בידי FAW, מפעל המכוניות הממשלתי הראשון של סין, ובמשך שנים רבות רק מנהיגי המדינה נסעו בה.",
+ f:"גם היום מנהיג סין נוסע במצעדים חגיגיים בלימוזינה פתוחה של הונגצ׳י.",
+ q:"השם שלי פירושו ״דגל אדום״, ומנהיגי סין נוסעים בי."},
+{id:"nio",he:"ניו",en:"NIO",col:"#0E5A8A",y:2014,o:"cn",g:"nio",
+ j:[["cn",2014,"ויליאם לי מקים את החברה בשנגחאי"]],
+ s:"ניו נוסדה ב-2014 בידי ויליאם לי, והיא בונה מכוניות חשמליות. הרעיון המיוחד שלה: תחנות שבהן רובוט מחליף לך את הסוללה תוך כמה דקות, במקום לחכות להטענה.",
+ f:"השם הסיני של ניו, ״ווילאי״, פירושו ״שמיים כחולים מגיעים״.",
+ q:"אצלי רובוט מחליף את הסוללה של המכונית תוך כמה דקות."},
+{id:"leapmotor",he:"ליפמוטור",en:"Leapmotor",col:"#2C3E50",y:2015,o:"cn",g:null,
+ j:[["cn",2015,"ג׳ו ג׳יאנגמינג מקים את החברה בהאנגג׳ואו"],["nl",2023,"סטלנטיס קונה כחמישית מהמניות"]],
+ s:"ליפמוטור נוסדה ב-2015 בעיר האנגג׳ואו שבסין, בידי מהנדס שקודם הקים חברה למצלמות אבטחה. היא בונה מכוניות חשמליות במחיר נמוך, ומפתחת בעצמה כמעט את כל החלקים שלהן.",
+ f:"ב-2023 סטלנטיס, הקבוצה של פיג׳ו ופיאט, קנתה כחמישית מליפמוטור, ועכשיו הן מוכרות יחד את המכוניות שלה מחוץ לסין.",
+ q:"המייסד שלי הקים קודם חברה למצלמות אבטחה, וסטלנטיס קנתה חלק ממני."},
+{id:"greatwall",he:"גרייט וול",en:"Great Wall",col:"#B01E23",y:1984,o:"cn",g:"greatwall",
+ j:[["cn",1984,"החברה נוסדת בעיר באודינג"],["cn",1990,"וויי ג׳יאנג׳ון מתחיל לנהל אותה"]],
+ s:"גרייט וול, ״החומה הגדולה״, נוסדה ב-1984 בעיר באודינג שבסין. ב-1990 וויי ג׳יאנג׳ון התחיל לנהל אותה, והפך אותה ליצרנית הטנדרים הגדולה של סין. היום יש לה מותג נפרד לכל סוג של רכב.",
+ f:"גרייט וול היא חברה פרטית, ולא ממשלתית כמו הרבה חברות רכב בסין.",
+ q:"השם שלי הוא שם של חומה מפורסמת, ואני מומחית לטנדרים."},
+{id:"haval",he:"האבל",en:"Haval",col:"#1F2A44",y:2013,o:"cn",g:"greatwall",
+ j:[["cn",2013,"גרייט וול הופכת את האבל למותג נפרד"]],
+ s:"האבל הוא המותג של גרייט וול לרכבי פנאי-שטח (SUV). הוא נעשה מותג נפרד ב-2013, והדגם האבל H6 היה במשך שנים רכב השטח הנמכר ביותר בסין.",
+ f:"לפי החברה, השם ״האבל״ נבחר כדי להישמע כמו Have All, ״יש הכול״ באנגלית.",
+ q:"אני מותג רכבי השטח של גרייט וול, ושמי נשמע כמו ״יש הכול״ באנגלית."},
+{id:"ora",he:"אורה",en:"ORA",col:"#B76E79",y:2018,o:"cn",g:"greatwall",
+ j:[["cn",2018,"גרייט וול משיקה מותג של מכוניות חשמליות"]],
+ s:"אורה הוא מותג המכוניות החשמליות של גרייט וול, שנוסד ב-2018. למכוניות שלו יש עיצוב עגלגל וחמוד, ולכמה דגמים קוראים על שם חתולים, כמו ״חתול טוב״ ו״חתול בלט״.",
+ f:"מחוץ לסין ״חתול טוב״ נקרא ״פאנקי קאט״, ״החתול הפאנקי״.",
+ q:"לדגמים שלי קוראים על שם חתולים."},
+{id:"tank",he:"טנק",en:"Tank",col:"#3D4A3A",y:2021,o:"cn",g:"greatwall",
+ j:[["cn",2021,"גרייט וול הופכת את טנק למותג נפרד"]],
+ s:"טנק הוא המותג של גרייט וול לרכבי שטח קשוחים, שנוסד ב-2021. הדגם הראשון, טנק 300, התחיל בכלל כדגם של WEY, אחות אחרת במשפחה.",
+ f:"לדגמים של טנק קוראים לפי מספרים, כמו 300, 400 ו-500. ככל שהמספר גדול יותר, הרכב גדול יותר.",
+ q:"אני בונה רכבי שטח קשוחים, והשם שלי הוא שם של כלי רכב צבאי."},
+{id:"wey",he:"וויי",en:"WEY",col:"#2B2F3A",ink:"#E6D3A3",y:2016,o:"cn",g:"greatwall",
+ j:[["cn",2016,"גרייט וול משיקה מותג יוקרה"]],
+ s:"WEY הוא מותג היוקרה של גרייט וול, שנוסד ב-2016. השם בא משם המשפחה של מי שמנהל את גרייט וול, וויי ג׳יאנג׳ון, כמו שפורד ופורשה נקראות על שם המייסדים שלהן.",
+ f:"לפי גרייט וול, WEY היה מותג רכבי השטח היוקרתיים הראשון של סין.",
+ q:"קוראים לי על שם המשפחה של האיש שמנהל את גרייט וול."},
+{id:"kgm",he:"קיי.ג׳י.אם",en:"KGM",col:"#1F3B57",y:1954,o:"kr",g:null,own:["kr"],ownName:"קבוצת KG",
+ j:[["kr",1954,"מוסך קטן בקוריאה מתחיל לבנות כלי רכב"],["kr",1988,"השם משתנה לסאנגיונג"],["cn",2004,"SAIC הסינית קונה את רוב המניות"],["in",2011,"מהינדרה ההודית קונה את החברה"],["kr",2022,"קבוצת KG הקוריאנית קונה אותה"]],
+ s:"החברה התחילה ב-1954 כמוסך קטן בקוריאה, ומ-1988 נקראה סאנגיונג, ״שני דרקונים״ בקוריאנית. היא עברה בין בעלים מסין ומהודו, וב-2022 קבוצת KG הקוריאנית קנתה אותה. ב-2023 שינו את השם ל-KGM.",
+ f:"KGM מתמחה ברכבי שטח ובטנדרים, כמו הטורס והמוסו.",
+ q:"פעם קראו לי ״שני דרקונים״, ועברתי בין בעלים מסין, מהודו ומקוריאה."},
+{id:"isuzu",he:"איסוזו",en:"Isuzu",col:"#B11226",y:1916,o:"jp",g:null,
+ j:[["jp",1916,"שתי חברות ביפן מתחילות לבנות כלי רכב יחד"],["jp",1949,"החברה מקבלת את השם איסוזו"],["us",1971,"ג׳נרל מוטורס קונה כשליש מהמניות"],["jp",2006,"ג׳נרל מוטורס מוכרת את המניות שלה"]],
+ s:"איסוזו נקראת על שם נהר איסוזו ביפן. השורשים שלה מ-1916, והיא מומחית למשאיות, לטנדרים ולמנועי דיזל. ג׳נרל מוטורס האמריקאית החזיקה חלק מהחברה במשך 35 שנה.",
+ f:"איסוזו בונה בעיקר משאיות וטנדרים, ובישראל רואים הרבה טנדרים שלה, כמו הדימקס.",
+ q:"קוראים לי על שם נהר ביפן, ואני מומחית למשאיות ולמנועי דיזל."},
+{id:"lucid",he:"לוסיד",en:"Lucid",col:"#3B3A36",ink:"#E8E2D0",y:2007,o:"us",g:null,own:["sa"],ownName:"קרן ההשקעות של ערב הסעודית",
+ j:[["us",2007,"החברה נוסדת בשם ״אטיבה״ ובונה סוללות"],["us",2016,"השם משתנה ללוסיד"],["sa",2018,"קרן ההשקעות של ערב הסעודית משקיעה בחברה, ונעשית בעלת המניות הגדולה"]],
+ s:"לוסיד התחילה ב-2007 בשם ״אטיבה״, ובנתה סוללות למכוניות חשמליות. ב-2016 היא קיבלה את השם לוסיד והתחילה לבנות מכוניות יוקרה חשמליות משלה. היום קרן ההשקעות של ערב הסעודית מחזיקה ברוב החברה.",
+ f:"לוסיד אייר היא מהמכוניות החשמליות שנוסעות הכי רחוק בהטענה אחת: יותר מ-800 קילומטר, לפי מדידות בארצות הברית.",
+ q:"התחלתי בבניית סוללות בשם אחר, והיום רוב החברה שלי שייכת לקרן מערב הסעודית."},
+{id:"rivian",he:"ריביאן",en:"Rivian",col:"#F2A900",ink:"#1A1A1A",y:2009,o:"us",g:null,
+ j:[["us",2009,"ר״ג׳ סקארינג׳ מקים את החברה"],["de",2024,"פולקסווגן משקיעה ומקימה איתה חברה משותפת"]],
+ s:"ר״ג׳ סקארינג׳ הקים את ריביאן ב-2009, כשהיה בן 26. היא בונה טנדרים ורכבי שטח חשמליים, וגם את הטנדרים החשמליים שמובילים חבילות של אמזון.",
+ f:"לטנדר של ריביאן אפשר להוסיף מטבח קמפינג שנשלף מתא בצד של המכונית.",
+ q:"אני בונה את הטנדרים החשמליים שמובילים חבילות של אמזון."},
+{id:"tata",he:"טאטא",en:"Tata",col:"#1D3F8F",y:1945,o:"in",g:"tata",
+ j:[["in",1945,"החברה נוסדת ובונה קטרים לרכבות"],["in",1991,"טאטא מתחילה לבנות מכוניות נוסעים"]],
+ s:"טאטא מוטורס נוסדה ב-1945 בשם ״חברת ההנדסה והקטרים של טאטא״, ובנתה קטרים לרכבות. אחר כך היא עברה למשאיות, ומ-1991 גם למכוניות. היום יגואר ולנד רובר הבריטיות שייכות לה.",
+ f:"ב-2008 טאטא השיקה את ״ננו״, שנחשבה למכונית החדשה הזולה בעולם.",
+ q:"התחלתי בבניית קטרים בהודו, והיום יגואר ולנד רובר שייכות לי."},
+{id:"koenigsegg",he:"קניגסג",en:"Koenigsegg",col:"#2A2D33",ink:"#F2C14E",y:1994,o:"se",g:null,
+ j:[["se",1994,"כריסטיאן פון קניגסג מקים את החברה, בגיל 22"]],
+ s:"כריסטיאן פון קניגסג חלם לבנות מכונית-על כבר מגיל חמש, אחרי שראה סרט על אדם שבנה מכונית מרוץ. ב-1994, בגיל 22, הוא הקים את החברה בשוודיה. המפעל שלה נמצא בבסיס ישן של חיל האוויר השוודי.",
+ f:"הסמל של רוח רפאים על המכוניות לקוח מטייסת של חיל האוויר השוודי, שפעלה במקום שבו נמצא היום המפעל.",
+ q:"המפעל שלי נמצא בבסיס ישן של חיל האוויר, ועל המכוניות שלי יש רוח רפאים."},
+{id:"pagani",he:"פאגאני",en:"Pagani",col:"#4A4F57",y:1992,o:"it",g:null,
+ j:[["it",1992,"אוראסיו פאגאני מקים את החברה ליד מודנה"]],
+ s:"אוראסיו פאגאני נולד בארגנטינה, ועוד כילד בנה דגמים של מכוניות מעץ. הוא עבר לאיטליה, עבד בלמבורגיני, וב-1992 פתח חברה משלו. המכוניות שלו נבנות כמעט כולן ביד, מסיבי פחמן.",
+ f:"פאגאני הראשונה, ״זונדה״, נקראה על שם רוח שנושבת בהרי האנדים בארגנטינה.",
+ q:"המייסד שלי בא מארגנטינה ועבד בלמבורגיני, והדגם הראשון שלי נקרא על שם רוח."},
+{id:"autocars",he:"אוטוקרס",en:"Autocars",col:"#2F6E8F",y:1957,o:"il",g:null,own:["il"],ownName:"המפעל כבר לא פועל",gone:"החברה פשטה רגל ב-1970, וייצור המכוניות בישראל נגמר בשנות ה-80. אפשר לראות סוסיתות בתערוכות ובכנסים של מכוניות ותיקות.",
+ j:[["il",1957,"החברה נוסדת בחיפה"],["il",1960,"הסוסיתא הראשונה יוצאת לכבישים"],["il",1970,"החברה פושטת רגל, וחברה אחרת ממשיכה לבנות את הסוסיתא עד 1975"]],
+ s:"אוטוקרס הייתה יצרנית המכוניות הראשונה של ישראל. היא נוסדה ב-1957 בחיפה, וב-1960 יצאה המכונית המפורסמת שלה, הסוסיתא, עם גוף מפיברגלס, סוג של פלסטיק מחוזק. היא בנתה גם מכונית ספורט בשם ״סברה״, שהסמל שלה היה צבר.",
+ f:"בישראל מספרים בצחוק שגמלים אהבו לאכול את הסוסיתא, בגלל הגוף מפיברגלס. זו כנראה רק בדיחה!",
+ q:"אני יצרנית המכוניות הראשונה של ישראל, ובנו אצלי את הסוסיתא."},
+{id:"abarth",he:"אבארת׳",en:"Abarth",col:"#C8102E",ink:"#FFD200",y:1949,o:"it",g:"stellantis",
+ j:[["it",1949,"קרלו אבארת׳ מקים את החברה בטורינו"],["it",1971,"פיאט קונה את אבארת׳"],["nl",2021,"אבארת׳ נעשית חלק מסטלנטיס"]],
+ s:"קרלו אבארת׳ נולד באוסטריה, היה רוכב אופנועים מהיר, ועבר לגור באיטליה. ב-1949 הוא הקים בטורינו חברה שלוקחת מכוניות קטנות של פיאט והופכת אותן למכוניות ספורט מהירות. ב-1971 פיאט קנתה את החברה, והיום אבארת׳ היא מותג הספורט של פיאט.",
+ f:"הסמל של אבארת׳ הוא עקרב, כי קרלו אבארת׳ נולד במזל עקרב.",
+ q:"הסמל שלי הוא עקרב, ואני הופכת מכוניות קטנות של פיאט למהירות."},
+{id:"daihatsu",he:"דייהטסו",en:"Daihatsu",col:"#D7192D",y:1907,o:"jp",g:"toyota",
+ j:[["jp",1907,"באוסקה נוסדת חברה לבניית מנועים"],["jp",1951,"החברה מקבלת את השם דייהטסו"],["jp",2016,"טויוטה קונה את כל המניות"]],
+ s:"דייהטסו נוסדה ב-1907 בעיר אוסקה, ובהתחלה בנתה מנועים. השם מחבר שתי מילים: ״דאי״, מהשם של העיר אוסקה, ו״האטסו״, מ״האטסודוקי״, ״מנוע״ ביפנית. היא מומחית למכוניות קטנות מאוד, ומ-2016 היא שייכת כולה לטויוטה.",
+ f:"ביפן יש סוג מיוחד של מכוניות קטנטנות שנקראות ״קיי-קאר״, ודייהטסו היא מהיצרניות הגדולות שלהן.",
+ q:"התחלתי בבניית מנועים באוסקה, ואני מומחית למכוניות קטנטנות."},
+{id:"man",he:"מאן",en:"MAN",col:"#3C4650",y:1758,o:"de",g:"vw",
+ j:[["de",1758,"נפתח מפעל ברזל, שממנו צמחה החברה"],["de",1897,"רודולף דיזל משלים במפעל באאוגסבורג את מנוע הדיזל הראשון שעובד"],["de",1908,"החברה מקבלת את השם MAN"],["de",2011,"פולקסווגן נעשית בעלת רוב המניות"]],
+ s:"MAN היא מהחברות הוותיקות בגרמניה: השורשים שלה מגיעים עד 1758, למפעל ברזל. השם הוא ראשי התיבות של ״בית החרושת למכונות אאוגסבורג-נירנברג״ בגרמנית. היום היא בונה משאיות ואוטובוסים, והיא שייכת לקבוצת פולקסווגן.",
+ f:"במפעל של MAN בעיר אאוגסבורג בנה רודולף דיזל את מנוע הדיזל הראשון שעבד, ב-1897. היום רוב המשאיות בעולם נוסעות עם מנוע כזה.",
+ q:"במפעל שלי נבנה מנוע הדיזל הראשון, והיום אני בונה משאיות ואוטובוסים."},
+{id:"iveco",he:"איווקו",en:"Iveco",col:"#1E4FA0",y:1975,o:"it",g:"tata",
+ j:[["it",1975,"חמש חברות משאיות מאיטליה, מצרפת ומגרמניה מתאחדות לחברה אחת"],["it",2022,"איווקו נעשית חברה נפרדת"],["in",2026,"טאטא מוטורס ההודית קונה את רוב המניות"]],
+ s:"איווקו נולדה ב-1975 בטורינו שבאיטליה, כשחמש חברות משאיות מאיטליה, מצרפת ומגרמניה התאחדו לחברה אחת. השם הוא ראשי התיבות של Industrial Vehicles Corporation, ״חברת כלי רכב לתעשייה״. היא בונה משאיות, מסחריות ואוטובוסים, וב-2026 טאטא מוטורס ההודית קנתה את רוב המניות שלה.",
+ f:"משאיות של איווקו משתתפות בראלי דקאר, מרוץ ארוך וקשה במדבר, וכבר ניצחו בו.",
+ q:"נולדתי מחמש חברות משאיות, ועכשיו קנתה אותי חברה הודית."},
+{id:"levc",he:"אל.אי.וי.סי",en:"LEVC",col:"#202124",ink:"#F5D04A",y:2013,o:"gb",g:"geely",
+ j:[["cn",2013,"ג׳ילי הסינית קונה את יצרנית המוניות השחורות של לונדון"],["gb",2017,"החברה מקבלת את השם LEVC, ויוצאת המונית החשמלית TX"]],
+ s:"המוניות השחורות של לונדון מפורסמות בכל העולם. ב-2013 ג׳ילי הסינית קנתה את החברה שבנתה אותן, וב-2017 שינתה את השם ל-LEVC, ״חברת הרכב החשמלי של לונדון״. המונית החדשה, TX, נוסעת בחשמל, ויש בה מנוע בנזין קטן שרק מטעין את הסוללה. המפעל נמצא ליד העיר קובנטרי באנגליה.",
+ f:"מונית בלונדון צריכה להיות מסוגלת להסתובב במעגל קטן מאוד, כדי שתוכל לעשות פרסה ברחובות הצרים של העיר.",
+ q:"אני בונה את המוניות השחורות של לונדון."},
+{id:"farizon",he:"פריזון",en:"Farizon",col:"#1F5FAE",y:2016,o:"cn",g:"geely",
+ j:[["cn",2016,"ג׳ילי מקימה חברה לרכבי עבודה"]],
+ s:"פריזון היא החברה של ג׳ילי לרכבי עבודה: משאיות, טנדרים ומסחריות, כמו אלה שמובילים חבילות וסחורה. היא נוסדה ב-2016, ורבים מהרכבים שלה נוסעים בחשמל.",
+ f:"מסחרית חשמלית של פריזון נמכרת גם באירופה.",
+ q:"אני החברה של ג׳ילי למשאיות ולמסחריות."},
+{id:"icaur",he:"איי-קאר",en:"iCAUR",col:"#56614A",y:2023,o:"cn",g:"chery",
+ j:[["cn",2023,"צ׳רי מקימה מותג של רכבי שטח חשמליים"],["cn",2024,"הדגם הראשון, 03, יוצא למכירה בסין"]],
+ s:"iCAUR הוא מותג של צ׳רי, שנוסד ב-2023 ובונה רכבי שטח חשמליים בעיצוב מרובע וקשוח. בסין קוראים לו iCAR, ומחוץ לסין שינו את הכתיב ל-iCAUR בגלל בעיה של זכויות על השם. מבטאים אותו בכל זאת ״איי-קאר״.",
+ f:"הדגם הראשון, 03, תוכנן בהתחלה להיות דגם של ג׳קו, מותג אחר של צ׳רי.",
+ q:"אני רכב שטח חשמלי מרובע, ובחו״ל כותבים את השם שלי אחרת מבסין."},
+{id:"lepas",he:"לפאס",en:"Lepas",col:"#7A5C9E",y:2025,o:"cn",g:"chery",
+ j:[["cn",2025,"צ׳רי חושפת את המותג החדש בעיר ווהו"]],
+ s:"לפאס הוא מותג של צ׳רי שנחשף באפריל 2025, ונועד להימכר בהרבה מדינות בעולם. צ׳רי תכננה להוציא בו חמישה דגמים תוך שלוש שנים, והראשון הוא רכב שטח בשם L8.",
+ f:"העיצוב של L8 שואב השראה מנמר שרץ מהר, והפנסים שלו נראים כמו אישונים של חתול.",
+ q:"אני מותג חדש של צ׳רי, והעיצוב שלי שואב השראה מנמר רץ."},
+{id:"im",he:"איי.אם",en:"IM",col:"#2E2E36",y:2020,o:"cn",g:"saic",
+ j:[["cn",2020,"SAIC, עליבאבא וחברת טכנולוגיה משנגחאי מקימות את החברה"]],
+ s:"IM נוסדה ב-2020 בשנגחאי. שלוש חברות הקימו אותה יחד: SAIC, חברת הרכב הגדולה של שנגחאי, עליבאבא, חברת הקניות באינטרנט, וחברת טכנולוגיה משנגחאי. היא בונה מכוניות חשמליות מפוארות.",
+ f:"IM הם ראשי התיבות של Intelligence in Motion, ״חוכמה בתנועה״.",
+ q:"הקימו אותי יחד חברת רכב מסין וחברת קניות באינטרנט."},
+{id:"maxus",he:"מקסוס",en:"Maxus",col:"#C8102E",y:1993,o:"gb",g:"saic",
+ j:[["gb",1993,"בבירמינגהם נוסדת LDV, חברה למסחריות"],["cn",2010,"SAIC הסינית קונה את LDV"],["cn",2011,"המותג מקבל את השם מקסוס"]],
+ s:"מקסוס התחילה באנגליה: ב-1993 נוסדה בעיר בירמינגהם חברה בשם LDV, שבנתה מסחריות. אחרי שנקלעה לקשיים, SAIC הסינית קנתה ב-2010 את מה שנשאר ממנה ושינתה את השם למקסוס. היום היא בונה מסחריות, טנדרים, מיניוואנים ומכוניות חשמליות.",
+ f:"בכמה מדינות, כמו אוסטרליה, המכוניות של מקסוס עדיין נקראות LDV, השם הבריטי הישן.",
+ q:"נולדתי באנגליה בשם LDV, והיום אני שייכת לחברה משנגחאי."},
+{id:"gac",he:"ג׳י.איי.סי",en:"GAC",col:"#9E1B32",y:2008,o:"cn",g:"gac",
+ j:[["cn",2008,"קבוצת GAC מקימה חברה שבונה מכוניות בשם שלה"],["cn",2024,"החברה מקבלת בסין את השם ״GAC טראמפצ׳י״"]],
+ s:"קבוצת GAC מהעיר גואנגג׳ואו בנתה במשך שנים מכוניות יחד עם הונדה וטויוטה. ב-2008 היא הקימה חברה שבונה מכוניות בשם שלה: מכוניות משפחתיות, מיניוואנים ורכבי שטח.",
+ f:"בסין המכוניות של GAC נקראות ״טראמפצ׳י״ (Trumpchi). מחוץ לסין משתמשים פשוט בשם GAC.",
+ q:"אני מגואנגג׳ואו, ובסין המכוניות שלי נקראות ״טראמפצ׳י״."},
+{id:"aion",he:"איון",en:"Aion",col:"#1D6FB8",y:2018,o:"cn",g:"gac",
+ j:[["cn",2017,"GAC מקימה חברת-בת למכוניות חשמליות"],["cn",2018,"המכונית הראשונה בשם איון מוצגת בתערוכה בגואנגג׳ואו"],["cn",2020,"החברה מקבלת את השם GAC איון"]],
+ s:"איון הוא מותג המכוניות החשמליות של קבוצת GAC מהעיר גואנגג׳ואו. החברה נוסדה ב-2017, והמכונית הראשונה שלה, איון S, הוצגה ב-2018. תוך כמה שנים איון נעשתה מהמותגים הגדולים בעולם של מכוניות חשמליות.",
+ f:"ב-2023 איון הייתה מותג המכוניות החשמליות השלישי בגודלו בעולם, אחרי טסלה ו-BYD.",
+ q:"אני מותג המכוניות החשמליות של קבוצה מגואנגג׳ואו."},
+{id:"dongfeng",he:"דונגפנג",en:"Dongfeng",col:"#B0122A",y:1969,o:"cn",g:"dongfeng",
+ j:[["cn",1969,"נבנה בעיר שייאן ״מפעל המכוניות השני״ של סין"],["cn",1992,"החברה מקבלת את השם דונגפנג"]],
+ s:"דונגפנג התחילה ב-1969 בתור ״מפעל המכוניות השני״ של סין, בעיר שייאן שבין ההרים, ובנתה בהתחלה בעיקר משאיות לצבא. היום המשרד הראשי שלה בעיר ווהאן, והיא אחת מקבוצות הרכב הגדולות בסין.",
+ f:"דונגפנג פירושו בסינית ״רוח מזרחית״.",
+ q:"השם שלי פירושו ״רוח מזרחית״, והתחלתי כמפעל המכוניות השני של סין."},
+{id:"voyah",he:"וויאה",en:"Voyah",col:"#2F3C4F",y:2020,o:"cn",g:"dongfeng",
+ j:[["cn",2020,"דונגפנג משיקה מותג יוקרה של מכוניות חשמליות"],["cn",2026,"המניות של וויאה נכנסות לבורסה בהונג קונג"]],
+ s:"וויאה היא מותג היוקרה של דונגפנג. היא נוסדה ב-2020 ובונה מכוניות חשמליות גדולות ומפוארות, ובמרץ 2026 המניות שלה נכנסו לבורסה בהונג קונג. השם באנגלית מזכיר את המילה voyage, ״מסע״.",
+ f:"בסין קוראים לוויאה ״לאנטו״. המילה מחברת ״ערפל של הרים״ ו״תמונה״.",
+ q:"אני מותג היוקרה של דונגפנג, והשם שלי מזכיר את המילה ״מסע״ באנגלית."},
+{id:"forthing",he:"פורת׳ינג",en:"Forthing",col:"#1C4E9C",y:1954,o:"cn",g:"dongfeng",
+ j:[["cn",1954,"נפתח בעיר ליוג׳ואו מפעל למכונות חקלאיות"],["cn",1969,"המפעל מתחיל לבנות כלי רכב"]],
+ s:"פורת׳ינג היא המותג של דונגפנג ליוג׳ואו, מפעל בדרום סין שהתחיל ב-1954 בבניית מכונות חקלאיות, ומ-1969 בונה כלי רכב. היום הוא בונה מיניוואנים, רכבי שטח ומכוניות חשמליות, ודונגפנג מחזיקה בשלושה רבעים ממנו.",
+ f:"בסין המותג נקרא ״פנגשינג״. גם בשם הזה וגם ב״דונגפנג״ יש את המילה ״פנג״, ״רוח״.",
+ q:"התחלתי בבניית מכונות חקלאיות, ודונגפנג מחזיקה בשלושה רבעים ממני."},
+{id:"baic",he:"באייק",en:"BAIC",col:"#B71C1C",y:1958,o:"cn",g:"baic",
+ j:[["cn",1958,"נוסדת בבייג׳ינג חברה ממשלתית לכלי רכב"],["cn",2019,"BAIC קונה חלק ממניות דיימלר, החברה של מרצדס"]],
+ s:"BAIC הם ראשי התיבות של Beijing Automotive Industry Corporation, ״חברת תעשיית הרכב של בייג׳ינג״. היא נוסדה ב-1958, והיא חברה ממשלתית שבונה מכוניות, רכבי שטח ומשאיות. בסין היא בונה גם מכוניות של מרצדס, יחד איתה.",
+ f:"BAIC מחזיקה כעשירית מהמניות של קבוצת מרצדס-בנץ הגרמנית, יותר מכל בעל מניות אחר.",
+ q:"אני חברה ממשלתית מבירת סין, ואני מחזיקה עשירית ממרצדס."},
+{id:"foton",he:"פוטון",en:"Foton",col:"#2B5CAB",y:1996,o:"cn",g:"baic",
+ j:[["cn",1996,"פוטון נוסדת בבייג׳ינג"]],
+ s:"פוטון נוסדה ב-1996, והיא חלק מקבוצת BAIC של בייג׳ינג. היא בונה בעיקר משאיות, אוטובוסים, טנדרים ומסחריות, ונעשתה אחת מיצרניות רכבי העבודה הגדולות בסין.",
+ f:"פוטון בונה משאיות כבדות יחד עם דיימלר טראק, חברת המשאיות הגרמנית שנפרדה ממרצדס.",
+ q:"אני בונה משאיות ואוטובוסים, ואני שייכת לקבוצה מבירת סין."},
+{id:"deepal",he:"דיפאל",en:"Deepal",col:"#0B3D91",y:2022,o:"cn",g:"changan",
+ j:[["cn",2022,"צ׳אנגאן משיקה מותג חדש של מכוניות חשמליות"]],
+ s:"דיפאל הוא מותג של צ׳אנגאן, שנוסד ב-2022 ובונה מכוניות חשמליות. בסין קוראים לו ״שנלאן״, שפירושו ״כחול עמוק״.",
+ f:"בחלק מהמכוניות של דיפאל יש מנוע בנזין קטן שלא מסובב את הגלגלים: הוא רק מייצר חשמל לסוללה, כדי שאפשר יהיה לנסוע רחוק יותר.",
+ q:"השם הסיני שלי פירושו ״כחול עמוק״."},
+{id:"avatr",he:"אווטאר",en:"Avatr",col:"#3A3F47",y:2018,o:"cn",g:"changan",
+ j:[["cn",2018,"צ׳אנגאן וניו מקימות חברה משותפת"],["cn",2021,"החברה מקבלת את השם אווטאר"]],
+ s:"אווטאר התחילה ב-2018 כחברה משותפת של צ׳אנגאן ושל ניו, ואחר כך ניו יצאה ממנה. ב-2021 היא קיבלה את השם אווטאר. היא בונה מכוניות חשמליות מפוארות עם הטכנולוגיה של הואווי, ועם סוללות של CATL, יצרנית הסוללות הגדולה בעולם.",
+ f:"צ׳אנגאן מחזיקה בחלק הגדול ביותר של אווטאר, וגם CATL, יצרנית הסוללות, מחזיקה חלק ממנה.",
+ q:"צ׳אנגאן היא בעלת המניות הגדולה שלי, ואני משתמשת בטכנולוגיה של הואווי."},
+{id:"firefly",he:"פיירפליי",en:"Firefly",col:"#F2B33D",ink:"#1A1A1A",y:2025,o:"cn",g:"nio",
+ j:[["cn",2025,"ניו משיקה מותג של מכוניות חשמליות קטנות"]],
+ s:"פיירפליי, ״גחלילית״ באנגלית, הוא המותג של ניו למכוניות חשמליות קטנות. המכונית הראשונה שלו יצאה לכבישים בסין באפריל 2025, וניו תכננה למכור אותה גם ב-16 מדינות אחרות.",
+ f:"הפנסים הקדמיים של פיירפליי עוצבו כך שיזכירו את המצלמות בגב של טלפון אייפון.",
+ q:"קוראים לי על שם חרק שמאיר בלילה."},
+{id:"jac",he:"ג׳אק",en:"JAC",col:"#5C6670",y:1964,o:"cn",g:null,own:["cn"],ownName:"קבוצת JAC ממחוז אנחווי",
+ j:[["cn",1964,"נפתח בעיר חפיי מפעל לכלי רכב"],["de",2020,"פולקסווגן קונה חצי מקבוצת JAC"]],
+ s:"ג׳אק נוסדה ב-1964 בעיר חפיי, והשם שלה בא מ״ג׳יאנגחוואי״, האזור שבין שני נהרות גדולים בסין. בהתחלה היא בנתה משאיות, והיום היא בונה גם מכוניות, טנדרים ומכוניות חשמליות. מ-2020 פולקסווגן מחזיקה חצי מהקבוצה שאליה ג׳אק שייכת.",
+ f:"ג׳אק בונה מכוניות גם בשביל חברות אחרות: מכוניות חשמליות יחד עם פולקסווגן, ומכוניות יוקרה יחד עם הואווי.",
+ q:"השם שלי בא מאזור שבין שני נהרות, ופולקסווגן מחזיקה חצי מהקבוצה שלי."},
+{id:"seres",he:"סרס",en:"Seres",col:"#3A5D8F",y:1986,o:"cn",g:null,
+ j:[["cn",1986,"ג׳אנג שינגהאי ושותפים מקימים בצ׳ונגצ׳ינג מפעל קטן"],["cn",2019,"החברה מתחילה לעבוד עם הואווי"],["cn",2022,"השם משתנה מסוקון לסרס"]],
+ s:"סרס התחילה ב-1986 בעיר צ׳ונגצ׳ינג כמפעל קטן, שבנה חלקים למכשירי חשמל וקפיצים למושבים של מכוניות. אחר כך היא עברה לבנות מכוניות, וב-2022 שינתה את השם שלה מסוקון לסרס. היום היא בונה את המכוניות של AITO, יחד עם הואווי.",
+ f:"במכוניות של AITO הואווי מתכננת את המכונית ואת המחשבים שבה, וסרס בונה אותה במפעל שלה.",
+ q:"התחלתי בבניית קפיצים למושבים, והיום אני בונה מכוניות יחד עם הואווי."},
+{id:"skywell",he:"סקייוול",en:"Skywell",col:"#1E8E5A",y:2017,o:"cn",g:null,
+ j:[["cn",2017,"קבוצת סקייוול מנאנג׳ינג מתחילה לבנות מכוניות חשמליות"]],
+ s:"סקייוול היא קבוצה מהעיר נאנג׳ינג שבסין, שבונה אוטובוסים, ומ-2017 גם מכוניות חשמליות. בסין המכוניות שלה נמכרות בשם סקייוורת׳ (Skyworth), ובכמה מדינות אחרות בשם סקייוול.",
+ f:"מי שעומד בראש סקייוול, הואנג הונגשנג, הקים קודם את סקייוורת׳, חברה סינית גדולה שבונה טלוויזיות.",
+ q:"אני בונה אוטובוסים ומכוניות חשמליות, והמנהל שלי הקים קודם חברת טלוויזיות."},
+{id:"aiways",he:"אייווייז",en:"Aiways",col:"#2D3E50",y:2017,o:"cn",g:null,
+ j:[["cn",2017,"פו צ׳יאנג וגו פנג מקימים את החברה בשנגחאי"],["de",2020,"אייווייז מתחילה למכור מכוניות חשמליות באירופה"],["cn",2024,"החברה מפסיקה למכור בסין ונשארת באירופה"]],
+ s:"אייווייז נוסדה ב-2017 בשנגחאי בידי שני אנשים שעבדו קודם בחברות רכב גדולות. היא הייתה מהחברות הסיניות הראשונות שמכרו מכוניות חשמליות באירופה. ב-2023 היא נקלעה לקשיים כספיים, וב-2024 הפסיקה למכור מכוניות בסין והמשיכה רק באירופה.",
+ f:"בגרמניה מכרו את המכונית הראשונה של אייווייז גם בחנויות של מוצרי חשמל, ליד טלוויזיות ומחשבים.",
+ q:"נולדתי בשנגחאי, אבל היום אני מוכרת מכוניות חשמליות רק באירופה."},
+{id:"eveasy",he:"אי.וי איזי",en:"EVeasy",col:"#00A3A1",y:2015,o:"cn",g:null,own:["cn"],ownName:"חברת JMEV מהעיר ננצ׳אנג",
+ j:[["cn",2015,"נוסדת בעיר ננצ׳אנג חברת JMEV למכוניות חשמליות"],["cn",2018,"החברה משיקה את המותג EVeasy"],["fr",2019,"רנו קונה חצי מהחברה"],["fr",2023,"רנו מחליטה לצאת מהחברה"]],
+ s:"EVeasy הוא המותג של JMEV, חברה מהעיר ננצ׳אנג שבסין שנוסדה ב-2015 ובונה מכוניות חשמליות קטנות ורכבי שטח. ב-2019 רנו הצרפתית קנתה חצי מהחברה, אבל המכירות לא הצליחו, וב-2023 רנו החליטה לצאת ממנה.",
+ f:"EV הם ראשי התיבות של Electric Vehicle, ״רכב חשמלי״, ו-easy פירושו ״קל״, כמו ״קל לנהוג״.",
+ q:"השם שלי פירושו ״רכב חשמלי קל״, ורנו הייתה פעם שותפה שלי."},
+{id:"cenntro",he:"סנטרו",en:"Cenntro",col:"#0072BC",y:2013,o:"us",oNote:"המשרד הראשי בניו ג׳רזי, והמפעל בסין",g:null,
+ j:[["us",2013,"החברה נוסדת"],["cn",2018,"מתחיל ייצור ניסיוני של המטרו, רכב עבודה חשמלי קטן"]],
+ s:"סנטרו נוסדה ב-2013, והיא בונה כלי רכב חשמליים לעבודה, למשל רכבים קטנים לחלוקת חבילות ומשלוחים בעיר. המשרד הראשי שלה בניו ג׳רזי שבארצות הברית, והמפעל שלה בעיר צ׳אנגשינג שבסין. הדגמים שלה נקראים מטרו, לוגיסטאר, טימאק ונייבור.",
+ f:"סנטרו לא בונה מכוניות פרטיות, רק כלי רכב לעבודה.",
+ q:"אני בונה רכבי עבודה חשמליים, המשרד שלי באמריקה והמפעל שלי בסין."}
+];
+
+/* ===================== families (corporate groups) ===================== */
+const GROUPS=[
+{id:"vw",he:"קבוצת פולקסווגן",en:"Volkswagen Group",hq:"de",lead:"vw",
+ about:"הקבוצה הגדולה באירופה. יש בה מותגים עממיים, מותגי ספורט ומותגי יוקרה, וגם חברות של משאיות ואופנועים.",
+ partners:[["xpeng","פולקסווגן מחזיקה כ-5% מאקספנג ומפתחת איתה מכוניות לסין"],["rivian","פולקסווגן היא בעלת המניות הגדולה בריביאן (כ-15%), ויש להן חברה משותפת לפיתוח תוכנה למכוניות"],["jac","פולקסווגן מחזיקה חצי מקבוצת JAC, ויש להן מפעל משותף למכוניות חשמליות"]],
+ past:[["bugatti","בוגאטי הייתה של פולקסווגן בין 1998 ל-2021. אחר כך פורשה החזיקה 45% מבוגאטי-רימאץ, ומכרה אותם ב-2026"]],
+ fact:"אאודי היא הבעלים של למבורגיני, ולמבורגיני היא הבעלים של יצרנית האופנועים דוקאטי. כמו בובות בתוך בובות!"},
+{id:"stellantis",he:"סטלנטיס",en:"Stellantis",hq:"nl",lead:null,
+ about:"נוצרה ב-2021 מאיחוד של קבוצה צרפתית (של פיג׳ו וסיטרואן) וקבוצה איטלקית-אמריקאית (של פיאט וקרייזלר). המשרד הראשי שלה בהולנד.",
+ partners:[["leapmotor","סטלנטיס מחזיקה כחמישית ממניות ליפמוטור, ויש להן חברה משותפת שמוכרת את המכוניות שלה מחוץ לסין"]],
+ past:[["ferrari","פרארי הייתה שייכת לפיאט עד 2016"]],
+ fact:"בסטלנטיס יש 14 מותגים, ופה מופיעים 13 מהם. רק ווקסהול הבריטית חסרה. השם בא מפועל לטיני שפירושו ״להאיר בכוכבים״."},
+{id:"toyota",he:"קבוצת טויוטה",en:"Toyota Motor",hq:"jp",lead:"toyota",
+ about:"קבוצת הרכב הגדולה בעולם. חוץ מלקסוס, שייכת לה גם דייהטסו.",
+ partners:[["subaru","טויוטה מחזיקה כחמישית ממניות סובארו"],["mazda","טויוטה מחזיקה חלק קטן ממאזדה ומפתחת איתה טכנולוגיה"],["suzuki","טויוטה מחזיקה חלק קטן מסוזוקי"]],
+ fact:"גם טויוטה וגם סוזוקי התחילו בייצור נולים לאריגת בדים."},
+{id:"hyundai",he:"קבוצת יונדאי",en:"Hyundai Motor Group",hq:"kr",lead:"hyundai",
+ about:"קבוצה מקוריאה. יונדאי מחזיקה כשליש מהמניות של קיה, וזה מספיק כדי לנהל אותה.",
+ fact:"ג׳נסיס היא ליונדאי מה שלקסוס היא לטויוטה: מותג היוקרה של המשפחה."},
+{id:"bmw",he:"קבוצת BMW",en:"BMW Group",hq:"de",lead:"bmw",
+ about:"קבוצה מבוואריה שבגרמניה, עם שלושה מותגים: אחד ספורטיבי, אחד קטן ושובב, ואחד מפואר מאוד.",
+ past:[["landrover","לנד רובר הייתה של BMW בין 1994 ל-2000"]],
+ fact:"שני מותגים בריטיים, מיני ורולס-רויס, שייכים היום לחברה גרמנית."},
+{id:"mercedes",he:"מרצדס-בנץ",en:"Mercedes-Benz Group",hq:"de",lead:"mercedes",
+ about:"הקבוצה של מרצדס. בתוך מרצדס יש גם ״תתי-מותגים״: AMG לספורט ומייבאך ליוקרה.",
+ past:[["chrysler","בין 1998 ל-2007 מרצדס, שנקראה אז דיימלר, התאחדה עם קרייזלר"],["jeep","ג׳יפ הייתה חלק מקרייזלר, ולכן גם היא הייתה במשפחה"],["dodge","גם דודג׳ הייתה חלק מקרייזלר באותן שנים"]],
+ fact:"סמארט שייכת לשתי משפחות: חצי למרצדס וחצי לג׳ילי."},
+{id:"geely",he:"ג׳ילי",en:"Geely Holding",hq:"cn",lead:"geely",
+ about:"קבוצה סינית שהתחילה בחלקי מקררים ונעשתה אחת מקבוצות הרכב הגדולות. היא קנתה מותגים מאירופה והקימה מותגים חדשים.",
+ partners:[["smart","ג׳ילי מחזיקה חצי מסמארט"],["astonmartin","ג׳ילי מחזיקה חלק ממניות אסטון מרטין"]],
+ fact:"ג׳ילי מחזיקה גם כמחצית מפרוטון, יצרנית הרכב של מלזיה."},
+{id:"renault",he:"קבוצת רנו",en:"Renault Group",hq:"fr",lead:"renault",
+ about:"קבוצה צרפתית. ממשלת צרפת מחזיקה חלק מהמניות שלה.",
+ partners:[["nissan","רנו וניסאן שותפות בברית, וכל אחת מחזיקה חלק מהמניות של השנייה"]],
+ fact:"דאצ׳יה הרומנית ואלפין הספורטיבית הן ה״ילדות״ של רנו."},
+{id:"nissan",he:"קבוצת ניסאן",en:"Nissan",hq:"jp",lead:"nissan",
+ about:"קבוצה יפנית עם מותג יוקרה אחד, אינפיניטי.",
+ partners:[["renault","רנו שותפה בברית עם ניסאן"],["mitsubishi","ניסאן מחזיקה חלק גדול ממניות מיצובישי"]],
+ fact:"רנו, ניסאן ומיצובישי הן שלוש חברות נפרדות, אבל במשך שנים עבדו יחד כמו צוות."},
+{id:"honda",he:"הונדה",en:"Honda",hq:"jp",lead:"honda",
+ about:"הונדה בונה הרבה יותר ממכוניות: אופנועים, מנועים לסירות, מכסחות דשא ואפילו מטוס.",
+ fact:"הונדה ואקורה הן כמו טויוטה ולקסוס: מותג רגיל ומותג יוקרה באותה משפחה."},
+{id:"gm",he:"ג׳נרל מוטורס",en:"General Motors",hq:"us",lead:null,
+ about:"קבוצה מדטרויט, מהגדולות בארצות הברית. יש לה ארבעה מותגים: שברולט, קדילק, GMC וביואיק.",
+ past:[["opel","אופל הייתה של ג׳נרל מוטורס 88 שנה, בין 1929 ל-2017"],["isuzu","ג׳נרל מוטורס החזיקה חלק גדול ממניות איסוזו בין 1971 ל-2006"]],
+ fact:"ג׳נרל מוטורס הייתה בעבר גם הבעלים של סאאב השוודית."},
+{id:"ford",he:"פורד",en:"Ford Motor Company",hq:"us",lead:"ford",
+ about:"משפחת פורד עדיין מחזיקה בחלק חשוב מהחברה. לינקולן היא מותג היוקרה של פורד.",
+ past:[["volvo","וולוו הייתה של פורד בין 1999 ל-2010"],["jaguar","יגואר הייתה של פורד בין 1989 ל-2008"],["landrover","לנד רובר הייתה של פורד בין 2000 ל-2008"],["astonmartin","אסטון מרטין הייתה של פורד עד 2007"],["mazda","פורד החזיקה פעם כשליש ממאזדה"]],
+ fact:"פעם הייתה לפורד ״משפחה״ גדולה של מותגים מאירופה, והיא מכרה את כולם."},
+{id:"tata",he:"טאטא מוטורס",en:"Tata Motors",hq:"in",lead:"tata",
+ about:"חברת הרכב של קבוצת טאטא ההודית, שמייצרת גם מלח, תה ופלדה. ב-2025 היא התפצלה לשתיים: חברה למכוניות, שאליה שייכות יגואר ולנד רובר (החברה הבריטית נקראת JLR), וחברה למשאיות, שב-2026 קנתה את איווקו האיטלקית.",
+ fact:"שלושה מותגים מאירופה, יגואר, לנד רובר ואיווקו, שייכים היום לחברה הודית."},
+{id:"saic",he:"SAIC",en:"SAIC Motor",hq:"cn",lead:null,
+ about:"חברת רכב ממשלתית מהעיר שנגחאי, מהגדולות בסין.",
+ past:[["kgm","SAIC הייתה הבעלים של סאנגיונג, היום KGM, בשנות ה-2000"]],
+ fact:"SAIC בונה בסין מכוניות גם יחד עם פולקסווגן וג׳נרל מוטורס."},
+{id:"chery",he:"צ׳רי",en:"Chery",hq:"cn",lead:"chery",
+ about:"חברת רכב בבעלות ממשלת העיר ווהו שבסין. היא הקימה מותגים חדשים במיוחד בשביל מדינות אחרות.",
+ fact:"אומודה וג׳קו נולדו כמעט באותו זמן, ושתיהן נמכרות גם בישראל."},
+{id:"greatwall",he:"גרייט וול מוטור",en:"Great Wall Motor (GWM)",hq:"cn",lead:"greatwall",
+ about:"חברת רכב פרטית מהעיר באודינג שבסין. היא התחילה בטנדרים, ויש לה מותג נפרד לכל סוג של רכב: רכבי פנאי, מכוניות חשמליות, רכבי שטח ויוקרה.",
+ fact:"השם בא מהחומה הגדולה של סין, שאורכה אלפי קילומטרים."},
+{id:"faw",he:"קבוצת FAW",en:"FAW Group",hq:"cn",lead:null,
+ about:"חברת רכב ממשלתית מהעיר צ׳אנגצ׳ון, שנוסדה ב-1953 כמפעל המכוניות הראשון של סין. היא בונה גם משאיות, ויש לה מפעלים משותפים עם פולקסווגן וטויוטה.",
+ fact:"FAW הם ראשי התיבות של First Automobile Works, ״מפעל המכוניות הראשון״."},
+{id:"dongfeng",he:"קבוצת דונגפנג",en:"Dongfeng Motor",hq:"cn",lead:"dongfeng",
+ about:"חברת רכב ממשלתית מהעיר ווהאן שבמרכז סין, מהגדולות במדינה. היא בונה מכוניות גם יחד עם ניסאן והונדה, ויש לה מותגים משלה למשאיות, למכוניות משפחתיות ולמכוניות יוקרה חשמליות.",
+ partners:[["seres","דונגפנג מחזיקה כחמישית ממניות סרס"]],
+ fact:"דונגפנג בונה גם את ״מנג שי״, רכב שטח צבאי שדומה להאמר האמריקאי."},
+{id:"changan",he:"צ׳אנגאן",en:"Changan Automobile",hq:"cn",lead:null,
+ about:"חברת רכב ממשלתית מהעיר צ׳ונגצ׳ינג, ואחת הוותיקות בסין: השורשים שלה מגיעים עד 1862. היא בונה מכוניות גם יחד עם פורד ומאזדה, ויש לה מותגים חדשים של מכוניות חשמליות.",
+ fact:"צ׳אנגאן פירושו בסינית ״שלום ארוך״."},
+{id:"gac",he:"קבוצת GAC",en:"GAC Group",hq:"cn",lead:"gac",
+ about:"חברת רכב ממשלתית מהעיר גואנגג׳ואו שבדרום סין. היא בונה מכוניות גם יחד עם טויוטה והונדה, ויש לה מותגים משלה למכוניות רגילות ולמכוניות חשמליות.",
+ fact:"GAC הם ראשי התיבות של Guangzhou Automobile Group, ״קבוצת הרכב של גואנגג׳ואו״."},
+{id:"baic",he:"קבוצת BAIC",en:"BAIC Group",hq:"cn",lead:"baic",
+ about:"חברת רכב ממשלתית מבייג׳ינג, בירת סין. יש לה מותג למכוניות ומותג למשאיות, והיא בונה בסין גם מכוניות של מרצדס.",
+ partners:[["mercedes","BAIC מחזיקה כעשירית ממניות קבוצת מרצדס-בנץ"]],
+ fact:"פוטון, המותג של BAIC למשאיות, הוא מיצרני רכבי העבודה הגדולים בסין."},
+{id:"nio",he:"קבוצת ניו",en:"NIO Inc.",hq:"cn",lead:"nio",
+ about:"חברה פרטית משנגחאי שבונה רק מכוניות חשמליות. יש לה שלושה מותגים: ניו למכוניות מפוארות, אונבו (ONVO) למשפחות, ופיירפליי למכוניות קטנות.",
+ fact:"בסין יש לניו אלפי תחנות שבהן רובוט מחליף סוללה ריקה בסוללה מלאה תוך כמה דקות."}
+];
+const INDEP={id:"indep",he:"מותגים עצמאיים",en:"Independent",hq:null,lead:null,
+ about:"למותגים האלה אין ״חברת אם״ מבין הקבוצות שבמשחק. חלקם עצמאיים לגמרי, לחלקם יש שותף שמחזיק חלק מהמניות, וחלקם שייכים לחברת השקעות או לקבוצה קטנה יותר. אוטוקרס הישראלית כבר לא פועלת."};
+
+/* ===================== derived data & helpers ===================== */
+const BM={};B.forEach(b=>{BM[b.id]=b;b.ab=b.en.length<=3?b.en:b.en[0].toUpperCase();});
+const GR={};GROUPS.forEach(g=>{GR[g.id]=g;g.members=B.filter(b=>b.g===g.id).map(b=>b.id);});
+INDEP.members=B.filter(b=>!b.g).map(b=>b.id);
+const ORIG=[...new Set(B.map(b=>b.o))];
+const ALLC=Object.keys(C);
+const YEAR=new Date().getFullYear();
+const ownerCodes=b=>b.own||(b.g?[GR[b.g].hq]:[b.o]);
+const ownerName=b=>b.ownName||(b.g?GR[b.g].he:"חברה עצמאית");
+const moved=b=>ownerCodes(b).some(c=>c!==b.o);
+const pre=(p,w)=>/^[A-Za-z0-9]/.test(w)?p+"-"+w:p+w;
+const countryList=codes=>codes.map(c=>C[c]).join(" ו");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const $=(s,el)=>(el||document).querySelector(s);
+const $$=(s,el)=>[...(el||document).querySelectorAll(s)];
+const rnd=n=>Math.floor(Math.random()*n);
+const pick=a=>a[rnd(a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const sample=(a,n)=>shuffle(a).slice(0,n);
+
+const IC={
+ star:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z" fill="currentColor"/></svg>`,
+ trophy:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.4A5 5 0 0 1 13 14.9V17h3v3H8v-3h3v-2.1A5 5 0 0 1 8.4 12H8a4 4 0 0 1-4-4V5h3zm-1 4v1a2 2 0 0 0 1 1.7V7zm11 0v2.7A2 2 0 0 0 18 8V7z" fill="currentColor"/></svg>`,
+ speaker:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+ x:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+ check:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+ home:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3.5 21 11v9.5h-6v-6H9v6H3z" fill="currentColor"/></svg>`,
+ plane:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 12c0-.8-.7-1.4-1.5-1.4h-5.2L10 3H7.8l2.4 7.6H5.6L3.8 8.4H2l1.1 3.6L2 15.6h1.8l1.8-2.2h4.6L7.8 21H10l4.8-7.6H20c.8 0 1.5-.6 1.5-1.4z" fill="currentColor"/></svg>`,
+ image:`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.8" fill="currentColor"/><path d="m4 18 5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+ warn:`<svg class="warn" viewBox="0 0 40 36" aria-hidden="true"><path class="t" d="M20 3 37.5 33.5H2.5z" stroke-width="4" stroke-linejoin="round"/><path class="m" d="M20 13v10" stroke-width="3.6" stroke-linecap="round" fill="none"/><circle class="d" cx="20" cy="28.3" r="2.1"/></svg>`
+};
+
+/* ===================== storage ===================== */
+const store={
+ get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+ set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){return false;}},
+ raw(k){try{return localStorage.getItem(k);}catch(e){return null;}},
+ rawSet(k,v){try{localStorage.setItem(k,v);return true;}catch(e){return false;}},
+ del(k){try{localStorage.removeItem(k);}catch(e){}}
+};
+const S={view:"explore",country:"all",q:"",sort:"abc",stars:0,best:0,streak:0,seen:new Set(),quizCat:"all",memMode:"country",recent:[]};
+(function(){const st=store.get("mm.v1",null);if(st&&typeof st==="object"){S.stars=+st.stars||0;S.best=+st.best||0;if(Array.isArray(st.seen))st.seen.forEach(id=>{if(BM[id])S.seen.add(id);});}})();
+const save=()=>store.set("mm.v1",{stars:S.stars,best:S.best,seen:[...S.seen]});
+/* ===================== technical log =====================
+   Every logo attempt is listed in the workshop and, for people who can edit, kept in the game's storage (collection "diag") so it can be checked later. */
+const DIAG=[],UA=(navigator.userAgent||"").slice(0,160);let diagQ=Promise.resolve(),diagN=0;
+function diag(ev,data){
+ try{
+  const e=Object.assign({t:new Date().toISOString(),ev},data||{});
+  DIAG.push(e);if(DIAG.length>40)DIAG.shift();
+  const ol=document.getElementById("diag-list");
+  if(ol)ol.innerHTML=DIAG.slice().reverse().map(x=>`<li><b>${esc(x.t.slice(11,19))} ${esc(x.ev)}</b> ${esc(Object.keys(x).filter(k=>k!=="t"&&k!=="ev").map(k=>k+"="+(typeof x[k]==="object"?JSON.stringify(x[k]):x[k])).join(" · "))}</li>`).join("");
+  if(DB&&ASSETS&&diagN<300&&!(ev==="logo-saved"&&e.src&&TRIM_SRC.has(e.src))){diagN++;const doc=Object.assign({},e,{ua:UA});diagQ=diagQ.then(()=>DB.collection("diag").add(doc)).catch(()=>{});}
+ }catch(_){}
+}
+window.addEventListener("error",e=>{if(e&&e.message)diag("js-error",{msg:String(e.message).slice(0,160),at:String(e.filename||"").slice(-40)+":"+(e.lineno||"")});});
+window.addEventListener("unhandledrejection",e=>{const r=e&&e.reason;diag("js-rejection",{msg:String((r&&(r.code||r.message))||r).slice(0,160)});});
+
+/* logos: shared (artifact storage, every device) win over local (this browser only) */
+const localLogos={};B.forEach(b=>{const v=store.raw("mm.logo."+b.id);if(v&&v.startsWith("data:image/"))localLogos[b.id]=v;});
+const localOrig={};B.forEach(b=>{const v=store.raw("mm.orig."+b.id);if(v&&v.startsWith("data:image/")&&localLogos[b.id])localOrig[b.id]=v;});
+const sharedLogos={},sharedOrig={};
+let DB=null,ASSETS=null,capChecked=false,dbState="none";
+const canShare=()=>!!(DB&&ASSETS);
+const logoURL=id=>sharedLogos[id]?"/_blob/"+sharedLogos[id]:(localLogos[id]||(SITE&&SITE.logos&&SITE.logos[id])||null);
+const SEARCH={smart:"smart car logo",mini:"MINI car logo",genesis:"Genesis Motor logo",alpine:"Alpine cars logo",jaguar:"Jaguar Cars logo",lotus:"Lotus Cars logo",seat:"SEAT car logo",cupra:"Cupra car logo",mg:"MG Motor logo",byd:"BYD Auto logo",tesla:"Tesla Motors logo",ford:"Ford Motor Company logo",fiat:"Fiat Automobiles logo",mclaren:"McLaren Automotive logo",kia:"Kia Motors logo",polestar:"Polestar car logo",omoda:"Omoda car logo",jaecoo:"Jaecoo car logo",ram:"Ram Trucks logo",ds:"DS Automobiles logo",gmc:"GMC logo",lincoln:"Lincoln Motor Company logo",hongqi:"Hongqi logo",nio:"NIO car logo",leapmotor:"Leapmotor logo",greatwall:"Great Wall Motors logo",haval:"Haval logo",ora:"ORA car logo",tank:"Tank GWM logo",wey:"WEY car logo",kgm:"KG Mobility logo",isuzu:"Isuzu logo",lucid:"Lucid Motors logo",rivian:"Rivian logo",tata:"Tata Motors logo",autocars:"Autocars Sussita Israel",man:"MAN Truck & Bus logo",iveco:"Iveco logo",levc:"LEVC logo",farizon:"Farizon Auto logo",icaur:"iCAUR logo",lepas:"Lepas Chery logo",im:"IM Motors logo",maxus:"Maxus logo",gac:"GAC Motor logo",aion:"GAC Aion logo",dongfeng:"Dongfeng Motor logo",voyah:"Voyah logo",forthing:"Dongfeng Forthing logo",baic:"BAIC Group logo",foton:"Foton Motor logo",deepal:"Deepal logo",avatr:"Avatr logo",firefly:"Firefly NIO logo",jac:"JAC Motors logo",seres:"Seres Group logo",skywell:"Skywell logo",aiways:"Aiways logo",eveasy:"JMEV EVeasy logo",cenntro:"Cenntro logo"};
+const searchURL=b=>"https://commons.wikimedia.org/w/index.php?search="+encodeURIComponent(SEARCH[b.id]||b.en+" logo")+"&title=Special:MediaSearch&type=image";
+
+/* ===================== small renderers ===================== */
+function badgePlain(b,size){return `<span class="badge ${size||""}" style="--b:${b.col};--bi:${b.ink||"#FFFFFF"}" aria-hidden="true"><b class="${b.ab.length>1?"long":""}">${esc(b.ab)}</b><small>${b.y}</small></span>`;}
+function badge(b,size){
+ const u=logoURL(b.id);
+ if(u)return `<span class="badge has-logo ${size||""}" data-b="${b.id}" data-size="${size||""}"><img src="${esc(u)}" alt="" decoding="async"></span>`;
+ return badgePlain(b,size);
+}
+/* an image that fails to load falls back to the coloured badge */
+const brokenSeen=new Set();
+document.addEventListener("error",e=>{const im=e.target;if(im&&im.tagName==="IMG"){const bd=im.closest(".badge[data-b]");if(bd&&BM[bd.dataset.b]){if(!brokenSeen.has(bd.dataset.b)){brokenSeen.add(bd.dataset.b);diag("logo-image-failed",{brand:bd.dataset.b});}bd.outerHTML=badgePlain(BM[bd.dataset.b],bd.dataset.size);}}},true);
+const plate=b=>`<span class="plate" dir="ltr"><span class="plate-band">${flag(b.o)}</span><span class="plate-txt">${esc(b.en)}</span></span>`;
+const chip=(b,cls)=>`<button type="button" class="chip-b ${cls||""}" data-open="${b.id}">${badge(b,"sm")}<span>${b.he}</span></button>`;
+const card=b=>`<button type="button" class="card" data-open="${b.id}" aria-label="${b.he}, ${esc(b.en)}">${S.seen.has(b.id)?`<span class="seen">${IC.check}</span>`:""}${badge(b)}<span class="he">${b.he}</span>${plate(b)}</button>`;
+
+let toastT=0;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;t.style.animation="none";void t.offsetWidth;t.style.animation="";clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true;},2600);}
+
+/* ===================== stars, levels, HUD ===================== */
+const LEVELS=[[0,"מתחילים לנסוע"],[10,"רישיון חדש"],[25,"רישיון מלא"],[50,"רישיון מרוצים"],[100,"רישיון זהב"]];
+function level(n){let i=0;LEVELS.forEach((l,k)=>{if(n>=l[0])i=k;});return {name:LEVELS[i][1],next:LEVELS[i+1]?LEVELS[i+1][0]:null};}
+function updateHUD(bump){
+ const d=String(Math.min(S.stars,9999)).padStart(4,"0");
+ $("#odo").innerHTML=[...d].map(x=>`<span>${x}</span>`).join("");
+ const lv=level(S.stars);$("#lvl").textContent=lv.name;
+ const left=lv.next!=null?lv.next-S.stars:0;
+ $("#lvl-next").textContent=lv.next==null?"השלב הכי גבוה!":(left===1?"עוד כוכב אחד לשלב הבא":`עוד ${left} כוכבים לשלב הבא`);
+ const tr=Math.floor(S.stars/5);
+ $("#troph").innerHTML=`${IC.trophy}<span>${tr===1?"גביע אחד":tr+" גביעים"}</span>`;
+ if(bump){const o=$("#odo-wrap");o.classList.remove("bump");void o.offsetWidth;o.classList.add("bump");}
+}
+function addStars(n,msg){
+ const before=S.stars;S.stars+=n;save();
+ const lb=level(before).name,la=level(S.stars).name;
+ let extra="";
+ if(la!==lb)extra=`עלית שלב: ${la}!`;
+ else if(Math.floor(before/5)<Math.floor(S.stars/5))extra="קיבלת גביע חדש!";
+ updateHUD(true);
+ if(extra||msg)toast(extra||msg);
+}
+
+/* ===================== explore ===================== */
+function renderChips(){
+ const cnt={};B.forEach(b=>{cnt[b.o]=(cnt[b.o]||0)+1;});
+ const list=ORIG.slice().sort((a,b)=>cnt[b]-cnt[a]||C[a].localeCompare(C[b],"he"));
+ $("#cchips").innerHTML=`<button type="button" class="cchip" data-c="all" aria-pressed="${S.country==="all"}">כל המדינות <em>${B.length}</em></button>`+list.map(c=>`<button type="button" class="cchip" data-c="${c}" aria-pressed="${S.country===c}">${flag(c,"sm")}<span>${C[c]}</span><em>${cnt[c]}</em></button>`).join("");
+}
+function renderProgress(){
+ const n=S.seen.size,pct=Math.round(n/B.length*100);
+ $("#progress").innerHTML=`<span class="bar" aria-hidden="true"><i style="width:${pct}%"></i></span><span>גילית ${n} מתוך ${B.length} מותגים. כל מותג חדש שפותחים נותן כוכב.</span>`;
+}
+function renderGrid(){
+ const q=norm(S.q.trim());
+ let l=B.filter(b=>(S.country==="all"||b.o===S.country)&&(!q||b.he.includes(S.q.trim())||norm(b.en).includes(q)||(b.g&&GR[b.g].he.includes(S.q.trim()))));
+ if(S.sort==="abc")l.sort((a,b)=>a.he.localeCompare(b.he,"he"));
+ else if(S.sort==="old")l.sort((a,b)=>a.y-b.y);
+ else l.sort((a,b)=>b.y-a.y);
+ $("#grid").innerHTML=l.length?l.map(card).join(""):`<p class="empty">לא מצאנו מותג בשם ״${esc(S.q)}״. נסו לכתוב בעברית או באנגלית.</p>`;
+}
+
+/* ===================== brand sheet ===================== */
+let lastFocus=null;const canSpeak="speechSynthesis" in window&&typeof SpeechSynthesisUtterance!=="undefined";
+function famSection(b){
+ const g=b.g?GR[b.g]:null;let h="";
+ if(g){
+  h+=`<p class="fam-line">${b.he} שייכת ל${/^[A-Za-z]/.test(g.he)?"-":""}<b>${g.he}</b> ${flag(g.hq,"sm")} <span class="small">${C[g.hq]}</span></p>`;
+  const sibs=g.members.filter(x=>x!==b.id);
+  h+=sibs.length?`<div class="lbl">עוד מותגים במשפחה</div><div class="chips tree">${sibs.map(x=>chip(BM[x])).join("")}</div>`:`<p class="small">זה המותג היחיד של המשפחה הזו במשחק.</p>`;
+ }else if(b.gone){
+  h+=`<p class="fam-line">${b.he} כבר לא פועלת, ולכן אין לה משפחה היום.</p>`;
+ }else if(b.ownName){
+  h+=`<p class="fam-line">${b.he} שייכת ל<b>${b.ownName}</b> ${ownerCodes(b).map(c=>flag(c,"sm")).join("")}</p>`;
+ }else{
+  h+=`<p class="fam-line">ל${b.he} אין ״חברת אם״ גדולה. היא מחליטה לבד.</p>`;
+ }
+ const partOf=GROUPS.filter(x=>(x.partners||[]).some(p=>p[0]===b.id));
+ if(partOf.length)h+=`<div class="lbl" style="margin-top:12px">שותפויות</div><ul class="plist">${partOf.map(x=>`<li><span class="tagp">${x.he}</span><small>${x.partners.find(p=>p[0]===b.id)[1]}</small></li>`).join("")}</ul>`;
+ const pastOf=GROUPS.filter(x=>(x.past||[]).some(p=>p[0]===b.id));
+ if(pastOf.length)h+=`<div class="lbl" style="margin-top:12px">פעם הייתה במשפחה אחרת</div><ul class="plist">${pastOf.map(x=>`<li><span class="tagp">${x.he}</span><small>${x.past.find(p=>p[0]===b.id)[1]}</small></li>`).join("")}</ul>`;
+ h+=`<div class="row"><button type="button" class="btn ghost" data-fam="${g?g.id:"indep"}">לעץ המשפחות</button></div>`;
+ return h;
+}
+function sheetHTML(b){
+ const own=ownerCodes(b),mv=moved(b),age=YEAR-b.y;
+ return `<div class="sheet-bar"><span style="width:40px"></span><span class="grab" aria-hidden="true"></span><button type="button" class="x" id="sheet-x" aria-label="סגירה">${IC.x}</button></div>
+ <div class="hero">${badge(b,"xl")}<div class="hero-txt"><h2 id="sheet-title">${b.he}</h2>${plate(b)}<div class="meta"><span class="pill">התחלה: ${b.y}</span><span class="pill">גיל: ${age} שנים</span></div></div></div>
+ <div class="pass-row">
+  <div class="pass"><span class="lbl">נולדה ב־</span>${flag(b.o,"lg")}<b>${C[b.o]}</b>${b.oNote?`<small>${b.oNote}</small>`:""}</div>
+  <div class="pass"><span class="lbl">${b.gone?"מה קרה לה?":"שייכת היום ל־"}</span><div class="flags">${own.map(c=>flag(c,"lg")).join("")}</div><b>${ownerName(b)}</b><small>${countryList(own)}</small></div>
+ </div>
+ ${b.gone?`<p class="status gone"><span>${b.gone}</span></p>`:`<p class="status ${mv?"moved":"home"}">${mv?IC.plane:IC.home}<span>${mv?"המותג עבר ״דירה״: היום הוא שייך לחברה ממדינה אחרת":"המותג נשאר בבית: הוא שייך לחברה מהמדינה שבה נולד"}</span></p>`}
+ <section class="sec"><h3>המסע של ${b.he}</h3><p class="legend">כל דגל מראה באיזו מדינה זה קרה, לפי המפה של היום.</p>
+  <ol class="road">${b.j.map(([c,y,t])=>`<li class="stop"><span class="pin">${flag(c)}</span><span class="yr">${y}</span><span class="who">${t}<em>${C[c]}</em></span></li>`).join("")}<li class="stop now"><span class="pin">${IC.star}</span><span class="yr">היום</span><span class="who">${ownerName(b)}<em>${countryList(own)}</em></span></li></ol></section>
+ <section class="sec"><div class="sec-head"><h3>הסיפור</h3>${canSpeak?`<button type="button" class="say" id="say" aria-pressed="false">${IC.speaker}<span>הקראה</span></button>`:""}</div>
+  <p class="story">${b.s}</p><div class="fact">${IC.warn}<div><b>הידעת?</b>${b.f}</div></div></section>
+ <section class="sec"><h3>המשפחה</h3>${famSection(b)}</section>
+ <details class="parents" id="parents"><summary>להורים: הסמל של ${b.he}</summary>
+  <p>הסמלים האמיתיים שייכים לחברות, ולכן במשחק מופיע תג צבעוני. אפשר לחפש את הסמל של ${b.he}, לשמור את התמונה בטלפון ולבחור אותה כאן.</p>
+  <p class="mode">${logoModeText()}</p>
+  <div class="row">${logoActions(b,"")}<button type="button" class="btn ghost" data-goview="logos">סדנת הסמלים</button></div>
+  ${!sharedLogos[b.id]||canShare()?`<div class="paste" contenteditable="true" inputmode="none" role="textbox" aria-label="הדבקת הסמל של ${b.he}" data-for="${b.id}" data-ph="העתקתם תמונה? לחיצה ארוכה כאן ואז ״הדבקה״"></div>`:""}
+  <p class="small tip">${tipText()}</p></details>`;
+}
+function tipText(){
+ return "לא נפתח חלון לבחירת תמונה? זה קורה לפעמים באפליקציה של Claude בטלפון. אפשר להעתיק את התמונה ולהדביק אותה בתיבת ההדבקה, או לפתוח את המשחק בדפדפן (Chrome או Safari)"+(canShare()?", או להוסיף את הסמלים מהמחשב. הם יופיעו גם בטלפון.":".");
+}
+function logoActions(b,sz){
+ const canSet=!sharedLogos[b.id]||canShare();
+ const canRm=sharedLogos[b.id]?canShare():!!localLogos[b.id];
+ const has=!!logoURL(b.id);
+ return `<a class="btn ghost ${sz}" href="${searchURL(b)}" target="_blank" rel="noopener noreferrer">חיפוש${sz?"":" הסמל"}</a>`
+  +(canSet?`<label class="btn filebtn ${sz}">${sz?"":IC.image}<span>${sz?(has?"החלפה":"בחירה"):(has?"החלפת התמונה":"בחירת תמונה")}</span><input type="file" accept="image/*" data-logo-for="${b.id}" aria-label="בחירת סמל ל${b.he}"></label>`:"")
+  +(canSet&&sz?`<button type="button" class="btn ghost ${sz}" data-paste-for="${b.id}">הדבקה</button>`:"")
+  +(has&&canSet?`<button type="button" class="btn ghost ${sz}" data-logo-edit="${b.id}">${sz?"עריכה":"חיתוך ורקע"}</button>`:"")
+  +(canSet&&(sharedLogos[b.id]?sharedOrig[b.id]:localOrig[b.id])?`<button type="button" class="btn ghost ${sz}" data-logo-orig="${b.id}">החזרת המקור</button>`:"")
+  +(canRm?`<button type="button" class="btn ghost ${sz}" data-logo-rm="${b.id}">הסרה</button>`:"");
+}
+function logoModeText(){
+ if(!capChecked)return "בודקים איפה אפשר לשמור את הסמלים…";
+ if(canShare())return dbState==="slow"?"הסמלים נשמרים בתוך המשחק, אבל כרגע לא הצלחנו לטעון את מה שכבר נשמר. נסו שוב בעוד רגע.":"הסמלים נשמרים בתוך המשחק, ויופיעו בכל מכשיר שבו פותחים אותו.";
+ return "במכשיר הזה הסמלים יישמרו רק בדפדפן. כדי שיופיעו בכל המכשירים, פתחו את המשחק כשאתם מחוברים לחשבון שיצר אותו.";
+}
+function stopSpeak(){if(canSpeak){try{speechSynthesis.cancel();}catch(e){}}}
+function speak(text,btn){
+ if(!canSpeak)return;
+ try{
+  if(btn.getAttribute("aria-pressed")==="true"){stopSpeak();btn.setAttribute("aria-pressed","false");return;}
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="he-IL";u.rate=.95;
+  const v=speechSynthesis.getVoices().find(v=>/^(he|iw)/i.test(v.lang));if(v)u.voice=v;
+  u.onend=u.onerror=()=>btn.setAttribute("aria-pressed","false");
+  btn.setAttribute("aria-pressed","true");speechSynthesis.speak(u);
+ }catch(e){btn.setAttribute("aria-pressed","false");}
+}
+let curBrand=null;
+function openBrand(id,opener,keepParents){
+ const b=BM[id];if(!b)return;
+ const ov=$("#overlay"),sh=$("#sheet");
+ if(ov.hidden){lastFocus=opener||document.activeElement;ov.hidden=false;document.documentElement.classList.add("lock");}
+ stopSpeak();curBrand=id;
+ sh.innerHTML=sheetHTML(b);sh.scrollTop=0;
+ if(keepParents)$("#parents").open=true;
+ const x=$("#sheet-x");x.addEventListener("click",closeSheet);try{x.focus({preventScroll:true});}catch(e){x.focus();}
+ const say=$("#say");if(say)say.addEventListener("click",()=>speak(`${b.he}. ${b.s} הידעת? ${b.f}`,say));
+ if(!S.seen.has(id)){S.seen.add(id);addStars(1,`גילית את ${b.he}! קיבלת כוכב`);renderProgress();const c=$(`#grid .card[data-open="${id}"]`);if(c&&!c.querySelector(".seen"))c.insertAdjacentHTML("afterbegin",`<span class="seen">${IC.check}</span>`);}
+}
+function closeSheet(){
+ const ov=$("#overlay");if(ov.hidden)return;stopSpeak();ov.hidden=true;curBrand=null;document.documentElement.classList.remove("lock");
+ if(lastFocus&&document.contains(lastFocus)){try{lastFocus.focus({preventScroll:true});}catch(e){}}
+}
+function rerenderSheet(){
+ if(!curBrand)return;const sh=$("#sheet"),st=sh.scrollTop,p=$("#parents"),open=!!(p&&p.open);
+ openBrand(curBrand,null,open);sh.scrollTop=st;
+}
+function refreshAll(){renderGrid();if(famDone)renderFamilies();if(M)renderMemory(true);if(Q&&!Q.done)renderQ();if(S.view==="logos")renderLogos();}
+
+/* ===================== logo workshop ===================== */
+function readFile(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(new Error("read"));r.readAsDataURL(file);});}
+function loadImg(src){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error("img"));im.src=src;});}
+async function toPNG(file){
+ const im=await loadImg(await readFile(file));
+ const w0=im.naturalWidth||256,h0=im.naturalHeight||256,sc=256/Math.max(w0,h0);
+ const cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(w0*sc));cv.height=Math.max(1,Math.round(h0*sc));
+ cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);
+ const blob=await new Promise(r=>cv.toBlob(r,"image/png"));if(!blob)throw new Error("png");
+ return {blob,cv};
+}
+function dataURLtoBlob(u){const i=u.indexOf(",");const bin=atob(u.slice(i+1));const a=new Uint8Array(bin.length);for(let k=0;k<bin.length;k++)a[k]=bin.charCodeAt(k);return new Blob([a],{type:"image/png"});}
+function errMsg(e){const c=e&&e.code;return ({too_large:"התמונה גדולה מדי. נסו תמונה קטנה יותר.",unsupported_type:"סוג הקובץ לא נתמך. נסו PNG או JPG.",quota_or_state:"אין יותר מקום לתמונות במשחק.",quota_exceeded:"אין יותר מקום במשחק.",rate_limited:"יותר מדי שמירות ברצף. חכו דקה ונסו שוב.",invalid_argument:"אין לכם הרשאה לשמור סמלים במשחק הזה.",not_granted:"אין לכם הרשאה לשמור סמלים במשחק הזה.",upstream_auth:"צריך להתחבר מחדש. רעננו את העמוד ונסו שוב."})[c]||"השמירה לא הצליחה. נסו שוב.";}
+/* ---- background removal: the see-through parts of a logo often turn black when it is copied or saved ---- */
+const lum=c=>0.2126*c[0]+0.7152*c[1]+0.0722*c[2];
+function canvasFromImg(im,max){max=max||256;const w0=im.naturalWidth||256,h0=im.naturalHeight||256,sc=Math.min(max/Math.max(w0,h0),max===256?Infinity:1);const cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(w0*sc));cv.height=Math.max(1,Math.round(h0*sc));cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);return cv;}
+function cloneCanvas(cv){const c=document.createElement("canvas");c.width=cv.width;c.height=cv.height;c.getContext("2d").drawImage(cv,0,0);return c;}
+const cvBlob=cv=>new Promise((res,rej)=>cv.toBlob(b=>b?res(b):rej(new Error("png")),"image/png"));
+/* look at the frame of the picture: is it see-through already, or one solid colour? */
+function analyze(cv){
+ const w=cv.width,h=cv.height,d=cv.getContext("2d").getImageData(0,0,w,h).data;
+ let alpha=0,dark=0;for(let k=0;k<d.length;k+=4){if(d[k+3]<250)alpha++;else if(d[k]<=24&&d[k+1]<=24&&d[k+2]<=24)dark++;}
+ const base={w,h,alphaShare:alpha/(w*h),darkShare:dark/(w*h)};
+ const rs=[],gs=[],bs=[];let clear=0,n=0;
+ const take=i=>{n++;if(d[i+3]<128){clear++;return;}rs.push(d[i]);gs.push(d[i+1]);bs.push(d[i+2]);};
+ for(let x=0;x<w;x++){take(x*4);take(((h-1)*w+x)*4);}
+ for(let y=1;y<h-1;y++){take(y*w*4);take((y*w+w-1)*4);}
+ if(clear/n>0.5||!rs.length)return Object.assign(base,{transparent:true});
+ const med=a=>{const s=a.slice().sort((p,q)=>p-q);return s[s.length>>1];};
+ const bg=[med(rs),med(gs),med(bs)];
+ let near=0;for(let k=0;k<rs.length;k++)if(Math.max(Math.abs(rs[k]-bg[0]),Math.abs(gs[k]-bg[1]),Math.abs(bs[k]-bg[2]))<=40)near++;
+ return Object.assign(base,{transparent:false,bg,uniform:near/n>=0.85});
+}
+const frameText=a=>a.transparent?"see-through":(a.uniform?"rgb("+a.bg.join(",")+")":"mixed");
+/* flood-fill the background from the edges and make it see-through; returns the share of the picture left solid */
+function knockOut(cv,bg){
+ const T1=28,T2=80,w=cv.width,h=cv.height,ctx=cv.getContext("2d"),img=ctx.getImageData(0,0,w,h),d=img.data;
+ const seen=new Uint8Array(w*h),st=[];
+ const push=p=>{if(!seen[p]){seen[p]=1;st.push(p);}};
+ for(let x=0;x<w;x++){push(x);push((h-1)*w+x);}
+ for(let y=0;y<h;y++){push(y*w);push(y*w+w-1);}
+ while(st.length){
+  const p=st.pop(),i=p*4;
+  const ds=d[i+3]<16?0:Math.max(Math.abs(d[i]-bg[0]),Math.abs(d[i+1]-bg[1]),Math.abs(d[i+2]-bg[2]));
+  if(ds>=T2)continue;
+  if(ds<=T1)d[i+3]=0;
+  else{const a=(ds-T1)/(T2-T1);for(let c=0;c<3;c++)d[i+c]=Math.max(0,Math.min(255,Math.round((d[i+c]-bg[c]*(1-a))/a)));d[i+3]=Math.round(d[i+3]*a);}
+  const x=p%w,y=(p/w)|0;
+  if(x>0)push(p-1);if(x<w-1)push(p+1);if(y>0)push(p-w);if(y<h-1)push(p+w);
+ }
+ let solid=0;for(let k=3;k<d.length;k+=4)if(d[k]>128)solid++;
+ ctx.putImageData(img,0,0);
+ return solid/(w*h);
+}
+/* make every pixel close to the background colour see-through, also inside closed shapes such as the holes of Audi's rings */
+function keyOut(cv,bg){
+ const T1=28,T2=80,w=cv.width,h=cv.height,ctx=cv.getContext("2d"),img=ctx.getImageData(0,0,w,h),d=img.data;let solid=0;
+ for(let i=0;i<d.length;i+=4){
+  if(d[i+3]>=16){
+   const ds=Math.max(Math.abs(d[i]-bg[0]),Math.abs(d[i+1]-bg[1]),Math.abs(d[i+2]-bg[2]));
+   if(ds<=T1)d[i+3]=0;
+   else if(ds<T2){const a=(ds-T1)/(T2-T1);for(let c=0;c<3;c++)d[i+c]=Math.max(0,Math.min(255,Math.round((d[i+c]-bg[c]*(1-a))/a)));d[i+3]=Math.round(d[i+3]*a);}
+  }
+  if(d[i+3]>128)solid++;
+ }
+ ctx.putImageData(img,0,0);return solid/(w*h);
+}
+/* a black or white background is removed everywhere (the tile behind a logo is white); other colours only from the edges in */
+const cleanBg=(cv,a)=>{const L=lum(a.bg);return (L<70||L>200)?keyOut(cv,a.bg):knockOut(cv,a.bg);};
+const darkSolid=a=>!a.transparent&&a.uniform&&lum(a.bg)<70;
+const allBlack=a=>a.alphaShare<0.01&&a.darkShare>0.97;
+const blackMsg=name=>`התמונה של ${name} הגיעה שחורה לגמרי: הרקע השקוף הפך לשחור בדרך, והסמל השחור נעלם איתו. נסו דרך אחרת: אם העתקתם, שמרו את התמונה ובחרו אותה ב״בחירה״. אם בחרתם קובץ, נסו להעתיק ולהדביק. אפשר גם לבחור גרסה צבעונית של הסמל.`;
+const codeOf=e=>(e&&e.code)||String((e&&e.message)||e).slice(0,80);
+function dropLocal(id){if(localLogos[id]){delete localLogos[id];store.del("mm.logo."+id);}if(localOrig[id]){delete localOrig[id];store.del("mm.orig."+id);}}
+function putLocal(id,url,origUrl){
+ localLogos[id]=url;let ok=store.rawSet("mm.logo."+id,url);
+ if(origUrl){localOrig[id]=origUrl;ok=store.rawSet("mm.orig."+id,origUrl)&&ok;}else{delete localOrig[id];store.del("mm.orig."+id);}
+ return ok;
+}
+/* save a logo to the shared store; orig = asset id of the untouched original to keep for "restore" */
+async function putShared(id,blob,orig){
+ const r=await ASSETS.upload(blob,{type:"image/png"});
+ const prev=sharedLogos[id],prevOrig=sharedOrig[id];
+ const doc={asset:r.id,at:Date.now()};if(orig)doc.orig=orig;
+ try{await DB.doc("logos/"+id).set(doc);}catch(e){try{await ASSETS.delete(r.id);}catch(_){}throw e;}
+ sharedLogos[id]=r.id;if(orig)sharedOrig[id]=orig;else delete sharedOrig[id];
+ for(const a of new Set([prev,prevOrig]))if(a&&a!==r.id&&a!==orig){try{await ASSETS.delete(a);}catch(_){}}
+ dropLocal(id);
+}
+/* returns "ok", "local-unsaved", or a failure code */
+/* a file saved without the editor: cut away the empty margins so the logo fills its tile */
+function trimmedCanvas(im){
+ const big=editorCanvas(im),b=autoBounds(big),s=256/Math.max(b.w,b.h),cv=document.createElement("canvas");
+ cv.width=Math.max(1,Math.round(b.w*s));cv.height=Math.max(1,Math.round(b.h*s));
+ const x=cv.getContext("2d");x.imageSmoothingQuality="high";x.drawImage(big,b.x,b.y,b.w,b.h,0,0,cv.width,cv.height);return cv;
+}
+const TRIM_SRC=new Set(["bulk","zip","assign"]);
+async function setLogo(file,id,quiet,src){
+ const name=BM[id].he,info={brand:id,src:src||"",name:String(file.name||"").slice(0,80),type:file.type||"(none)",size:file.size||0};
+ let cv,a;
+ try{const im=await loadImg(await readFile(file));cv=TRIM_SRC.has(src)?trimmedCanvas(im):canvasFromImg(im);a=analyze(cv);}
+ catch(e){diag("logo-unreadable",info);if(!quiet)toast("לא הצלחנו לקרוא את התמונה. נסו קובץ PNG או JPG.");return "read";}
+ Object.assign(info,{w:a.w,h:a.h,see_through:+a.alphaShare.toFixed(3),black:+a.darkShare.toFixed(3),frame:frameText(a)});
+ if(allBlack(a)){diag("logo-all-black",info);if(!quiet)toast(blackMsg(name));return "black";}
+ let fixed=null;
+ try{if(darkSolid(a)){const c2=cloneCanvas(cv);if(cleanBg(c2,a)>=0.03)fixed=c2;}}catch(e){fixed=null;}
+ info.bg_removed=!!fixed;
+ const note=fixed?". הרקע השחור הוסר":"";
+ if(canShare()){
+  let o=null;
+  try{
+   if(fixed){o=await ASSETS.upload(await cvBlob(cv),{type:"image/png"});await putShared(id,await cvBlob(fixed),o.id);}
+   else await putShared(id,await cvBlob(cv),null);
+  }catch(e){if(o){try{await ASSETS.delete(o.id);}catch(_){}}diag("logo-save-failed",Object.assign(info,{code:codeOf(e)}));if(!quiet)toast(errMsg(e));return (e&&e.code)||"fail";}
+  diag("logo-saved",Object.assign(info,{where:"shared"}));
+  if(!quiet){refreshAll();rerenderSheet();toast(`הסמל של ${name} נשמר בכל המכשירים${note}`);}
+  return "ok";
+ }
+ const ok=putLocal(id,(fixed||cv).toDataURL("image/png"),fixed?cv.toDataURL("image/png"):null);
+ diag("logo-saved",Object.assign(info,{where:ok?"browser":"browser-not-kept"}));
+ if(!quiet){refreshAll();rerenderSheet();toast(ok?`הסמל של ${name} נשמר בדפדפן הזה${note}`:"הסמל מוצג עכשיו, אבל הדפדפן לא שומר אותו לפעם הבאה");}
+ return ok?"ok":"local-unsaved";
+}
+/* remove a one-colour background from a logo that is already saved */
+async function removeBg(id,o){
+ o=o||{};const name=BM[id].he;if(!logoURL(id))return "none";
+ if(sharedLogos[id]&&!canShare())return "skip";
+ /* always work from the untouched original when there is one, so running it again gives the better result */
+ const origSrc=sharedLogos[id]?(sharedOrig[id]?"/_blob/"+sharedOrig[id]:null):(localOrig[id]||null);
+ let cv,a;
+ try{cv=canvasFromImg(await loadImg(origSrc||logoURL(id)));a=analyze(cv);}catch(e){diag("bg-load-failed",{brand:id});if(!o.quiet)toast("לא הצלחנו לטעון את הסמל. נסו שוב.");return "fail";}
+ const info={brand:id,from:origSrc?"original":"current",see_through:+a.alphaShare.toFixed(3),black:+a.darkShare.toFixed(3),frame:frameText(a)};
+ if(allBlack(a)){diag("bg-all-black",info);if(!o.quiet)toast(blackMsg(name));return "black";}
+ if(a.transparent){if(!o.quiet)toast(`לסמל של ${name} כבר אין רקע.`);return "skip";}
+ if(o.onlyDark&&!darkSolid(a))return "skip";
+ if(!a.uniform){diag("bg-not-one-colour",info);if(!o.quiet)toast("לא מצאנו בתמונה הזו רקע בצבע אחד שאפשר להסיר.");return "skip";}
+ const solid=cleanBg(cv,a);info.solid_left=+solid.toFixed(3);
+ if(solid<0.03){diag("bg-nothing-left",info);if(!o.quiet)toast("כל התמונה כמעט בצבע אחד, ולכן אי אפשר להפריד את הסמל מהרקע. נסו גרסה אחרת של הסמל.");return "flat";}
+ try{
+  if(sharedLogos[id])await putShared(id,await cvBlob(cv),sharedOrig[id]||sharedLogos[id]);
+  else putLocal(id,cv.toDataURL("image/png"),localOrig[id]||localLogos[id]);
+ }catch(e){diag("bg-save-failed",Object.assign(info,{code:codeOf(e)}));if(!o.quiet)toast(errMsg(e));return (e&&e.code)||"fail";}
+ diag("bg-removed",info);
+ if(!o.quiet){refreshAll();rerenderSheet();toast(`הרקע של ${name} הוסר. לא נראה טוב? לחצו ״החזרת המקור״.`);}
+ return "ok";
+}
+async function restoreOrig(id){
+ const name=BM[id].he;
+ if(sharedOrig[id]){
+  if(!canShare())return;
+  const orig=sharedOrig[id],prev=sharedLogos[id];
+  try{await DB.doc("logos/"+id).set({asset:orig,at:Date.now()});}catch(e){toast(errMsg(e));return;}
+  sharedLogos[id]=orig;delete sharedOrig[id];
+  if(prev&&prev!==orig){try{await ASSETS.delete(prev);}catch(_){}}
+ }else if(localOrig[id])putLocal(id,localOrig[id],null);
+ else return;
+ refreshAll();rerenderSheet();toast(`הסמל של ${name} חזר לתמונה המקורית`);
+}
+async function fixAllDark(){
+ const ids=B.map(b=>b.id).filter(id=>logoURL(id)&&(sharedLogos[id]?canShare():true));
+ const box=$("#bulk-res"),done=[],black=[];let err=null;
+ diag("fix-all",{logos:ids.length});
+ for(let i=0;i<ids.length;i++){
+  box.textContent=`בודקים ${i+1} מתוך ${ids.length}: ${BM[ids[i]].he}…`;
+  const r=await removeBg(ids[i],{onlyDark:true,quiet:true});
+  if(r==="ok")done.push(ids[i]);else if(r==="black"||r==="flat")black.push(ids[i]);else if(/rate_limited|quota|invalid_argument|not_granted/.test(r)){err=r;break;}
+ }
+ refreshAll();rerenderSheet();
+ let h=done.length?`<p><b>${done.length===1?"הסרנו רקע שחור מסמל אחד":"הסרנו רקע שחור מ-"+done.length+" סמלים"}:</b> ${done.map(id=>BM[id].he).join(", ")}. אם משהו נראה לא טוב, לחצו ״החזרת המקור״ ליד המותג.</p>`:"";
+ if(black.length)h+=`<p><b>${black.map(id=>BM[id].he).join(", ")}:</b> ${black.length===1?"התמונה הגיעה":"התמונות הגיעו"} שחורות לגמרי, ולכן אי אפשר לתקן אותן. צריך להעלות תמונה חדשה.</p>`;
+ if(!h)h="<p>לא מצאנו סמלים עם רקע שחור. אפשר ללחוץ ״הסרת רקע״ ליד מותג מסוים.</p>";
+ box.innerHTML=h+(err?`<p>${errMsg({code:err})}</p>`:"");
+}
+async function removeLogo(id){
+ if(sharedLogos[id]){
+  if(!canShare())return;
+  const old=sharedLogos[id],orig=sharedOrig[id];
+  try{await DB.doc("logos/"+id).delete();}catch(e){toast(errMsg(e));return;}
+  delete sharedLogos[id];delete sharedOrig[id];
+  for(const a of new Set([old,orig]))if(a){try{await ASSETS.delete(a);}catch(_){}}
+ }
+ dropLocal(id);
+ refreshAll();rerenderSheet();toast(`הסמל של ${BM[id].he} הוסר`);
+}
+/* match a file name such as "Mercedes-Benz_Logo_2010.svg.png", "logos/kgm.png" or "טויוטה.jpg" to a brand */
+const ALIAS={vw:["volkswagen","vw"],mercedes:["mercedes","mercedesbenz","benz"],alfa:["alfaromeo","alfa"],lynk:["lynkco","lynk"],mg:["mg","mgmotor"],landrover:["landrover"],rollsroyce:["rollsroyce"],astonmartin:["astonmartin"],greatwall:["greatwall","gwm"],kgm:["kgm","kgmobility","ssangyong"],ds:["ds","dsautomobiles"],ram:["ram","ramtrucks"],autocars:["autocars","sussita"],lucid:["lucid","lucidmotors"],forthing:["forhting"],gac:["gacmotor"],aion:["gacaion"],im:["immotors"],jac:["jacmotors"],man:["mantruck"]};
+/* some sites name logo files by number only; these are the numbers used in the logo collection this game was set up with */
+const NUMNAME={"114":"ora","16":"citroen","17":"smart","23":"mazda","24":"peugeot","40":"ford","42":"seat","56":"isuzu","88":"gac","9":"vw"};
+const KEYS=B.map(b=>{const own=new Set([b.id,norm(b.en).replace(/[^a-z0-9]/g,""),b.he.replace(/[^א-ת]/g,"")].filter(Boolean));const all=new Set(own);(ALIAS[b.id]||[]).forEach(x=>all.add(x));return [b.id,[...all].map(k=>[k,own.has(k)])];});
+const fileBase=n=>norm(String(n||"").split(/[\\/]/).pop()).replace(/\.(png|jpe?g|gif|webp|svg|heic|avif|bmp)$/i,"").replace(/\.svg$/i,"");
+/* returns {id, own, len}: own = matched the brand's own name rather than an alias; the longest matching key wins */
+function matchInfo(fname){
+ const base=fileBase(fname);
+ if(NUMNAME[base])return {id:NUMNAME[base],own:false,len:0};
+ const tokens=base.split(/[^a-z0-9א-ת]+/).filter(Boolean),compact=tokens.join("");
+ let best=null;
+ for(const [id,keys] of KEYS)for(const [k,own] of keys){
+  if(!(tokens.includes(k)||(k.length>=5&&compact.includes(k))))continue;
+  if(!best||k.length>best.len||(k.length===best.len&&own&&!best.own))best={id,own,len:k.length};
+ }
+ return best;
+}
+const matchBrand=f=>{const m=matchInfo(f);return m?m.id:null;};
+/* ---- ZIP files: opened in the browser; only the pictures inside are used ---- */
+const IMG_RE=/\.(png|jpe?g|gif|webp|svg|avif|bmp)$/i;
+const MIME={png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",gif:"image/gif",webp:"image/webp",svg:"image/svg+xml",avif:"image/avif",bmp:"image/bmp"};
+const skipEntry=n=>/(^|\/)(__MACOSX\/|\.)/.test(n);
+const isZip=f=>/\.zip$/i.test(f.name||"")||/zip/i.test(f.type||"");
+async function unzipNative(buf){
+ const dv=new DataView(buf),u8=new Uint8Array(buf),L=buf.byteLength;
+ let e=-1;for(let i=L-22;i>=Math.max(0,L-65557);i--){if(dv.getUint32(i,true)===0x06054b50){e=i;break;}}
+ if(e<0)throw new Error("zip-format");
+ const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);
+ if(n===0xFFFF||p===0xFFFFFFFF)throw new Error("zip64");
+ const utf=new TextDecoder("utf-8"),out=[];
+ for(let k=0;k<n;k++){
+  if(p+46>L||dv.getUint32(p,true)!==0x02014b50)throw new Error("zip-dir");
+  const flags=dv.getUint16(p+8,true),method=dv.getUint16(p+10,true),csize=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),xl=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),off=dv.getUint32(p+42,true);
+  const name=utf.decode(u8.subarray(p+46,p+46+nl));p+=46+nl+xl+cl;
+  if(name.endsWith("/")||skipEntry(name)||!IMG_RE.test(name))continue;
+  if(flags&1)throw new Error("zip-encrypted");
+  if(dv.getUint32(off,true)!==0x04034b50)throw new Error("zip-entry");
+  const start=off+30+dv.getUint16(off+26,true)+dv.getUint16(off+28,true),data=u8.subarray(start,start+csize);
+  let blob;
+  if(method===0)blob=new Blob([data]);
+  else if(method===8)blob=await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).blob();
+  else throw new Error("zip-method-"+method);
+  out.push({name,blob});
+ }
+ return out;
+}
+let zipLib=null;
+function loadZipLib(){
+ if(window.JSZip)return Promise.resolve(window.JSZip);
+ if(!zipLib)zipLib=new Promise((res,rej)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";s.onload=()=>window.JSZip?res(window.JSZip):rej(new Error("zip-lib"));s.onerror=()=>{zipLib=null;rej(new Error("zip-lib"));};document.head.appendChild(s);});
+ return zipLib;
+}
+async function unzipImages(file){
+ const buf=await file.arrayBuffer();let list=null;
+ if(typeof DecompressionStream==="function"){try{list=await unzipNative(buf);}catch(e){diag("zip-native-failed",{code:codeOf(e)});list=null;}}
+ if(!list){
+  const JSZip=await loadZipLib(),z=await JSZip.loadAsync(buf);list=[];
+  for(const n of Object.keys(z.files)){const en=z.files[n];if(en.dir||skipEntry(n)||!IMG_RE.test(n))continue;list.push({name:n,blob:await en.async("blob")});}
+ }
+ return list.map(x=>{const ext=x.name.split(".").pop().toLowerCase();return new File([x.blob],x.name.split("/").pop(),{type:MIME[ext]||""});});
+}
+async function fromZip(file){
+ const box=$("#bulk-res");box.textContent="פותחים את קובץ ה-ZIP…";$("#bulk-assign").innerHTML="";
+ let files;
+ try{files=await unzipImages(file);}
+ catch(e){diag("zip-failed",{name:String(file.name||"").slice(0,80),size:file.size||0,code:codeOf(e)});box.innerHTML=`<p>לא הצלחנו לפתוח את קובץ ה-ZIP. ${/encrypted/.test(codeOf(e))?"הקובץ נעול בסיסמה. ":""}נסו לפתוח אותו בטלפון ולבחור את התמונות ב״העלאת כמה קבצים יחד״.</p>`;return;}
+ diag("zip-open",{name:String(file.name||"").slice(0,80),size:file.size||0,images:files.length});
+ if(!files.length){box.innerHTML="<p>לא מצאנו תמונות בתוך קובץ ה-ZIP.</p>";return;}
+ await bulk(files,"zip");
+}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+/* save one logo; when the game asks for a pause between saves, wait and try again */
+async function saveRetry(f,id,src,label){
+ const waits=[15,30,60,60,90],box=$("#bulk-res");
+ for(let t=0;;t++){
+  const r=await setLogo(f,id,true,src);
+  if(r!=="rate_limited"||t>=waits.length)return r;
+  diag("bulk-wait",{brand:id,sec:waits[t]});
+  for(let s=waits[t];s>0;s--){box.textContent=`${label}. המשחק ביקש הפסקה קצרה בין השמירות, ממשיכים בעוד ${s} שניות…`;await sleep(1000);}
+ }
+}
+const names=ids=>ids.map(id=>BM[id].he).join(", ");
+let ASSIGN=[];
+async function bulk(files,src){
+ src=src||"bulk";
+ const box=$("#bulk-res"),chosen=new Map(),miss=[],dups=[];
+ const had=new Set(B.filter(b=>logoURL(b.id)).map(b=>b.id));
+ files.forEach(f=>{
+  const m=matchInfo(f.name);if(!m){miss.push(f);return;}
+  const cur=chosen.get(m.id);
+  if(!cur){chosen.set(m.id,{f,m});return;}
+  const better=(m.own&&!cur.m.own)||(m.own===cur.m.own&&m.len>cur.m.len);
+  if(better){dups.push([cur.f.name,m.id]);chosen.set(m.id,{f,m});}else dups.push([f.name,m.id]);
+ });
+ const plan=[...chosen.entries()];
+ const okIds=[],failed=[],black=[];let stop=null;
+ diag("bulk",{src,files:files.length,matched:plan.length,unmatched:miss.length,dups:dups.length});
+ for(let i=0;i<plan.length;i++){
+  const [id,{f}]=plan[i],label=`שומרים ${i+1} מתוך ${plan.length}: ${BM[id].he}`;box.textContent=label+"…";
+  const r=await saveRetry(f,id,src,label);
+  if(r==="ok"||r==="local-unsaved")okIds.push(id);else if(r==="black")black.push(id);else{failed.push(f.name);if(/rate_limited|quota|invalid_argument|not_granted|upstream_auth/.test(r)){stop=r;break;}}
+ }
+ refreshAll();rerenderSheet();
+ const repl=okIds.filter(id=>had.has(id)),added=okIds.filter(id=>!had.has(id));
+ diag("bulk-done",{src,saved:okIds.length,replaced:repl.length,added:added.length,black:black.length,failed:failed.length,unmatched:miss.length,stop:stop||""});
+ let h="";
+ if(added.length)h+=`<p><b>${added.length===1?"נוסף סמל אחד":"נוספו "+added.length+" סמלים"}:</b> ${names(added)}.</p>`;
+ if(repl.length)h+=`<p><b>${repl.length===1?"הוחלף סמל אחד":"הוחלפו "+repl.length+" סמלים"}:</b> ${names(repl)}.</p>`;
+ if(black.length)h+=`<p><b>לא נשמרו, כי הגיעו שחורים לגמרי:</b> ${names(black)}. נסו גרסה צבעונית של הסמל, או דרך אחרת (העתקה והדבקה במקום בחירת קובץ).</p>`;
+ if(failed.length)h+=`<p><b>לא הצלחנו לשמור:</b> <span dir="ltr">${failed.map(esc).join(", ")}</span>. ${stop?errMsg({code:stop}):"נסו קובץ PNG או JPG."}</p>`;
+ if(dups.length)h+=`<p><b>${dups.length===1?"קובץ כפול שלא השתמשנו בו":"קבצים כפולים שלא השתמשנו בהם"}:</b> ${dups.map(([n,id])=>`<span dir="ltr">${esc(n)}</span> (כבר יש קובץ של ${BM[id].he})`).join(", ")}.</p>`;
+ if(src==="zip"&&!stop){const rest=B.filter(b=>!chosen.has(b.id)).map(b=>b.id);if(rest.length){const keep=rest.filter(id=>logoURL(id)),none=rest.filter(id=>!logoURL(id));if(keep.length)h+=`<p><b>לא היו בקובץ, ולכן נשארו עם הסמל הקודם:</b> ${names(keep)}.</p>`;if(none.length)h+=`<p><b>עדיין בלי סמל:</b> ${names(none)}.</p>`;}}
+ box.innerHTML=h||"<p>לא נבחרו קבצים.</p>";
+ await showAssign(miss);
+}
+/* files whose name did not match: the parent picks the brand */
+async function showAssign(miss){
+ const wrap=$("#bulk-assign");ASSIGN=miss.slice();
+ if(!ASSIGN.length){wrap.innerHTML="";return;}
+ const opts=B.slice().sort((a,b)=>a.he.localeCompare(b.he,"he")).map(b=>`<option value="${b.id}">${esc(b.he)} · ${esc(b.en)}${logoURL(b.id)?"":" (בלי סמל)"}</option>`).join("");
+ const rows=[];
+ for(let i=0;i<ASSIGN.length;i++){
+  const f=ASSIGN[i];let src="";try{src=await readFile(f);}catch(_){}
+  rows.push(`<div class="as-row" data-as="${i}"><span class="as-thumb">${src?`<img src="${src}" alt="">`:""}</span><span class="as-name" dir="ltr">${esc(f.name)}</span><span class="as-ctl"><select data-as-sel="${i}" aria-label="לאיזה מותג שייך הקובץ ${esc(f.name)}"><option value="">בחרו מותג…</option>${opts}</select><button type="button" class="btn sm" data-as-save="${i}">שמירה</button><button type="button" class="btn ghost sm" data-as-skip="${i}">דילוג</button></span></div>`);
+ }
+ wrap.innerHTML=`<p><b>${ASSIGN.length===1?"קובץ אחד":ASSIGN.length+" קבצים"} בלי שם של מותג.</b> בחרו לאיזה מותג כל אחד שייך:</p>`+rows.join("");
+}
+function dropAssignRow(i){const r=document.querySelector(`#bulk-assign [data-as="${i}"]`);if(r)r.remove();ASSIGN[i]=null;if(!ASSIGN.some(Boolean))$("#bulk-assign").innerHTML="";}
+async function saveAssign(i){
+ const f=ASSIGN[i],sel=document.querySelector(`#bulk-assign [data-as-sel="${i}"]`),id=sel&&sel.value;
+ if(!f)return;if(!id||!BM[id]){toast("בחרו קודם מותג מהרשימה");try{sel.focus();}catch(_){}return;}
+ const r=await saveRetry(f,id,"assign",`שומרים את ${BM[id].he}`);
+ $("#bulk-res").textContent="";
+ if(r==="ok"||r==="local-unsaved"){refreshAll();rerenderSheet();toast(`הסמל של ${BM[id].he} נשמר`);dropAssignRow(i);}
+ else if(r==="black")toast(blackMsg(BM[id].he));else toast(errMsg({code:r}));
+}
+async function migrate(){
+ const ids=Object.keys(localLogos).filter(id=>!sharedLogos[id]&&BM[id]);const box=$("#bulk-res");let n=0,err=null;
+ for(const id of ids){box.textContent=`מעבירים ${n+1} מתוך ${ids.length}…`;try{await putShared(id,dataURLtoBlob(localLogos[id]),null);n++;}catch(e){err=e;break;}}
+ refreshAll();rerenderSheet();
+ box.innerHTML=(n?`<p><b>הועברו ${n} סמלים.</b> מעכשיו הם יופיעו בכל מכשיר.</p>`:"")+(err?`<p>${errMsg(err)}</p>`:"");
+}
+/* opening the workshop scrolls to the first brand that still has no logo */
+let pendingJump=false;
+function jumpToMissing(){
+ pendingJump=false;
+ const row=[...document.querySelectorAll("#lg-list .lg-row")].find(r=>!logoURL(r.dataset.drop));
+ const el=row||document.querySelector(".sign");
+ try{el.scrollIntoView({block:row?"center":"start"});}catch(_){}
+ if(row){row.classList.remove("flash");void row.offsetWidth;row.classList.add("flash");}
+}
+function requestJump(){if(DB&&dbState==="loading")pendingJump=true;else requestAnimationFrame(jumpToMissing);}
+let busy=false;
+async function guarded(fn){
+ if(busy){toast("רגע, עוד שומרים את הקודם");return;}
+ busy=true;document.documentElement.classList.add("busy");
+ try{await fn();}catch(e){toast(errMsg(e));}finally{busy=false;document.documentElement.classList.remove("busy");}
+}
+
+/* ===================== logo editor: crop + background ===================== */
+const ED={open:false,drag:null};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* the editor works on a larger copy (512–1024 px) so the frame is easy to place; the saved logo is 256 px */
+function editorCanvas(im){const w0=im.naturalWidth||256,h0=im.naturalHeight||256,M=Math.max(w0,h0),sc=M<512?512/M:Math.min(1,1024/M);const cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(w0*sc));cv.height=Math.max(1,Math.round(h0*sc));cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);return cv;}
+/* the smallest frame around everything that is not background, plus a little margin */
+function autoBounds(cv){
+ const w=cv.width,h=cv.height,d=cv.getContext("2d").getImageData(0,0,w,h).data,a=analyze(cv);
+ const bg=(!a.transparent&&a.uniform)?a.bg:null;let x0=w,y0=h,x1=-1,y1=-1;
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;if(d[i+3]<24)continue;if(bg&&Math.max(Math.abs(d[i]-bg[0]),Math.abs(d[i+1]-bg[1]),Math.abs(d[i+2]-bg[2]))<=40)continue;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
+ if(x1<0)return {x:0,y:0,w,h};
+ const pad=Math.round(Math.max(x1-x0,y1-y0)*0.04)+1;
+ x0=Math.max(0,x0-pad);y0=Math.max(0,y0-pad);x1=Math.min(w-1,x1+pad);y1=Math.min(h-1,y1+pad);
+ return {x:x0,y:y0,w:x1-x0+1,h:y1-y0+1};
+}
+function cropOut(){const c=ED.crop,s=256/Math.max(c.w,c.h),cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(c.w*s));cv.height=Math.max(1,Math.round(c.h*s));cv.getContext("2d").drawImage(ED.src,c.x,c.y,c.w,c.h,0,0,cv.width,cv.height);return cv;}
+function edResult(){
+ const R=cropOut();let P=null,a=null;try{a=analyze(R);}catch(_){}
+ const can=!!(a&&!a.transparent&&a.uniform);
+ if(can&&$("#ed-bg").checked){const c2=cloneCanvas(R);if(cleanBg(c2,a)>=0.03)P=c2;}
+ return {R,P,a,can};
+}
+function edLayout(){const c=ED.crop,cv=$("#ed-cv"),s=(cv.clientWidth||1)/ED.src.width,b=$("#ed-box");b.style.left=c.x*s+"px";b.style.top=c.y*s+"px";b.style.width=c.w*s+"px";b.style.height=c.h*s+"px";}
+let edRaf=0;
+function edPreview(){
+ cancelAnimationFrame(edRaf);
+ edRaf=requestAnimationFrame(()=>{
+  if(!ED.open)return;const r=edResult(),src=r.P||r.R,pv=$("#ed-pv");
+  pv.width=src.width;pv.height=src.height;pv.getContext("2d").drawImage(src,0,0);
+  const bg=$("#ed-bg");bg.disabled=!r.can;
+  $("#ed-sw").style.background=r.can?`rgb(${r.a.bg.join(",")})`:"transparent";
+  $("#ed-bg-note").textContent=r.can?(bg.checked&&!r.P?"לא נשאר כמעט כלום אחרי הסרת הרקע, אז הוא לא יוסר.":""):(r.a&&r.a.transparent?"לתמונה הזו כבר יש רקע שקוף.":"אין כאן רקע בצבע אחד להסרה.");
+ });
+}
+function openEditor(id,src,mode,info){
+ ED.open=true;ED.id=id;ED.src=src;ED.mode=mode;ED.info=info||{};ED.drag=null;
+ ED.crop=autoBounds(src);
+ $("#ed-msg").textContent=(ED.crop.w<src.width||ED.crop.h<src.height)?"המסגרת כבר הוצמדה אוטומטית לסמל. אפשר לשנות אותה.":"";
+ const cv=$("#ed-cv");cv.width=src.width;cv.height=src.height;cv.getContext("2d").drawImage(src,0,0);
+ $("#ed-title").textContent=`עריכת הסמל של ${BM[id].he}`;
+ let a=null;try{a=analyze(cropOut());}catch(_){}
+ $("#ed-bg").checked=!!(a&&darkSolid(a));
+ $("#ed").hidden=false;document.documentElement.classList.add("lock");
+ requestAnimationFrame(()=>{edLayout();edPreview();});
+ try{$("#ed-save").focus({preventScroll:true});}catch(_){}
+ diag("editor-open",Object.assign({},ED.info,{mode,crop:ED.crop}));
+}
+function closeEditor(){ED.open=false;ED.drag=null;$("#ed").hidden=true;if($("#overlay").hidden)document.documentElement.classList.remove("lock");}
+/* a new picture (chosen, pasted or dropped) goes through the editor before it is saved */
+async function startNew(file,id,src){
+ if(ED.open||busy||!BM[id])return;
+ const info={brand:id,src:src||"",name:String(file.name||"").slice(0,80),type:file.type||"(none)",size:file.size||0};
+ let cv,a;
+ try{cv=editorCanvas(await loadImg(await readFile(file)));a=analyze(cv);}
+ catch(e){diag("logo-unreadable",info);toast("לא הצלחנו לקרוא את התמונה. נסו קובץ PNG או JPG.");return;}
+ Object.assign(info,{w:a.w,h:a.h,see_through:+a.alphaShare.toFixed(3),black:+a.darkShare.toFixed(3),frame:frameText(a)});
+ if(allBlack(a)){diag("logo-all-black",info);toast(blackMsg(BM[id].he));return;}
+ openEditor(id,cv,"new",info);
+}
+/* re-edit a saved logo, starting from its untouched original */
+async function startEdit(id){
+ if(ED.open||busy||!logoURL(id))return;
+ if(sharedLogos[id]&&!canShare())return;
+ const origSrc=sharedLogos[id]?(sharedOrig[id]?"/_blob/"+sharedOrig[id]:null):(localOrig[id]||null);
+ let cv;try{cv=editorCanvas(await loadImg(origSrc||logoURL(id)));}catch(e){diag("editor-load-failed",{brand:id});toast("לא הצלחנו לטעון את הסמל. נסו שוב.");return;}
+ openEditor(id,cv,"edit",{brand:id,src:"edit",from:origSrc?"original":"current"});
+}
+async function editorSave(){
+ if(!ED.open)return;
+ const {R,P}=edResult(),id=ED.id,mode=ED.mode,name=BM[id].he,info=Object.assign({},ED.info,{mode,crop:ED.crop,bg_removed:!!P});
+ closeEditor();
+ await guarded(async()=>{
+  try{
+   if(canShare()){
+    if(mode==="new"){
+     if(P){const o=await ASSETS.upload(await cvBlob(R),{type:"image/png"});try{await putShared(id,await cvBlob(P),o.id);}catch(e){try{await ASSETS.delete(o.id);}catch(_){}throw e;}}
+     else await putShared(id,await cvBlob(R),null);
+    }else await putShared(id,await cvBlob(P||R),sharedOrig[id]||sharedLogos[id]||null);
+    info.where="shared";
+   }else{
+    const ok=mode==="new"?putLocal(id,(P||R).toDataURL("image/png"),P?R.toDataURL("image/png"):null):putLocal(id,(P||R).toDataURL("image/png"),localOrig[id]||localLogos[id]||null);
+    info.where=ok?"browser":"browser-not-kept";
+   }
+  }catch(e){diag("logo-save-failed",Object.assign(info,{code:codeOf(e)}));toast(errMsg(e));return;}
+  diag("logo-saved",info);refreshAll();rerenderSheet();
+  toast(`הסמל של ${name} נשמר${canShare()?" בכל המכשירים":" בדפדפן הזה"}`);
+ });
+}
+/* dragging: move the frame, pull a corner, or draw a new frame */
+(function(){
+ const st=$("#ed-stage");
+ const pos=e=>{const r=$("#ed-cv").getBoundingClientRect(),k=ED.src.width/(r.width||1);return [clamp((e.clientX-r.left)*k,0,ED.src.width),clamp((e.clientY-r.top)*k,0,ED.src.height)];};
+ st.addEventListener("pointerdown",e=>{
+  if(!ED.open)return;e.preventDefault();
+  const [px,py]=pos(e),c=ED.crop,h=e.target&&e.target.dataset?e.target.dataset.h:null;
+  const mode=h||(px>=c.x&&px<=c.x+c.w&&py>=c.y&&py<=c.y+c.h?"move":"draw");
+  ED.drag={mode,sx:px,sy:py,c0:Object.assign({},c)};
+  try{st.setPointerCapture(e.pointerId);}catch(_){}
+ });
+ st.addEventListener("pointermove",e=>{
+  const g=ED.drag;if(!g)return;
+  const [px,py]=pos(e),W=ED.src.width,H=ED.src.height,m=Math.max(10,Math.round(Math.min(W,H)*0.04)),c=g.c0;
+  let L=c.x,T=c.y,R=c.x+c.w,Bm=c.y+c.h;
+  if(g.mode==="move"){L=clamp(c.x+px-g.sx,0,W-c.w);T=clamp(c.y+py-g.sy,0,H-c.h);R=L+c.w;Bm=T+c.h;}
+  else if(g.mode==="draw"){L=Math.min(g.sx,px);R=Math.max(g.sx,px);T=Math.min(g.sy,py);Bm=Math.max(g.sy,py);}
+  else{if(g.mode[1]==="w")L=Math.min(px,R-m);if(g.mode[1]==="e")R=Math.max(px,L+m);if(g.mode[0]==="n")T=Math.min(py,Bm-m);if(g.mode[0]==="s")Bm=Math.max(py,T+m);}
+  L=clamp(L,0,W);R=clamp(R,0,W);T=clamp(T,0,H);Bm=clamp(Bm,0,H);
+  ED.crop={x:Math.round(L),y:Math.round(T),w:Math.max(1,Math.round(R-L)),h:Math.max(1,Math.round(Bm-T))};
+  edLayout();edPreview();
+ });
+ const end=()=>{const g=ED.drag;if(!g)return;ED.drag=null;const m=Math.max(10,Math.round(Math.min(ED.src.width,ED.src.height)*0.04));if(ED.crop.w<m||ED.crop.h<m)ED.crop=g.c0;edLayout();edPreview();};
+ st.addEventListener("pointerup",end);st.addEventListener("pointercancel",end);
+ $("#ed-bg").addEventListener("change",edPreview);
+ $("#ed-auto").addEventListener("click",()=>{
+  const nb=autoBounds(ED.src),c=ED.crop,W=ED.src.width,H=ED.src.height;
+  const same=nb.x===c.x&&nb.y===c.y&&nb.w===c.w&&nb.h===c.h,full=nb.x===0&&nb.y===0&&nb.w===W&&nb.h===H;
+  let a=null;try{a=analyze(ED.src);}catch(_){}
+  const mixed=!!(a&&!a.transparent&&!a.uniform);
+  ED.crop=nb;edLayout();edPreview();
+  $("#ed-msg").textContent=full?(mixed?"הרקע בתמונה הזו לא בצבע אחד, אז אי אפשר לחתוך אוטומטית. גררו את הפינות הצהובות.":"הסמל כבר ממלא את כל התמונה, אין שוליים ריקים לחתוך."):(same?"המסגרת כבר צמודה לסמל.":"המסגרת הוצמדה לסמל.");
+  diag("auto-crop",{brand:ED.id,result:full?(mixed?"mixed-background":"already-full"):(same?"no-change":"trimmed"),crop:nb});
+ });
+ $("#ed-all").addEventListener("click",()=>{ED.crop={x:0,y:0,w:ED.src.width,h:ED.src.height};edLayout();edPreview();});
+ $("#ed-save").addEventListener("click",editorSave);
+ const cancel=()=>{if(ED.open){diag("editor-cancel",{brand:ED.id});closeEditor();}};
+ $("#ed-cancel").addEventListener("click",cancel);$("#ed-x").addEventListener("click",cancel);
+ window.addEventListener("resize",()=>{if(ED.open)edLayout();});
+})();
+const rowSig=b=>[logoURL(b.id)||"",sharedOrig[b.id]||localOrig[b.id]||"",canShare()?1:0].join("|");
+const rowHTML=b=>`<div class="lg-row" data-drop="${b.id}" data-sig="${esc(rowSig(b))}">${badge(b,"md")}<div class="lg-name"><b>${b.he}</b><span dir="ltr">${esc(b.en)}</span></div><div class="lg-acts">${logoActions(b,"sm")}</div></div>`;
+/* full: rebuild the list; otherwise only swap the rows that changed, so the page does not jump */
+function renderLogos(full){
+ const only=$("#lg-missing").checked;
+ const all=B.slice().sort((a,b)=>a.he.localeCompare(b.he,"he"));
+ const list=all.filter(b=>!only||!logoURL(b.id));
+ const n=B.filter(b=>logoURL(b.id)).length;
+ $("#lg-count").textContent=`יש סמל ל-${n} מתוך ${B.length} מותגים`;
+ const m=$("#lg-mode");m.textContent=logoModeText();m.classList.toggle("local",!canShare());
+ const nLocal=Object.keys(localLogos).filter(id=>!sharedLogos[id]).length,mg=$("#migrate");
+ mg.hidden=!(canShare()&&nLocal>0);mg.textContent=`העברת ${nLocal} סמלים מהדפדפן הזה לכל המכשירים`;
+ $("#fixdark").hidden=!B.some(b=>logoURL(b.id)&&(sharedLogos[b.id]?canShare():true));
+ $("#lg-tip").textContent=tipText();
+ const box=$("#lg-list");
+ if(full||!box.querySelector(".lg-row")){box.innerHTML=list.length?list.map(rowHTML).join(""):`<p class="empty">לכל המותגים כבר יש סמל!</p>`;return;}
+ $$(".lg-row",box).forEach(r=>{const b=BM[r.dataset.drop];if(b&&r.dataset.sig!==rowSig(b)){const t=document.createElement("div");t.innerHTML=rowHTML(b);r.replaceWith(t.firstElementChild);}});
+}
+/* "הדבקה" opens a paste box inside that brand's row */
+function openRowPaste(id,btn){
+ const row=btn.closest(".lg-row");if(!row||!BM[id])return;
+ $$(".row-paste").forEach(x=>{if(!row.contains(x))x.remove();});
+ let w=row.querySelector(".row-paste");
+ if(!w){row.insertAdjacentHTML("beforeend",`<div class="row-paste"><div class="paste" contenteditable="true" inputmode="none" role="textbox" aria-label="הדבקת הסמל של ${BM[id].he}" data-for="${id}" data-ph="לחיצה ארוכה כאן ואז ״הדבקה״"></div><button type="button" class="btn ghost sm" data-paste-cancel>ביטול</button></div>`);w=row.querySelector(".row-paste");}
+ const z=w.querySelector(".paste");try{z.focus({preventScroll:true});}catch(_){}
+}
+function logoModeChanged(){
+ if(S.view==="logos")renderLogos(false);
+ if(pendingJump&&S.view==="logos"&&dbState!=="loading")jumpToMissing();
+ const p=$("#parents .mode");if(p)p.textContent=logoModeText();
+ const tp=$("#parents .tip");if(tp)tp.textContent=tipText();
+}
+/* paste an image that was copied from another app or page */
+document.addEventListener("paste",e=>{
+ const z=e.target&&e.target.closest&&e.target.closest(".paste");if(!z)return;
+ e.preventDefault();
+ const dt=e.clipboardData;let f=null;
+ const types=dt?[...(dt.types||[])].slice(0,8):[];
+ if(dt){if(dt.files&&dt.files.length)f=[...dt.files].find(x=>/^image\//.test(x.type))||null;
+  if(!f&&dt.items)for(const it of dt.items){if(it.kind==="file"&&/^image\//.test(it.type)){f=it.getAsFile();break;}}}
+ const id=z.dataset.for;
+ if(!f){diag("paste-no-image",{brand:id||"",types:types.join(",")});toast("לא מצאנו תמונה בהדבקה. העתיקו את התמונה עצמה: לחיצה ארוכה עליה ואז ״העתקה״.");return;}
+ if(!BM[id])return;
+ z.blur();startNew(f,id,"paste ["+types.join(",")+"]");
+});
+document.addEventListener("input",e=>{const t=e.target;if(t&&t.classList&&t.classList.contains("paste"))t.textContent="";});
+/* drag an image file onto a brand row (computer) */
+const dropTarget=e=>e.target&&e.target.closest&&e.target.closest("[data-drop]");
+document.addEventListener("dragover",e=>{const r=dropTarget(e);if(r){e.preventDefault();r.classList.add("drop");}});
+document.addEventListener("dragleave",e=>{const r=dropTarget(e);if(r&&!r.contains(e.relatedTarget))r.classList.remove("drop");});
+document.addEventListener("drop",e=>{
+ const r=dropTarget(e);if(!r)return;e.preventDefault();r.classList.remove("drop");
+ const all=[...((e.dataTransfer&&e.dataTransfer.files)||[])],id=r.dataset.drop;
+ const fs=all.filter(f=>/^image\//.test(f.type)||/\.(png|jpe?g|gif|webp|svg)$/i.test(f.name)),zs=all.filter(isZip);
+ if(id==="bulk"&&zs.length){guarded(async()=>{for(const f of zs)await fromZip(f);if(fs.length)await bulk(fs);});return;}
+ if(!fs.length){toast("גררו לכאן קובץ תמונה");return;}
+ if(id==="bulk")guarded(()=>bulk(fs));else startNew(fs[0],id,"drop");
+});
+/* light up shared storage when the viewer offers it; the game works without it */
+(async function initCaps(){
+ const cl=window.claude;
+ if(!cl||typeof cl.use!=="function"){capChecked=true;logoModeChanged();return;}
+ try{DB=await cl.use("db");}catch(e){DB=null;}
+ if(DB){
+  dbState="loading";
+  const timer=setTimeout(()=>{if(dbState==="loading"){dbState="slow";logoModeChanged();}},10000);
+  try{
+   DB.collection("logos").onSnapshot(snap=>{
+    if(!snap.metadata.fromCache){clearTimeout(timer);dbState="ok";}
+    const next={},nextOrig={},okId=v=>typeof v==="string"&&/^[A-Za-z0-9_-]{8,80}$/.test(v);
+    snap.docs.forEach(d=>{const v=d.data();if(BM[d.id]&&v&&okId(v.asset)){next[d.id]=v.asset;if(okId(v.orig)&&v.orig!==v.asset)nextOrig[d.id]=v.orig;}});
+    const keys=new Set([...Object.keys(next),...Object.keys(sharedLogos),...Object.keys(sharedOrig)]);
+    let changed=false,curChanged=false;
+    keys.forEach(k=>{if(next[k]!==sharedLogos[k]||nextOrig[k]!==sharedOrig[k]){changed=true;if(k===curBrand)curChanged=true;}});
+    Object.keys(sharedLogos).forEach(k=>delete sharedLogos[k]);Object.assign(sharedLogos,next);
+    Object.keys(sharedOrig).forEach(k=>delete sharedOrig[k]);Object.assign(sharedOrig,nextOrig);
+    if(changed){refreshAll();if(curChanged)rerenderSheet();}
+    logoModeChanged();
+   },()=>{clearTimeout(timer);dbState="error";logoModeChanged();});
+  }catch(e){dbState="error";}
+ }
+ try{ASSETS=await cl.use("assets");}catch(e){ASSETS=null;}
+ capChecked=true;logoModeChanged();if(curBrand)rerenderSheet();
+ diag("start",{db:!!DB,assets:!!ASSETS,db_state:dbState,shared_logos:Object.keys(sharedLogos).length,browser_logos:Object.keys(localLogos).length});
+})();
+
+/* ===================== families ===================== */
+let famDone=false;
+function renderFamilies(){
+ famDone=true;
+ $("#intro").innerHTML=`<div><h2 class="h2">כמו משפחה גדולה</h2><p>הרבה מותגים שייכים ל״חברת אם״ גדולה. לקסוס שייכת לטויוטה, ואאודי שייכת לפולקסווגן. לפעמים יש אפילו ״נכדים״, כמו בבובות בתוך בובות. לחצו על מותג כדי לראות את הסיפור שלו.</p><p class="small">מסגרת מקווקוות: שותפות או חלק מהמניות. קלף חיוור: היה פעם במשפחה.</p></div>
+ <div class="doll" role="img" aria-label="דוגמה: קבוצת פולקסווגן, בתוכה אאודי, בתוכה למבורגיני, ובתוכה דוקאטי"><span>${flag("de","sm")}קבוצת פולקסווגן</span><div class="doll"><span>${flag("de","sm")}אאודי</span><div class="doll"><span>${flag("it","sm")}למבורגיני</span><div class="doll"><span>${flag("it","sm")}דוקאטי, אופנועים</span></div></div></div></div>`;
+ $("#fams").innerHTML=[...GROUPS,INDEP].map(g=>`<article class="fam" id="fam-${g.id}">
+  <header class="fam-head"><div><h3>${g.he}</h3><span class="fam-en" dir="ltr">${g.en}</span></div>${g.hq?`<div class="fam-hq">${flag(g.hq)}<span>${C[g.hq]}</span></div>`:""}</header>
+  <div class="fam-body"><p class="fam-about">${g.about}</p>
+   <div><div class="lbl">${g.id==="indep"?"המותגים":"המותגים במשפחה"} (${g.members.length})</div><div class="chips tree">${g.members.map(id=>chip(BM[id])).join("")}</div></div>
+   ${g.partners&&g.partners.length?`<div><div class="lbl">שותפויות וחלקים במניות</div><ul class="plist" style="margin-top:6px">${g.partners.map(([id,n])=>`<li>${chip(BM[id],"dashed")}<small>${n}</small></li>`).join("")}</ul></div>`:""}
+   ${g.past&&g.past.length?`<div><div class="lbl">היו פעם במשפחה</div><ul class="plist" style="margin-top:6px">${g.past.map(([id,n])=>`<li>${chip(BM[id],"past")}<small>${n}</small></li>`).join("")}</ul></div>`:""}
+   ${g.fact?`<p class="fam-fact"><b>הידעת?</b> ${g.fact}</p>`:""}
+  </div></article>`).join("");
+}
+
+/* ===================== quiz ===================== */
+const QC=[["all","הכול"],["countries","מדינות"],["journeys","מסעות"],["families","משפחות"],["riddles","חידות"],["time","מי ותיקה?"]];
+const QT={all:["origin","flag","owner","parent","sibling","story","older","origin","story"],countries:["origin","flag"],journeys:["owner"],families:["parent","sibling"],riddles:["story"],time:["older"]};
+const PRAISE=["נכון!","מעולה!","כל הכבוד!","בול!","יפה מאוד!"];
+const flagOpt=c=>`${flag(c,"lg")}<span>${C[c]}</span>`;
+const brandOpt=b=>`${badge(b,"md")}<span>${b.he}</span>`;
+const groupOpt=g=>`${flag(g.hq,"lg")}<span class="grp">${g.he}</span>`;
+const MK={
+ origin(){const b=pick(B);const opts=shuffle([b.o,...sample(ORIG.filter(c=>c!==b.o),3)]);
+  return {label:"מדינות",brand:b.id,prompt:badge(b,"xl")+`<div class="q-name">${b.he}</div>`,text:`מאיזו מדינה הגיע המותג ${b.he}?`,
+   options:opts.map(c=>({html:flagOpt(c),ok:c===b.o})),
+   explain:`${b.he} נולדה ב${C[b.o]}`+(moved(b)?`, והיום היא שייכת ל${pre("",ownerName(b))} (${countryList(ownerCodes(b))}).`:".")};},
+ flag(){const c=pick(ORIG);const ok=pick(B.filter(b=>b.o===c));const others=sample(B.filter(b=>b.o!==c),3);
+  const more=B.filter(b=>b.o===c&&b!==ok).slice(0,4).map(b=>b.he);
+  return {label:"מדינות",brand:ok.id,prompt:flag(c,"xl")+`<div class="q-name">${C[c]}</div>`,text:`איזה מותג נולד ב${C[c]}?`,
+   options:shuffle([ok,...others]).map(b=>({html:brandOpt(b),ok:b===ok})),
+   explain:`${ok.he} נולדה ב${C[c]}.`+(more.length?` גם ${more.join(", ")} ${more.length>1?"נולדו":"נולדה"} שם.`:"")};},
+ owner(){const pool=B.filter(b=>ownerCodes(b).length===1&&!b.gone);const mp=pool.filter(moved);const b=Math.random()<.7?pick(mp):pick(pool);
+  const oc=ownerCodes(b)[0];const mv=moved(b);
+  const opts=shuffle([oc,...(mv?[b.o]:[]),...sample(ALLC.filter(c=>c!==oc&&c!==b.o),mv?2:3)]);
+  return {label:"מסעות",brand:b.id,prompt:badge(b,"xl")+`<div class="q-name">${b.he}</div>`,text:`${b.he} נולדה ב${C[b.o]}. לחברה מאיזו מדינה היא שייכת היום?`,
+   options:opts.map(c=>({html:flagOpt(c),ok:c===oc})),
+   explain:(mv?`${b.he} עברה בדרך: `:`${b.he} נשארה בבית: `)+b.j.map(s=>`${s[1]} ${C[s[0]]}`).join(" ← ")+`. היום היא שייכת ל${pre("",ownerName(b))}.`};},
+ parent(){const b=pick(B.filter(b=>b.g&&GR[b.g].lead!==b.id&&b.id!=="smart"));const g=GR[b.g];const others=sample(GROUPS.filter(x=>x.id!==g.id),3);
+  const sibs=g.members.filter(x=>x!==b.id).map(x=>BM[x].he);
+  return {label:"משפחות",brand:b.id,prompt:badge(b,"xl")+`<div class="q-name">${b.he}</div>`,text:`לאיזו ״משפחה״ שייך המותג ${b.he}?`,
+   options:shuffle([g,...others]).map(x=>({html:groupOpt(x),ok:x===g})),
+   explain:`${b.he} שייכת ל${pre("",g.he)}`+(sibs.length?`, יחד עם ${sibs.join(", ")}.`:".")};},
+ sibling(){const b=pick(B.filter(b=>b.g&&GR[b.g].members.length>1&&b.id!=="smart"));const g=GR[b.g];const ok=BM[pick(g.members.filter(x=>x!==b.id))];
+  const others=sample(B.filter(x=>x.g!==b.g&&x.id!=="smart"&&!(g.partners||[]).some(p=>p[0]===x.id)),3);
+  return {label:"משפחות",brand:ok.id,prompt:badge(b,"xl")+`<div class="q-name">${b.he}</div>`,text:`איזה מותג נמצא באותה משפחה כמו ${b.he}?`,
+   options:shuffle([ok,...others]).map(x=>({html:brandOpt(x),ok:x===ok})),
+   explain:`${ok.he} ו${b.he} שייכות שתיהן ל${pre("",g.he)}.`};},
+ story(){const b=pick(B);const others=sample(B.filter(x=>x!==b),3);
+  return {label:"חידות",brand:b.id,prompt:`<blockquote class="riddle">״${b.q}״</blockquote>`,text:"מי אני?",
+   options:shuffle([b,...others]).map(x=>({html:brandOpt(x),ok:x===b})),
+   explain:`זו ${b.he}. ${b.f}`};},
+ older(){let a,b,t=0;do{a=pick(B);b=pick(B);t++;}while((a===b||Math.abs(a.y-b.y)<8)&&t<50);const old=a.y<b.y?a:b,young=old===a?b:a;
+  return {label:"מי ותיקה?",brand:old.id,prompt:"",text:`מי ותיקה יותר?<span class="q-sub">כלומר, הסיפור של מי התחיל קודם?</span>`,two:true,
+   options:shuffle([a,b]).map(x=>({html:brandOpt(x),ok:x===old})),
+   explain:`${old.he} התחילה ב-${old.y}, ו${young.he} רק ב-${young.y}. הפרש של ${young.y-old.y} שנים!`};}
+};
+let Q=null;
+function nextQ(){
+ const types=QT[S.quizCat];let q,t=0;
+ do{q=MK[pick(types)]();t++;}while(S.recent.includes(q.brand)&&t<14);
+ S.recent.push(q.brand);if(S.recent.length>10)S.recent.shift();
+ Q=q;renderQ();
+}
+function renderQ(){
+ $("#qcats").innerHTML=QC.map(([k,l])=>`<button type="button" class="qcat" data-cat="${k}" aria-pressed="${S.quizCat===k}">${l}</button>`).join("");
+ $("#qbox").innerHTML=`<div class="q-top"><span class="q-type">${Q.label}</span><span class="q-streak">${S.streak>0?`רצף: ${S.streak}`:""}${S.best>0?` · שיא: ${S.best}`:""}</span></div>
+  ${Q.prompt?`<div class="q-prompt">${Q.prompt}</div>`:""}<h2 class="q-text">${Q.text}</h2>
+  <div class="opts">${Q.options.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o.html}</button>`).join("")}</div>
+  <div class="fb" id="fb" aria-live="polite"></div>`;
+}
+function answer(i){
+ if(!Q||Q.done)return;Q.done=true;const ok=Q.options[i].ok;
+ $$(".opt",$("#qbox")).forEach((el,j)=>{el.disabled=true;if(Q.options[j].ok)el.classList.add("ok");else if(j===i)el.classList.add("no");else el.classList.add("dim");});
+ if(ok){S.streak++;S.best=Math.max(S.best,S.streak);addStars(1,"");}else{S.streak=0;save();}
+ const st=$(".q-streak");if(st)st.textContent=(S.streak>0?`רצף: ${S.streak}`:"")+(S.best>0?` · שיא: ${S.best}`:"");
+ $("#fb").innerHTML=`<div class="fb-msg ${ok?"ok":"no"}"><b>${ok?pick(PRAISE):"כמעט!"}</b>${Q.explain}</div>
+  <div class="fb-actions"><button type="button" class="btn big" id="qnext">לשאלה הבאה</button>${Q.brand?`<button type="button" class="btn ghost" data-open="${Q.brand}">לכרטיס של ${BM[Q.brand].he}</button>`:""}</div>`;
+ const n=$("#qnext");n.addEventListener("click",()=>{nextQ();if($("#qbox").getBoundingClientRect().top<0){try{$("#qbox").scrollIntoView({block:"start"});}catch(_){}}});
+ try{n.focus({preventScroll:true});}catch(e){}
+ if(ok&&S.streak>0&&S.streak%5===0)toast(`רצף של ${S.streak} תשובות נכונות!`);
+}
+
+/* ===================== memory ===================== */
+let M=null;
+function newMemory(){
+ const mode=S.memMode,chosen=[],used=new Set();
+ const pool=mode==="country"?shuffle(B):shuffle(B.filter(b=>b.g));
+ for(const b of pool){const key=mode==="country"?b.o:b.g;if(used.has(key))continue;used.add(key);chosen.push(b);if(chosen.length===6)break;}
+ M={chosen,tiles:shuffle(chosen.flatMap(b=>[{id:b.id,k:"brand"},{id:b.id,k:mode}])),open:[],done:new Set(),moves:0,lock:false,won:false};
+ renderMemory();
+}
+function tileFront(t){const b=BM[t.id];if(t.k==="brand")return `${badge(b,"md")}<span>${b.he}</span>`;if(t.k==="country")return `${flag(b.o,"lg")}<span>${C[b.o]}</span>`;const g=GR[b.g];return `${flag(g.hq,"lg")}<span>${g.he}</span>`;}
+function tileText(t){const b=BM[t.id];return t.k==="brand"?b.he:t.k==="country"?C[b.o]:GR[b.g].he;}
+function renderMemory(keep){
+ $$("#memmode button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.mode===S.memMode));
+ $("#memhelp").textContent=S.memMode==="country"?"מצאו זוגות: כל מותג עם הדגל של המדינה שבה הוא נולד.":"מצאו זוגות: כל מותג עם ה״משפחה״ שהוא שייך אליה.";
+ $("#mem").innerHTML=M.tiles.map((t,i)=>{const open=M.done.has(i)||(keep&&M.open.includes(i));return `<button type="button" class="tile${M.done.has(i)?" done":""}${open?" flip":""}" data-i="${i}" aria-label="${open?tileText(t):"קלף סגור"}"><span class="tile-in"><span class="face back">${IC.star}</span><span class="face front">${tileFront(t)}</span></span></button>`;}).join("");
+ if(!keep)$("#memwin").innerHTML="";
+ memStat();
+}
+function memStat(){$("#memstat").textContent=`מהלכים: ${M.moves} · זוגות: ${M.done.size/2} מתוך ${M.tiles.length/2}`;}
+function flipTile(i){
+ if(!M||M.lock||M.won||M.done.has(i)||M.open.includes(i))return;
+ const el=$(`.tile[data-i="${i}"]`);el.classList.add("flip");el.setAttribute("aria-label",tileText(M.tiles[i]));M.open.push(i);
+ if(M.open.length<2)return;
+ M.moves++;const [a,b]=M.open,A=M.tiles[a],Bt=M.tiles[b];
+ if(A.id===Bt.id&&A.k!==Bt.k){
+  M.done.add(a);M.done.add(b);M.open=[];[a,b].forEach(x=>$(`.tile[data-i="${x}"]`).classList.add("done"));
+  if(M.done.size===M.tiles.length)memWin();
+ }else{
+  M.lock=true;setTimeout(()=>{[a,b].forEach(x=>{const t=$(`.tile[data-i="${x}"]`);if(t){t.classList.remove("flip");t.setAttribute("aria-label","קלף סגור");}});M.open=[];M.lock=false;},950);
+ }
+ memStat();
+}
+function memWin(){
+ M.won=true;addStars(3,"");
+ const pairs=M.chosen.map(b=>S.memMode==="country"?`<span>${badge(b,"sm")}${b.he} · ${flag(b.o,"sm")}${C[b.o]}</span>`:`<span>${badge(b,"sm")}${b.he} · ${GR[b.g].he}</span>`).join("");
+ $("#memwin").innerHTML=`<div class="mem-win"><b>סיימתם ב-${M.moves} מהלכים! קיבלתם 3 כוכבים</b><div class="pairs">${pairs}</div><div><button type="button" class="btn" id="memagain">עוד משחק</button></div></div>`;
+ $("#memagain").addEventListener("click",newMemory);
+}
+
+/* ===================== routing & events ===================== */
+const VIEWS=["explore","families","quiz","memory","logos"];
+function go(v){
+ if(!VIEWS.includes(v)||(SITE&&v==="logos"))v="explore";
+ const changed=S.view!==v;S.view=v;
+ VIEWS.forEach(x=>{$("#v-"+x).hidden=x!==v;});
+ $$(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.view===v?"true":"false"));
+ if(v==="families"&&!famDone)renderFamilies();
+ if(v==="quiz"&&!Q)nextQ();
+ if(v==="memory"&&!M)newMemory();
+ if(v==="logos"&&changed)renderLogos(true);
+ /* a new screen always opens at its top (scrollIntoView also works when the page around the game is what scrolls) */
+ if(changed&&v!=="logos"&&$("#v-"+v).getBoundingClientRect().top<0){try{$(".sign").scrollIntoView({block:"start"});}catch(_){window.scrollTo(0,0);}}
+}
+function setView(v){
+ if(location.hash.slice(1)!==v){try{location.hash=v;}catch(e){}}
+ if(v==="logos"){go(v);requestJump();return;}
+ go(v);
+}
+window.addEventListener("hashchange",()=>go(location.hash.slice(1)));
+
+document.addEventListener("click",e=>{
+ const t=e.target;
+ const gv=t.closest("[data-goview]");if(gv){closeSheet();setView(gv.dataset.goview);return;}
+ const lr=t.closest("[data-logo-rm]");if(lr){const id=lr.dataset.logoRm;guarded(()=>removeLogo(id));return;}
+ if(t.closest("#migrate")){guarded(migrate);return;}
+ if(t.closest("#fixdark")){guarded(fixAllDark);return;}
+ const asS=t.closest("[data-as-save]");if(asS){const i=+asS.dataset.asSave;guarded(()=>saveAssign(i));return;}
+ const asK=t.closest("[data-as-skip]");if(asK){dropAssignRow(+asK.dataset.asSkip);return;}
+ const le=t.closest("[data-logo-edit]");if(le){startEdit(le.dataset.logoEdit);return;}
+ const lo=t.closest("[data-logo-orig]");if(lo){const id=lo.dataset.logoOrig;guarded(()=>restoreOrig(id));return;}
+ const pb=t.closest("[data-paste-for]");if(pb){openRowPaste(pb.dataset.pasteFor,pb);return;}
+ const pc=t.closest("[data-paste-cancel]");if(pc){const w=pc.closest(".row-paste");if(w)w.remove();return;}
+ const fam=t.closest("[data-fam]");if(fam){const id=fam.dataset.fam;closeSheet();setView("families");requestAnimationFrame(()=>{const el=$("#fam-"+id);if(el){el.scrollIntoView({block:"start"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}});return;}
+ const o=t.closest("[data-open]");if(o){openBrand(o.dataset.open,o);return;}
+ const tab=t.closest(".tab");if(tab){setView(tab.dataset.view);return;}
+ const cc=t.closest(".cchip");if(cc){S.country=cc.dataset.c;renderChips();renderGrid();return;}
+ const qc=t.closest(".qcat");if(qc){S.quizCat=qc.dataset.cat;nextQ();return;}
+ const op=t.closest(".opt");if(op){answer(+op.dataset.i);return;}
+ const ti=t.closest(".tile");if(ti){flipTile(+ti.dataset.i);return;}
+ const mm=t.closest("#memmode button");if(mm){S.memMode=mm.dataset.mode;newMemory();return;}
+ if(t.id==="overlay")closeSheet();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(ED.open){diag("editor-cancel",{brand:ED.id});closeEditor();}else closeSheet();}});
+document.addEventListener("change",e=>{
+ const t=e.target;
+ if(t.matches&&t.matches("[data-logo-for]")){const f=t.files&&t.files[0],id=t.dataset.logoFor;t.value="";if(f&&BM[id])startNew(f,id,"picker");return;}
+ if(t.id==="bulk-in"){const fs=[...(t.files||[])];t.value="";if(fs.length){const z=fs.filter(isZip),im=fs.filter(f=>!isZip(f));guarded(async()=>{for(const f of z)await fromZip(f);if(im.length)await bulk(im);});}return;}
+ if(t.id==="zip-in"){const fs=[...(t.files||[])];t.value="";if(!fs.length)return;const z=fs.filter(isZip);if(!z.length){if(fs.some(f=>/^image\//.test(f.type)||IMG_RE.test(f.name)))guarded(()=>bulk(fs));else toast("זה לא קובץ ZIP. בחרו קובץ שהשם שלו נגמר ב-.zip");return;}guarded(async()=>{for(const f of z)await fromZip(f);});return;}
+ if(t.id==="lg-missing")renderLogos(true);
+});
+$("#search").addEventListener("input",e=>{S.q=e.target.value;renderGrid();});
+$("#sort").addEventListener("change",e=>{S.sort=e.target.value;renderGrid();});
+$("#memnew").addEventListener("click",newMemory);
+$("#surprise").addEventListener("click",e=>{const unseen=B.filter(b=>!S.seen.has(b.id));openBrand(pick(unseen.length?unseen:B).id,e.currentTarget);});
+if(canSpeak){try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}catch(e){}}
+
+/* ===================== start ===================== */
+updateHUD(false);renderChips();renderProgress();renderGrid();
+go(location.hash.slice(1)||"explore");
+})();
+</script>

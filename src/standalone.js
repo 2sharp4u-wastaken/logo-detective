@@ -34,7 +34,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 const FAMILY=window.FAMILY={
  code:(c=>CODE_RE.test(c||"")?c:null)(ls.get(FKEY)),
  note:"",
- link(){return location.origin+"/?family="+this.code;},
+ link(){return location.origin+"/detective?family="+this.code;},
  html(){
   return `<div class="pl-head"><div><h3>לוח הבלשים המשפחתי</h3><div class="muted" style="font-size:14px">לוח משותף לכל המכשירים בבית: כל ילד בוחר את השם שלו, והנקודות מופיעות בכל מכשיר. אפשר גם לשחק בלי לוח, וההתקדמות תישמר במכשיר הזה.</div></div></div>
   <div class="fam">

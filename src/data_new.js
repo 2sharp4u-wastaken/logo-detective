@@ -3,7 +3,7 @@
 /* Brand id -> logo image id (public/img/<id>.png|webp). Filled at build time from src/logo_map.json. */
 const LOGO=__LOGO_MAP__;
 /* Logos that show the brand's name in letters: fine on case files, never used for "guess the brand". */
-const NAMEDLOGO=new Set("alfa astonmartin bmw byd chrysler dodge ds fiat ford genesis gmc haval isuzu jaecoo jeep kgm kia koenigsegg lamborghini lancia landrover lotus lucid mg mini nissan omoda pagani peugeot porsche tank volvo wey".split(" "));
+const NAMEDLOGO=new Set("alfa astonmartin bmw byd chrysler dodge ds fiat ford genesis gmc haval isuzu jaecoo jeep kgm kia koenigsegg lamborghini lancia landrover lotus lucid mg mini nissan omoda pagani peugeot porsche tank volvo wey abarth daihatsu man iveco levc farizon icaur lepas maxus gac aion dongfeng voyah forthing baic foton deepal avatr jac skywell aiways eveasy cenntro".split(" "));
 /* Logos that are an old version, a crop or possibly the wrong picture: not used for guessing. Empty since the Nov 2026 replacements. */
 const BADLOGO=new Set([]);
 /* Brands most kids in Israel will have seen on the road: the "easy" pool. */
@@ -190,6 +190,14 @@ const EVENTS=[
  {a:"renault",b:"nissan",y:1999,t:"part",x:"רנו קנתה חלק גדול מהמניות של ניסאן, והן הקימו ברית. כל אחת נשארה חברה נפרדת."},
  {a:"nissan",b:"mitsubishi",y:2016,t:"part",x:"ניסאן קנתה כשליש מהמניות של מיצובישי ונעשתה שותפה שלה."},
  {a:"toyota",b:"subaru",y:2019,t:"part",x:"טויוטה מחזיקה כחמישית מסובארו, והן מפתחות מכוניות יחד."},
+ {a:"tata",b:"iveco",y:2026,t:"buy",x:"טאטא מוטורס ההודית קנתה את רוב המניות של איווקו, יצרנית המשאיות האיטלקית."},
+ {a:"geely",b:"levc",y:2013,t:"buy",x:"ג׳ילי קנתה את יצרנית המוניות השחורות של לונדון, שנקראת היום LEVC."},
+ {a:"vw",b:"man",y:2011,t:"buy",x:"פולקסווגן נעשתה בעלת רוב המניות של MAN, יצרנית המשאיות הגרמנית."},
+ {a:"fiat",b:"abarth",y:1971,t:"buy",x:"פיאט קנתה את אבארת׳, שנעשתה מותג הספורט שלה."},
+ {a:"toyota",b:"daihatsu",y:2016,t:"buy",x:"טויוטה קנתה את כל המניות של דייהטסו. רוב המניות כבר היו שלה מ-1998."},
+ {a:"renault",b:"eveasy",y:2019,t:"part",x:"רנו קנתה חצי מ-JMEV, החברה של EVeasy, והחליטה לצאת ממנה ב-2023."},
+ {a:"baic",b:"mercedes",y:2019,t:"part",x:"BAIC קנתה חלק ממניות דיימלר, החברה של מרצדס. היום היא מחזיקה כעשירית ממנה."},
+ {a:"vw",b:"jac",y:2020,t:"part",x:"פולקסווגן קנתה חצי מקבוצת JAC, ויש להן מפעל משותף למכוניות חשמליות."},
  {a:"vw",b:"rivian",y:2024,t:"part",x:"פולקסווגן קנתה חלק מהמניות של ריביאן, והן מפתחות יחד תוכנה למכוניות. כל אחת נשארה חברה נפרדת."},
  {an:"דיימלר",bn:"בנץ",y:1926,t:"merge",x:"שתי החברות התאחדו לדיימלר-בנץ, ומאז המכוניות נקראות מרצדס-בנץ."},
  {an:"פיג׳ו-סיטרואן",bn:"פיאט-קרייזלר",y:2021,t:"merge",x:"שתי הקבוצות התאחדו לסטלנטיס."},
@@ -245,5 +253,11 @@ const TF=[
  ["שברולט נקראת על שם נהג מרוצים",1,"לואי שברולט היה נהג מרוצים שנולד בשווייץ."],
  ["פורשה ניסתה פעם לקנות את פולקסווגן",1,"פורשה ניסתה ב-2008 ונכשלה, ובסוף פולקסווגן קנתה את חברת המכוניות פורשה."],
  ["האמר נולד מכלי רכב צבאי",1,"האמר הוא גרסה אזרחית של ה״האמוויי״ של הצבא האמריקאי."],
- ["טראבנט נבנתה ביפן",0,"טראבנט נבנתה במזרח גרמניה, והגוף שלה היה מחומר דמוי פלסטיק."]
+ ["טראבנט נבנתה ביפן",0,"טראבנט נבנתה במזרח גרמניה, והגוף שלה היה מחומר דמוי פלסטיק."],
+ ["מנוע הדיזל הראשון שעבד נבנה במפעל שהיום שייך ל-MAN",1,"רודולף דיזל השלים אותו ב-1897 במפעל בעיר אאוגסבורג, שממנו צמחה MAN."],
+ ["דונגפנג פירושו בסינית ״רוח מזרחית״",1,"זה השם של אחת מקבוצות הרכב הממשלתיות הגדולות בסין."],
+ ["יצרנית המוניות השחורות של לונדון שייכת היום לחברה סינית",1,"ג׳ילי קנתה אותה ב-2013, והיום היא נקראת LEVC."],
+ ["הסמל של אבארת׳ הוא אריה",0,"הסמל של אבארת׳ הוא עקרב, כי המייסד קרלו אבארת׳ נולד במזל עקרב."],
+ ["דייהטסו שייכת להונדה",0,"דייהטסו שייכת כולה לטויוטה מ-2016."],
+ ["איווקו האיטלקית שייכת היום לחברה הודית",1,"ב-2026 טאטא מוטורס קנתה את רוב המניות שלה."]
 ];

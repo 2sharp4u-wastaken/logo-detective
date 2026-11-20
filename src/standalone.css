@@ -1,4 +1,5 @@
 /* standalone site additions: family board setup, footer links */
+.mark .home-link{display:inline-block;margin-inline-start:6px;color:var(--brass);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .foot a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 .parents a{color:inherit;text-decoration:underline}
 .fam{display:grid;gap:12px;margin-top:12px}
